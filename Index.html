@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>27sun – Video editor & photographer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0b0b0b;
+      color: #f2f2f2;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #f2f2f2;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 80px 10%;
+    }
+
+    h1, h2, h3 {
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero img {
+      width: 380px;
+      border-radius: 12px;
+      filter: brightness(0.8);
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .hero-text p {
+      opacity: 0.8;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      border: 1px solid #fff;
+      padding: 12px 28px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    /* ABOUT */
+    .about {
+      max-width: 700px;
+    }
+
+    /* VIDEOS */
+    .videos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 200px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    /* PRICING */
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 30px;
+      border-radius: 12px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .price {
+      opacity: 0.85;
+      margin-top: 10px;
+    }
+
+    /* CONTACT */
+    .contact p {
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      opacity: 0.4;
+      font-size: 14px;
+    }
+
+    @media(max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="profile.jpg" alt="27sun portrait">
+    <div class="hero-text">
+      <h1>27sun</h1>
+      <p>Video editor & photographer<br>
+      Reels • Shorts • YouTube • Fotografie</p>
+      <a href="#contact" class="btn">Kontakt</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="about">
+      <h2>O mně</h2>
+      <p>
+        Jmenuju se <strong>Samuel Karbán</strong> a vystupuju pod značkou <strong>27sun</strong>.<br><br>
+        Věnuju se střihu videí, focení a úpravě fotek. Zaměřuju se na atmosféru,
+        rytmus a detaily, které udrží pozornost hned od první vteřiny.
+      </p>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section>
+    <h2>Ukázky práce</h2><br>
+    <div class="videos">
+      <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM"></iframe>
+      <iframe src="https://www.youtube.com/embed/J13Ju447MCs"></iframe>
+      <iframe src="https://www.youtube.com/embed/ihaDYNouXis"></iframe>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section>
+    <h2>Ceník</h2><br>
+    <div class="pricing">
+
+      <div class="card">
+        <h3>🎬 Reels / Shorts</h3>
+        <p>(do 60 sekund)</p>
+        <p class="price">od 500 Kč</p>
+      </div>
+
+      <div class="card">
+        <h3>📺 YouTube video</h3>
+        <p>5–10 minut</p>
+        <p class="price">od 1 500 Kč</p>
+      </div>
+
+      <div class="card">
+        <h3>📽️ YouTube video (10+ min)</h3>
+        <p class="price">od 2 500 Kč</p>
+      </div>
+
+      <div class="card">
+        <h3>📷 Focení + úprava</h3>
+        <p>cca 1 hodina focení + postprodukce</p>
+        <p class="price">od 1 500 Kč</p>
+      </div>
+
+      <div class="card">
+        <h3>🎨 Úprava fotek</h3>
+        <p>color grading, retuš, styl</p>
+        <p class="price">od 150 Kč / fotka</p>
+      </div>
+
+      <div class="card">
+        <h3>🛠️ Individuální zakázka</h3>
+        <p>specifické požadavky</p>
+        <p class="price">dle domluvy</p>
+      </div>
+
+    </div>
+    <p style="margin-top:20px; opacity:0.6;">
+      *Ceny jsou orientační. Finální cena záleží na náročnosti a rozsahu zakázky.
+    </p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>Kontakt</h2><br>
+    <p>📩 <strong>E-mail:</strong> samkarban@gmail.com</p>
+    <p>📸 <strong>Instagram:</strong> <a href="https://instagram.com/s.karban_" target="_blank">@s.karban_</a></p>
+    <p><br>Máš projekt? Ozvi se a něco vymyslíme.</p>
+  </section>
+
+  <footer>
+    © 27sun
+  </footer>
+
+</body>
+</html>
