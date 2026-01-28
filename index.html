@@ -5,324 +5,214 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>27sun – Video editor & photographer</title>
 
-  <!-- Gothic font -->
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:Inter,Arial,sans-serif;
+      background:#0a0a0a;
+      color:#f2f2f2;
+      overflow-x:hidden;
     }
 
-    body {
-      font-family: Inter, Arial, sans-serif;
-      background: #0a0a0a;
-      color: #f2f2f2;
-      overflow-x: hidden;
-    }
-
-    /* VIDEO / TIMELINE BACKGROUND */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
       background:
-        radial-gradient(
-          circle at left bottom,
-          rgba(255,255,255,0.12),
-          transparent 45%
-        ),
-        linear-gradient(to bottom, rgba(10,10,10,0.85), rgba(10,10,10,0.95)),
-        repeating-linear-gradient(
-          to right,
-          rgba(255,255,255,0.04) 0,
-          rgba(255,255,255,0.04) 1px,
-          transparent 1px,
-          transparent 140px
-        );
-      z-index: -1;
+        radial-gradient(circle at left bottom,rgba(255,255,255,0.12),transparent 45%),
+        linear-gradient(to bottom,rgba(10,10,10,0.85),rgba(10,10,10,0.95)),
+        repeating-linear-gradient(to right,rgba(255,255,255,0.04) 0,rgba(255,255,255,0.04) 1px,transparent 1px,transparent 140px);
+      z-index:-1;
     }
 
-    section {
-      padding: 100px 6%;
+    section{padding:100px 6%;}
+    h2{font-size:32px;font-weight:500;margin-bottom:40px;letter-spacing:1px;}
+    h3{font-weight:500;}
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:60px;
     }
 
-    h2 {
-      font-size: 32px;
-      font-weight: 500;
-      margin-bottom: 40px;
-      letter-spacing: 1px;
+    .logo{
+      font-family:'UnifrakturCook',cursive;
+      font-size:96px;
+      line-height:1;
     }
 
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 60px;
+    .hero-text p{
+      margin-top:20px;
+      font-size:18px;
+      opacity:.85;
+      max-width:500px;
     }
 
-    .logo {
-      font-family: 'UnifrakturCook', cursive;
-      font-size: 96px;
-      line-height: 1;
-      color: #ffffff;
+    .btn{
+      display:inline-block;
+      margin-top:40px;
+      padding:16px 40px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.4);
+      transition:.3s;
+      color:#fff;
     }
 
-    .hero-text p {
-      margin-top: 20px;
-      font-size: 18px;
-      opacity: 0.85;
-      max-width: 500px;
+    .btn:hover{background:#ff7a18;color:#000;}
+
+    .hero img{
+      width:360px;
+      max-width:90%;
+      border-radius:20px;
+      box-shadow:0 30px 80px rgba(0,0,0,.7);
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 40px;
-      padding: 16px 40px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.4);
-      transition: 0.3s;
+    /* GALLERY */
+    .gallery-wrapper{
+      display:flex;
+      gap:20px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      padding-bottom:20px;
+    }
+    .gallery-wrapper::-webkit-scrollbar{display:none;}
+    .gallery-wrapper img{
+      height:460px;
+      border-radius:20px;
+      scroll-snap-align:center;
+      flex-shrink:0;
+      box-shadow:0 30px 80px rgba(0,0,0,.7);
     }
 
-    .btn:hover {
-      background: #ff7a18;
-      color: #000;
+    /* VIDEO SLIDERS */
+    .video-slider{
+      display:flex;
+      gap:30px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      padding-bottom:20px;
+    }
+    .video-slider::-webkit-scrollbar{display:none;}
+    .video-slider iframe{
+      min-width:360px;
+      height:220px;
+      border-radius:18px;
+      border:none;
+      scroll-snap-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.6);
     }
 
-    .hero img {
-      width: 360px;
-      max-width: 90%;
-      border-radius: 20px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    /* PRICING */
+    .pricing{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
     }
-
-    /* PORTFOLIO VIDEA */
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+    .card{
+      padding:40px;
+      border-radius:24px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(8px);
     }
+    .price{font-size:22px;margin-top:10px;opacity:.85;}
 
-    iframe {
-      width: 100%;
-      height: 220px;
-      border: none;
-      border-radius: 18px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    /* CONTACT */
+    .social-links a{
+      display:block;
+      margin-bottom:18px;
+      font-size:18px;
+      color:#ff7a18;
+      transition:.3s;
     }
+    .social-links a:hover{transform:translateX(6px);}
 
-    /* GALERIE */
-    .gallery-wrapper {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 20px;
-    }
+    footer{text-align:center;padding:60px;opacity:.4;}
 
-    .gallery-wrapper::-webkit-scrollbar { display: none; }
-
-    .gallery-wrapper img {
-      height: 460px;
-      border-radius: 20px;
-      scroll-snap-align: center;
-      flex-shrink: 0;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-    }
-
-    /* SLUŽBY */
-    .pricing {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    .card {
-      padding: 40px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(8px);
-    }
-
-    .price {
-      font-size: 22px;
-      margin-top: 10px;
-      opacity: 0.85;
-    }
-
-    /* KONTAKT */
-    .social-links a {
-      display: block;
-      margin-bottom: 18px;
-      font-size: 18px;
-      opacity: 0.9;
-      color: #ff7a18;
-      transition: 0.3s;
-    }
-
-    .social-links a:hover {
-      opacity: 1;
-      transform: translateX(6px);
-      color: #ff7a18;
-    }
-
-    footer {
-      text-align: center;
-      padding: 60px;
-      opacity: 0.4;
-    }
-
-    /* MOBIL */
-    @media(max-width: 900px) {
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .logo { font-size: 64px; }
-      section { padding: 80px 6%; }
-      .gallery-wrapper img { height: 320px; }
+    @media(max-width:900px){
+      .hero{flex-direction:column;text-align:center;}
+      .logo{font-size:64px;}
+      .gallery-wrapper img{height:320px;}
     }
   </style>
 </head>
+
 <body>
 
-  <section class="hero">
-    <div class="hero-text">
-      <div class="logo">27sun</div>
-      <p>
-        Video editor & photographer<br>
-        Reels • TikTok • YouTube • Fotografie
-      </p>
-      <a href="#contact" class="btn" style="color:#ffffff">Kontakt</a>
-    </div>
-    <img src="profile.PNG" alt="27sun portrait">
-  </section>
+<section class="hero">
+  <div class="hero-text">
+    <div class="logo">27sun</div>
+    <p>Video editor & photographer<br>Reels • TikTok • YouTube • Fotografie</p>
+    <a href="#contact" class="btn">Kontakt</a>
+  </div>
+  <img src="profile.PNG" alt="27sun portrait">
+</section>
 
-  <section>
-    <h2>Fotogalerie</h2>
-    <div class="gallery-wrapper">
-      <img src="foto11.jpeg" alt="Foto 1">
-      <img src="foto2.jpeg" alt="Foto 2">
-      <img src="foto3.jpeg" alt="Foto 3">
-      <img src="foto4.jpeg" alt="Foto 4">
-      <img src="foto5.jpeg" alt="Foto 5">
-      <img src="foto6.jpeg" alt="Foto 6">
-      <img src="foto7.jpeg" alt="Foto 7">
-      <img src="foto8.jpeg" alt="Foto 8">
-      <img src="foto9.jpeg" alt="Foto 9">
-      <img src="foto10.jpeg" alt="Foto 10">
-      <img src="foto1.jpeg" alt="Foto 11">
-      <img src="foto12.jpeg" alt="Foto 12">
-      <img src="foto13.jpeg" alt="Foto 13">
-      <img src="foto14.jpeg" alt="Foto 14">
-    </div>
-  </section>
+<section>
+  <h2>Fotogalerie</h2>
+  <div class="gallery-wrapper">
+    <img src="foto11.jpeg">
+    <img src="foto2.jpeg">
+    <img src="foto3.jpeg">
+    <img src="foto4.jpeg">
+    <img src="foto5.jpeg">
+    <img src="foto6.jpeg">
+    <img src="foto7.jpeg">
+    <img src="foto8.jpeg">
+    <img src="foto9.jpeg">
+    <img src="foto10.jpeg">
+    <img src="foto1.jpeg">
+    <img src="foto12.jpeg">
+    <img src="foto13.jpeg">
+    <img src="foto14.jpeg">
+  </div>
+</section>
 
-  <section>
-    <h2>Video tvorba</h2>
-    <div class="grid-container">
-      <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM"></iframe>
-      <iframe src="https://www.youtube.com/embed/ihaDYNouXis"></iframe>
-      <iframe src="https://www.youtube.com/embed/J13Ju447MCs"></iframe>
-      <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU"></iframe>
-    </div>
-  </section>
+<section>
+  <h2>UKÁZKY</h2>
 
-  <section>
-    <h2>Služby, Ceník & Balíčky</h2>
+  <h3 style="opacity:.7;margin-bottom:20px;">Clips</h3>
+  <div class="video-slider">
+    <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM"></iframe>
+    <iframe src="https://www.youtube.com/embed/ihaDYNouXis"></iframe>
+    <iframe src="https://www.youtube.com/embed/J13Ju447MCs"></iframe>
+    <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU"></iframe>
+  </div>
 
-    <div class="pricing">
-      <div class="card">
-        <h3>🎬 Reels / Shorts</h3>
-        <p> <i>
-          • za jeden reel
-          </i> </p>
-        <p class="price">od 500 Kč</p>
-      </div>
-      <div class="card">
-        <h3>📺 YouTube video</h3>
-       <p> <i>
-        • 10 minut
-        </i> </p>
-        <p class="price">od 1 500 Kč</p>
-      </div>
-      <div class="card">
-        <h3>📷 Focení + úprava</h3>
-        <p> <i>
-          • 10 fotek<br>
-          • Focení na vašem požadovaném místě<br>
-          • možnost slevy z referral deal balíčku
-          </i> </p>
-        <p class="price">od 1 500 Kč</p>
-      </div>
-      <div class="card">
-        <h3>🖼️ Úprava jedné fotografie</h3>
-        <p> <i>
-          • možnost slevy z referral deal balíčku
-        </i> </p>
-        <p class="price">od 150 Kč / foto</p>
-      </div>
-      <div class="card">
-        <h3>🎥 Natáčení clipu + sestřih</h3>
-        <p> <i>
-          • Clip bude přispůsoben vašim požadavkům</i>
-          </p>
-        <p class="price">od 2 500 Kč</p>
-      </div>
-    </div>
+  <h3 style="opacity:.7;margin:60px 0 20px;">Reels / TikToks</h3>
+  <div class="video-slider">
+    <iframe src="https://www.instagram.com/reel/DFzwMMosCJ_/embed"></iframe>
+    <iframe src="https://www.instagram.com/reel/DO8bjzOisWy/embed"></iframe>
+    <iframe src="https://www.tiktok.com/embed/v2/NRAdmqB3"></iframe>
+    <iframe src="https://www.tiktok.com/embed/v2/NRAdureG"></iframe>
+  </div>
+</section>
 
-    <h2 style="margin-top:100px">Balíčky</h2>
+<section>
+  <h2>Služby, Ceník & Balíčky</h2>
+  <div class="pricing">
+    <div class="card"><h3>🎬 Reels / Shorts</h3><p class="price">od 500 Kč</p></div>
+    <div class="card"><h3>📺 YouTube video</h3><p class="price">od 1 500 Kč</p></div>
+    <div class="card"><h3>📷 Focení + úprava</h3><p class="price">od 1 500 Kč</p></div>
+    <div class="card"><h3>🖼️ Úprava fotografie</h3><p class="price">od 150 Kč</p></div>
+    <div class="card"><h3>🎥 Natáčení + střih</h3><p class="price">od 2 500 Kč</p></div>
+  </div>
+</section>
 
-    <div class="pricing">
-      <div class="card">
-        <h3>🔥 Starter Content</h3>
-        <p>
-          • 3× Reels / Shorts<br>
-          • Základní color grading<br>
-          • Optimalizace pro IG / TikTok
-        </p>
-        <p class="price">1 300 Kč</p>
-      </div>
+<section id="contact">
+  <h2>Kontakt</h2>
+  <p>📩 <strong>E-mail:</strong> samuelkarban@gmail.com</p><br>
+  <div class="social-links">
+    <a href="https://instagram.com/s.karban_" target="_blank">📸 Instagram</a>
+    <a href="https://www.tiktok.com/@s.karban" target="_blank">🎵 TikTok</a>
+  </div>
+</section>
 
-      <div class="card">
-        <h3>🚀 Creator Pack</h3>
-        <p>
-          • 1× focení (10 upravených fotek)<br>
-          • 2× Reels / Shorts<br>
-          • Konzultace obsahu
-        </p>
-        <p class="price">2 100 Kč</p>
-      </div>
-
-      <div class="card">
-        <h3>🤝 Referral Deal</h3>
-        <p>
-          Přivedeš mi klienta na focení a<br>
-          <strong>máš 40 % slevu</strong><br>
-          na focení + úpravu.
-        </p>
-        <p class="price">–40 %</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Kontakt</h2>
-    <div class="social-links">
-      <p>📩 <strong>E-mail:</strong> samuelkarban@gmail.com</p><br>
-      <a href="https://instagram.com/s.karban_" target="_blank">📸 Instagram: @s.karban_</a>
-      <a href="https://www.tiktok.com/@s.karban" target="_blank">🎵 TikTok: @s.karban</a>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 27sun
-  </footer>
+<footer>© 2025 27sun</footer>
 
 </body>
 </html>
