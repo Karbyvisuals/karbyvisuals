@@ -112,14 +112,16 @@ h3{opacity:.7;margin-bottom:10px}
   scroll-snap-align:center;
 }
 
-/* REELS / TIKTOK */
-.video-slider.vertical iframe{
+/* REELS / TIKTOK / LOCAL VIDEO */
+.video-slider.vertical iframe,
+.video-slider.vertical video {
   min-width:260px;
   height:460px;
   border-radius:22px;
   border:none;
   scroll-snap-align:center;
   background:#000;
+  object-fit: cover;
 }
 
 /* GALLERY */
@@ -173,7 +175,6 @@ footer{text-align:center;padding:60px;opacity:.4}
 
 <body>
 
-<!-- TOP BAR -->
 <div class="top-bar">
   <img src="profile.PNG">
   <div class="lang-switch">
@@ -182,7 +183,6 @@ footer{text-align:center;padding:60px;opacity:.4}
   </div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-text">
     <div class="logo">27sun</div>
@@ -191,7 +191,6 @@ footer{text-align:center;padding:60px;opacity:.4}
   <img src="profile.PNG">
 </section>
 
-<!-- UKÁZKY -->
 <section>
 <h2 data-i18n="showcase">UKÁZKY</h2>
 
@@ -207,14 +206,21 @@ footer{text-align:center;padding:60px;opacity:.4}
 <h3 style="margin-top:60px" data-i18n="reels">Reels / TikTok</h3>
 <p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
 <div class="video-slider vertical">
-  <iframe src="https://www.instagram.com/reel/DFzwMMosCJ_/embed"></iframe>
-  <iframe src="https://www.instagram.com/reel/DO8bjzOisWy/embed"></iframe>
-  <iframe src="https://vm.tiktok.com/ZNRAdWDBb/"></iframe>
-  <iframe src="https://www.tiktok.com/embed/v2/NRAdureG"></iframe>
+  <video controls muted loop playsinline>
+    <source src="video1.mp4" type="video/mp4">
+  </video>
+  <video controls muted loop playsinline>
+    <source src="video2.mp4" type="video/mp4">
+  </video>
+  <video controls muted loop playsinline>
+    <source src="video3.mp4" type="video/mp4">
+  </video>
+  <video controls muted loop playsinline>
+    <source src="video4.mp4" type="video/mp4">
+  </video>
 </div>
 </section>
 
-<!-- GALERIE -->
 <section>
 <h2 data-i18n="gallery">Fotogalerie</h2>
 <div class="gallery-wrapper">
@@ -235,7 +241,6 @@ footer{text-align:center;padding:60px;opacity:.4}
 </div>
 </section>
 
-<!-- CENÍK -->
 <section>
 <h2 data-i18n="pricing">Služby, Ceník & Balíčky</h2>
 
@@ -256,7 +261,6 @@ footer{text-align:center;padding:60px;opacity:.4}
 </div>
 </section>
 
-<!-- KONTAKT -->
 <section id="contact">
 <h2>Kontakt</h2>
 <div class="social-links">
