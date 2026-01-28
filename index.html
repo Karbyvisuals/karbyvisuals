@@ -9,20 +9,22 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:Inter,Arial,sans-serif;background:#0a0a0a;color:#f2f2f2;overflow-x:hidden;line-height:1.5}
 
-/* Dynamické pozadí reagující na scroll */
+/* Dynamické pozadí reagující na scroll po úhlopříčce */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  /* Výpočet pozice gradientu pomocí proměnné --scroll */
+  /* Gradient se hýbe po ose X i Y zároveň */
   background: 
-    radial-gradient(circle at 20% calc(20% + (var(--scroll, 0) * 0.6%)), rgba(255,122,24,0.18), transparent 50%),
+    radial-gradient(circle at calc(10% + (var(--scroll, 0) * 0.8%)) calc(10% + (var(--scroll, 0) * 0.8%)), rgba(255,122,24,0.18), transparent 50%),
     linear-gradient(to bottom, rgba(10,10,10,.85), rgba(10,10,10,.95)),
     repeating-linear-gradient(to right, rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 140px);
   z-index:-1;
   pointer-events: none;
-  transform: translateZ(0); /* Hardware akcelerace */
+  transform: translateZ(0);
 }
+
+/* ... (zbytek CSS zůstává stejný jako u tvého kódu) ... */
 
 section{padding:80px 6%;}
 h2{font-size:clamp(24px, 5vw, 32px);font-weight:500;margin-bottom:15px;letter-spacing:1px}
@@ -82,6 +84,7 @@ footer{text-align:center;padding:40px;opacity:.4;font-size:13px;border-top:1px s
 </style>
 </head>
 <body>
+
 <div class="top-bar">
   <img src="logo.PNG" alt="Logo">
   <div class="lang-switch">
@@ -189,10 +192,12 @@ footer{text-align:center;padding:40px;opacity:.4;font-size:13px;border-top:1px s
 
 <footer>
   <p>© 2025 27sun • Samuel Karbán</p>
+  <p style="margin-top:15px; opacity:0.6; line-height:1.4; font-size:11px; max-width:600px; margin-inline:auto;" data-i18n="disclaimer">
+    Tento web slouží jako mé osobní portfolio. Uvedené částky jsou orientační a představují odměnu za čas strávený nad tvůrčí činností, nikoliv pevnou prodejní cenu. Vše záleží na naší vzájemné dohodě.
+  </p>
 </footer>
 
 <script>
-// Opravené sledování scrollu
 function updateScroll() {
   const scrolled = window.scrollY;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -208,10 +213,28 @@ function scrollMe(id, step) {
 
 const t={
   cs:{
-    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Kontakt",aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"UKÁZKY",pricing:"Služby & Ceník",contactTitle:"Kontakt",sendBtn:"Odeslat e-mail",fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání."
+    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",
+    contactBtn:"Kontakt",
+    aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",
+    showcase:"UKÁZKY",
+    pricing:"Služby & Ceník",
+    contactTitle:"Kontakt",
+    sendBtn:"Odeslat e-mail",
+    fOk: "Díky! Zpráva byla odeslána.", 
+    fErr: "Chyba při odesílání.",
+    disclaimer: "Tento web slouží jako mé osobní portfolio. Uvedené částky jsou orientační a představují odměnu za čas strávený nad tvůrčí činností, nikoliv pevnou prodejní cenu. Vše záleží na naší vzájemné dohodě."
   },
   en:{
-    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Contact",aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood. Petr Zoubek was a great inspiration.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"SHOWCASE",pricing:"Pricing",contactTitle:"Contact",sendBtn:"Send Email",fOk: "Thanks! Message sent.", fErr: "Oops! Error sending."
+    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",
+    contactBtn:"Contact",
+    aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood. Petr Zoubek was a great inspiration.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",
+    showcase:"SHOWCASE",
+    pricing:"Pricing",
+    contactTitle:"Contact",
+    sendBtn:"Send Email",
+    fOk: "Thanks! Message sent.", 
+    fErr: "Oops! Error sending.",
+    disclaimer: "This website serves as my personal portfolio. The listed amounts are indicative and represent a reward for time spent on creative activity, not a fixed sale price. Everything depends on our mutual agreement."
   }
 };
 
@@ -228,7 +251,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   const track=document.getElementById('chatTrack');
   if(track) track.innerHTML+=track.innerHTML;
   
-  // Autoplay galerie
   const gal = document.getElementById('autoGallery');
   setInterval(() => {
     if (!gal) return;
