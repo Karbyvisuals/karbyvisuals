@@ -133,6 +133,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500;}
   border:none;
   scroll-snap-align:center;
   box-shadow:0 20px 60px rgba(0,0,0,.6);
+  background: #000;
 }
 
 /* REELS / TIKTOK / CLOUDINARY */
@@ -142,7 +143,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500;}
   border-radius:22px;
   border:none;
   scroll-snap-align:center;
-  background:#000;
+  background:#111; /* Tmavě šedá místo černé pro lepší feeling při načítání */
   object-fit: cover;
 }
 
@@ -168,6 +169,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500;}
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:30px;
+  margin-bottom: 60px;
 }
 .card{
   padding:40px;
@@ -175,9 +177,19 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500;}
   background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.12);
   backdrop-filter:blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .card h3 { opacity: 1; margin-bottom: 5px; }
 .price{font-size:22px;margin-top:10px;opacity:.85;}
+.discount { font-size: 13px; color: #ff7a18; margin-top: 8px; font-weight: 600; }
+
+/* BUNDLES SECTION */
+.bundle-card {
+  border: 1px solid #ff7a18;
+  background: rgba(255, 122, 24, 0.05);
+}
 
 /* CONTACT */
 .social-links a{
@@ -236,17 +248,17 @@ footer{text-align:center;padding:60px;opacity:.4}
 <h3 style="margin-top:60px" data-i18n="reels">Reels / TikTok</h3>
 <p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
 <div class="video-slider vertical">
-  <video controls muted loop playsinline>
-    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4" type="video/mp4">
+  <video controls preload="metadata" muted loop playsinline poster="">
+    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4#t=0.001" type="video/mp4">
   </video>
-  <video controls muted loop playsinline>
-    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x" type="video/mp4">
+  <video controls preload="metadata" muted loop playsinline poster="">
+    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/done_20version_s5ip3x#t=0.001" type="video/mp4">
   </video>
-  <video controls muted loop playsinline>
-    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf" type="video/mp4">
+  <video controls preload="metadata" muted loop playsinline poster="">
+    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/sdasdc_20XD_oglvcf#t=0.001" type="video/mp4">
   </video>
-  <video controls muted loop playsinline>
-    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw" type="video/mp4">
+  <video controls preload="metadata" muted loop playsinline poster="">
+    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/1_20CAST_kmsniw#t=0.001" type="video/mp4">
   </video>
 </div>
 </section>
@@ -274,15 +286,39 @@ footer{text-align:center;padding:60px;opacity:.4}
 <section>
 <h2 data-i18n="pricing">Služby, Ceník & Balíčky</h2>
 <p class="pricing-note" data-i18n="priceInfo">
-  Ceny jsou orientační a odvíjejí se od náročnosti projektu. Konečná částka závisí na délce dodaného materiálu, složitosti střihu, barevných korekcích a množství speciálních efektů. Pro přesnou kalkulaci mě neváhejte kontaktovat.
+  Ceny jsou orientační a odvíjejí se od náročnosti projektu. Konečná částka závisí na délce dodaného materiálu, složitosti střihu a efektů.
 </p>
+
 <div class="pricing">
   <div class="card"><h3>🎬 Reels / Shorts</h3><p class="price">od 500 Kč</p></div>
   <div class="card"><h3>📺 YouTube video</h3><p class="price">od 1 500 Kč</p></div>
-  <div class="card"><h3>📷 Focení + úprava</h3><p class="price">od 1 500 Kč</p></div>
+  <div class="card">
+    <h3>📷 Focení + úprava</h3>
+    <p class="price">od 1 500 Kč</p>
+    <p class="discount" data-i18n="referral">Možnost uplatnit Referral Deal –40 %</p>
+  </div>
   <div class="card"><h3>🖼️ Úprava fotografie</h3><p class="price">od 150 Kč</p></div>
   <div class="card"><h3>🎥 Natáčení + střih</h3><p class="price">od 2 500 Kč</p></div>
   <div class="card"><h3>🎤 Natáčení videoklipu</h3><p class="price">od 1 500 Kč</p></div>
+</div>
+
+<h2 data-i18n="bundles">Výhodné Balíčky</h2>
+<div class="pricing">
+  <div class="card bundle-card">
+    <h3 data-i18n="bundle1">Content Pack S</h3>
+    <p data-i18n="bundle1Desc">5x Reels + 10x Upravená fotka</p>
+    <p class="price">3 500 Kč</p>
+  </div>
+  <div class="card bundle-card">
+    <h3 data-i18n="bundle2">Content Pack M</h3>
+    <p data-i18n="bundle2Desc">10x Reels + 20x Upravená fotka</p>
+    <p class="price">6 000 Kč</p>
+  </div>
+  <div class="card bundle-card">
+    <h3 data-i18n="bundle3">Video Master</h3>
+    <p data-i18n="bundle3Desc">Natáčení + Střih + 3x Promo Reels</p>
+    <p class="price">od 4 000 Kč</p>
+  </div>
 </div>
 </section>
 
@@ -306,7 +342,15 @@ const t={
   reels:"Reels / TikTok",
   gallery:"Fotogalerie",
   pricing:"Služby, Ceník & Balíčky",
-  priceInfo: "Ceny jsou orientační a odvíjejí se od náročnosti projektu. Konečná částka závisí na délce dodaného materiálu, složitosti střihu, barevných korekcích a množství speciálních efektů. Pro přesnou kalkulaci mě neváhejte kontaktovat.",
+  priceInfo: "Ceny jsou orientační a odvíjejí se od náročnosti projektu. Konečná částka závisí na délce dodaného materiálu, složitosti střihu a efektů.",
+  referral: "Možnost uplatnit Referral Deal –40 %",
+  bundles: "Výhodné Balíčky",
+  bundle1: "Content Pack S",
+  bundle1Desc: "5x Reels + 10x Upravená fotka",
+  bundle2: "Content Pack M",
+  bundle2Desc: "10x Reels + 20x Upravená fotka",
+  bundle3: "Video Master",
+  bundle3Desc: "Natáčení + Střih + 3x Promo Reels",
   drag:"← Tahej pro zobrazení →",
   contactBtn:"Kontakt",
   contactTitle:"Kontakt"
@@ -318,7 +362,15 @@ const t={
   reels:"Reels / TikTok",
   gallery:"Photo Gallery",
   pricing:"Services & Pricing",
-  priceInfo: "Prices are indicative and depend on the complexity of the project. The final amount depends on the length of the material, complexity of editing, color grading, and amount of special effects. For an exact quote, do not hesitate to contact me.",
+  priceInfo: "Prices are indicative and depend on the complexity of the project. The final amount depends on the material length, editing, and effects.",
+  referral: "Referral Deal –40 % available",
+  bundles: "Special Bundles",
+  bundle1: "Content Pack S",
+  bundle1Desc: "5x Reels + 10x Edited Photos",
+  bundle2: "Content Pack M",
+  bundle2Desc: "10x Reels + 20x Edited Photos",
+  bundle3: "Video Master",
+  bundle3Desc: "Filming + Editing + 3x Promo Reels",
   drag:"← Drag to view →",
   contactBtn:"Contact",
   contactTitle:"Contact"
