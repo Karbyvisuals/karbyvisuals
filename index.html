@@ -29,19 +29,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .video-slider::-webkit-scrollbar,.gallery-wrapper::-webkit-scrollbar{display:none}
 .video-slider.horizontal iframe{min-width:85vw;max-width:400px;height:220px;border-radius:15px;scroll-snap-align:center;border:none;background:#000}
 .video-slider.vertical video{min-width:260px;height:460px;border-radius:18px;background:#111;object-fit:cover;scroll-snap-align:center}
-
-/* OPRAVA POMĚRU STRAN FOTEK */
-.gallery-wrapper img{
-  height:400px; /* Pevná výška */
-  width: auto;   /* Šířka se přizpůsobí poměru */
-  max-width: 90vw; /* Na mobilu nebudou širší než displej */
-  border-radius:15px;
-  scroll-snap-align:center;
-  flex-shrink:0; /* Zabrání smrštění */
-  background:#1a1a1a;
-  object-fit: contain; /* Zajistí, že fotka bude v rámci rozměrů celá */
-}
-
+.gallery-wrapper img{height:400px;width:auto;max-width:90vw;border-radius:15px;scroll-snap-align:center;flex-shrink:0;background:#1a1a1a;object-fit:contain}
 .chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:25px;border:1px solid rgba(255,255,255,.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
 .chat-track{display:flex;flex-direction:column;gap:20px;padding:20px;animation:scrollUp 25s linear infinite;will-change:transform;transform:translateZ(0)}
 @keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
@@ -53,18 +41,13 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .right .message-content{background:#ff7a18;color:#000;border-bottom-right-radius:4px;font-weight:500}
 .sender-name{display:block;font-size:9px;opacity:.4;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px}
 .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{padding:30px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(5px)}
+.card{padding:30px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(5px);display:flex;flex-direction:column;justify-content:space-between}
 .price{font-size:20px;margin-top:10px;font-weight:600}
 .discount{font-size:12px;color:#ff7a18;margin-top:8px;font-weight:600}
 .bundle-card{border:1px solid #ff7a18;background:rgba(255,122,24,.05)}
 .social-links a{display:block;margin-bottom:15px;font-size:18px;color:#ff7a18;text-decoration:none;font-weight:500}
 footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
-@media(max-width:600px){
-  section{padding:60px 5%}
-  .hero{gap:20px}
-  .top-bar{height:70px}
-  .gallery-wrapper img{height:320px} /* O něco menší na mobilu, aby to vypadalo lépe */
-}
+@media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}.gallery-wrapper img{height:320px}}
 </style>
 </head>
 <body>
@@ -134,7 +117,7 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
 <div class="pricing">
   <div class="card"><h3 data-i18n="serv1">🎬 1x Reels / TikTok</h3><p class="price" data-i18n="price1">od 350 Kč</p></div>
   <div class="card"><h3 data-i18n="serv2">📺 YouTube video střih</h3><p class="price" data-i18n="price2">od 1 500 Kč</p></div>
-  <div class="card"><h3 data-i18n="serv3">📷 Focení + úprava</h3><p class="price" data-i18n="price3">od 900 Kč</p><p class="discount" data-i18n="referral">Možnost uplatnit Referral Deal –40 %</p></div>
+  <div class="card"><div><h3 data-i18n="serv3">📷 Focení + úprava</h3><p class="price" data-i18n="price3">od 900 Kč</p></div><p class="discount" data-i18n="referral">Možnost uplatnit Referral Deal –40 %</p></div>
   <div class="card"><h3 data-i18n="serv4">🖼️ Úprava fotografie</h3><p class="price" data-i18n="price4">od 150 Kč</p></div>
 </div>
 <h2 style="margin-top:40px" data-i18n="bundles">Výhodné Balíčky</h2>
@@ -170,7 +153,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   setInterval(() => {
     if (isInteracting) return;
-    const step = 300; // Fixní posun o 300px
+    const step = 300; 
     if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 10) {
       gal.scrollTo({left: 0, behavior: 'smooth'});
     } else {
