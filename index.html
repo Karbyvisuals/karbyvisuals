@@ -14,8 +14,8 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:500;margin-bottom:15px;letter-sp
 h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .top-bar{position:fixed;top:0;width:100%;height:80px;background:rgba(10,10,10,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05)}
 .top-bar img{height:55px;width:auto;border-radius:10px}
-.lang-switch{position:absolute;right:15px}.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 10px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.2s}
-.lang-switch button:active{background:#ff7a18;color:#000}
+.lang-switch{position:absolute;right:15px}.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:5px 12px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.3s;font-weight:600}
+.lang-switch button.active{background:#ff7a18;color:#000;border-color:#ff7a18}
 .hero{min-height:90vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;padding-top:120px}
 .logo{font-family:'UnifrakturCook',cursive;font-size:clamp(60px, 12vw, 96px);line-height:1;text-align:center}
 .hero-text{flex:1;min-width:300px;text-align:center}
@@ -55,8 +55,8 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
 <div class="top-bar">
   <img src="logo.PNG" alt="Logo">
   <div class="lang-switch">
-    <button onclick="setLang('cs')">CZ</button>
-    <button onclick="setLang('en')">EN</button>
+    <button id="btn-cs" class="active" onclick="setLang('cs')">CZ</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
   </div>
 </div>
 <section class="hero">
@@ -118,9 +118,9 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
 <div class="pricing">
   <div class="card"><h3 data-i18n="serv1">🎬 1x Reels / TikTok (střih)</h3><p class="price" data-i18n="price1">od 350 Kč</p></div>
   <div class="card"><div><h3 data-i18n="servShoot">🎥 Natáčení + Střih</h3><p class="price" data-i18n="priceShoot">od 1 100 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="ref1">660 Kč</span></p></div>
-  <div class="card"><h3 data-i18n="serv2">📺 YouTube video střih</h3><p class="price" data-i18n="price2">od 1 500 Kč</p></div>
-  <div class="card"><div><h3 data-i18n="serv3">📷 Focení + úprava</h3><p class="price" data-i18n="price3">od 900 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="ref2">540 Kč</span></p></div>
-  <div class="card"><h3 data-i18n="serv4">🖼️ Úprava fotografie</h3><p class="price" data-i18n="price4">150 Kč</p></div>
+  <div class="card"><h3 data-i18n="serv2">📺 YouTube video střih</h3><p style="font-size:12px;opacity:.6;margin-top:-5px;" data-i18n="ytNote">(cena za 10 min. videa)</p><p class="price" data-i18n="price2">od 1 500 Kč</p></div>
+  <div class="card"><div><h3 data-i18n="serv3">📷 Focení + úprava</h3><p style="font-size:12px;opacity:.6;margin-top:-5px;" data-i18n="photoNote">(v ceně 10 upravených fotek)</p><p class="price" data-i18n="price3">od 900 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="ref2">540 Kč</span></p></div>
+  <div class="card"><h3 data-i18n="serv4">🖼️ Úprava fotografie</h3><p style="font-size:12px;opacity:.6;margin-top:-5px;" data-i18n="singleNote">(za jednu fotku)</p><p class="price" data-i18n="price4">150 Kč</p></div>
 </div>
 <h2 style="margin-top:40px" data-i18n="bundles">Výhodné Balíčky</h2>
 <div class="pricing">
@@ -143,14 +143,45 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
 </section>
 <footer>© 2025 27sun</footer>
 <script>
-const t={cs:{hero:"Video editor & photographer",contactBtn:"Kontakt",aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"UKÁZKY",clips:"Clips",reels:"Reels / TikTok",drag:"← Tahej pro zobrazení →",gallery:"Fotogalerie",reviewsTitle:"Feedback",pricing:"Služby & Ceník",serv1:"🎬 1x Reels / TikTok (střih)",price1:"od 350 Kč",servShoot:"🎥 Natáčení + Střih",priceShoot:"od 1 100 Kč",serv2:"📺 YouTube video střih",price2:"od 1 500 Kč",serv3:"📷 Focení + úprava",price3:"od 900 Kč",serv4:"🖼️ Úprava fotografie",price4:"150 Kč",referral:"Referral Deal -40%:",ref1:"660 Kč",ref2:"540 Kč",bundles:"Výhodné Balíčky",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Fotek",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Fotek",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Fotek",refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby dál! Pokud tvůj známý objedná jakoukoliv službu, získáváš na svou příští objednávku automaticky <b>slevu 40 %</b>.",contactTitle:"Kontakt"},en:{hero:"Video editor & photographer",contactBtn:"Contact",aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood. Petr Zoubek was a great inspiration.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"SHOWCASE",clips:"Clips",reels:"Reels / TikTok",drag:"← Drag to view →",gallery:"Gallery",reviewsTitle:"Feedback",pricing:"Services & Pricing",serv1:"🎬 1x Reels / TikTok (Edit)",price1:"from 15 €",servShoot:"🎥 Shooting + Edit",priceShoot:"from 45 €",serv2:"📺 YouTube Editing",price2:"from 60 €",serv3:"📷 Photos + Edit",price3:"from 36 €",serv4:"🖼️ Photo Retouch",price4:"6 €",referral:"Referral Deal -40%:",ref1:"27 €",ref2:"21 €",bundles:"Bundles",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Photos",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Photos",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Photos",refTitle:"🤝 Referral Program",refDesc:"Recommend my services! If your friend orders any service, you automatically get a 40% discount on your next order.",contactTitle:"Contact"}};
-function setLang(l){document.querySelectorAll("[data-i18n]").forEach(e=>{const item=t[l][e.dataset.i18n];if(item)e.innerHTML=item;
-if(l==='en'){if(e.dataset.i18n==='bundle1')e.nextElementSibling.nextElementSibling.innerHTML='140 €';
-if(e.dataset.i18n==='bundle2')e.nextElementSibling.nextElementSibling.innerHTML='200 €';
-if(e.dataset.i18n==='bundle3')e.nextElementSibling.nextElementSibling.innerHTML='360 €';}
-else{if(e.dataset.i18n==='bundle1')e.nextElementSibling.nextElementSibling.innerHTML='3 500 Kč';
-if(e.dataset.i18n==='bundle2')e.nextElementSibling.nextElementSibling.innerHTML='5 000 Kč';
-if(e.dataset.i18n==='bundle3')e.nextElementSibling.nextElementSibling.innerHTML='9 000 Kč';}})}
+const t={
+  cs:{
+    hero:"Video editor & photographer",contactBtn:"Kontakt",aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"UKÁZKY",clips:"Clips",reels:"Reels / TikTok",drag:"← Tahej pro zobrazení →",gallery:"Fotogalerie",reviewsTitle:"Feedback",pricing:"Služby & Ceník",
+    serv1:"🎬 1x Reels / TikTok (střih)",price1:"od 350 Kč",
+    servShoot:"🎥 Natáčení + Střih",priceShoot:"od 1 100 Kč",
+    serv2:"📺 YouTube video střih",ytNote:"(cena za 10 min. videa)",price2:"od 1 500 Kč",
+    serv3:"📷 Focení + úprava",photoNote:"(v ceně 10 upravených fotek)",price3:"od 900 Kč",
+    serv4:"🖼️ Úprava fotografie",singleNote:"(za jednu fotku)",price4:"150 Kč",
+    referral:"Referral Deal -40%:",ref1:"660 Kč",ref2:"540 Kč",bundles:"Výhodné Balíčky",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Fotek",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Fotek",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Fotek",refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby dál! Pokud tvůj známý objedná jakoukoliv službu, získáváš na svou příští objednávku automaticky <b>slevu 40 %</b>.",contactTitle:"Kontakt"
+  },
+  en:{
+    hero:"Video editor & photographer",contactBtn:"Contact",aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood. Petr Zoubek was a great inspiration.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"SHOWCASE",clips:"Clips",reels:"Reels / TikTok",drag:"← Drag to view →",gallery:"Gallery",reviewsTitle:"Feedback",pricing:"Services & Pricing",
+    serv1:"🎬 1x Reels / TikTok (Edit)",price1:"from 15 €",
+    servShoot:"🎥 Shooting + Edit",priceShoot:"from 45 €",
+    serv2:"📺 YouTube Editing",ytNote:"(price per 10 min. video)",price2:"from 60 €",
+    serv3:"📷 Photos + Edit",photoNote:"(includes 10 edited photos)",price3:"from 36 €",
+    serv4:"🖼️ Photo Retouch",singleNote:"(per photo)",price4:"6 €",
+    referral:"Referral Deal -40%:",ref1:"27 €",ref2:"21 €",bundles:"Bundles",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Photos",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Photos",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Photos",refTitle:"🤝 Referral Program",refDesc:"Recommend my services! If your friend orders any service, you automatically get a 40% discount on your next order.",contactTitle:"Contact"
+  }
+};
+
+function setLang(l){
+  document.querySelectorAll("[data-i18n]").forEach(e=>{
+    const item=t[l][e.dataset.i18n];
+    if(item) e.innerHTML=item;
+    
+    if(l==='en'){
+      if(e.dataset.i18n==='bundle1') e.nextElementSibling.nextElementSibling.innerHTML='140 €';
+      if(e.dataset.i18n==='bundle2') e.nextElementSibling.nextElementSibling.innerHTML='200 €';
+      if(e.dataset.i18n==='bundle3') e.nextElementSibling.nextElementSibling.innerHTML='360 €';
+    } else {
+      if(e.dataset.i18n==='bundle1') e.nextElementSibling.nextElementSibling.innerHTML='3 500 Kč';
+      if(e.dataset.i18n==='bundle2') e.nextElementSibling.nextElementSibling.innerHTML='5 000 Kč';
+      if(e.dataset.i18n==='bundle3') e.nextElementSibling.nextElementSibling.innerHTML='9 000 Kč';
+    }
+  });
+  document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('btn-' + l).classList.add('active');
+}
 
 document.addEventListener('DOMContentLoaded',()=>{
   const track=document.getElementById('chatTrack');
