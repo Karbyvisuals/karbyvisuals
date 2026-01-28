@@ -29,7 +29,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .video-slider::-webkit-scrollbar,.gallery-wrapper::-webkit-scrollbar{display:none}
 .video-slider.horizontal iframe{min-width:85vw;max-width:400px;height:220px;border-radius:15px;scroll-snap-align:center;border:none;background:#000}
 .video-slider.vertical video{min-width:260px;height:460px;border-radius:18px;background:#111;object-fit:cover;scroll-snap-align:center}
-.gallery-wrapper img{height:350px;border-radius:15px;scroll-snap-align:center;flex-shrink:0}
+.gallery-wrapper img{height:350px;border-radius:15px;scroll-snap-align:center;flex-shrink:0;background:#1a1a1a}
 .chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:25px;border:1px solid rgba(255,255,255,.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
 .chat-track{display:flex;flex-direction:column;gap:20px;padding:20px;animation:scrollUp 25s linear infinite;will-change:transform;transform:translateZ(0)}
 @keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
@@ -88,17 +88,17 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
 <h3 style="margin-top:40px" data-i18n="reels">Reels / TikTok</h3>
 <p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
 <div class="video-slider vertical">
-  <video controls preload="none" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4" type="video/mp4"></video>
-  <video controls preload="none" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/done_20version_s5ip3x" type="video/mp4"></video>
-  <video controls preload="none" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/sdasdc_20XD_oglvcf" type="video/mp4"></video>
-  <video controls preload="none" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto,so_0/1_20CAST_kmsniw" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4#t=0.1" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x#t=0.1" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf#t=0.1" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw#t=0.1" type="video/mp4"></video>
 </div>
 </section>
 <section>
 <h2 data-i18n="gallery">Fotogalerie</h2>
 <p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
 <div class="gallery-wrapper" id="autoGallery">
-  <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy"><img src="foto9.jpeg" loading="lazy"><img src="foto10.jpeg" loading="lazy"><img src="foto1.jpeg" loading="lazy"><img src="foto12.jpeg" loading="lazy"><img src="foto13.jpeg" loading="lazy"><img src="foto14.jpeg" loading="lazy">
+  <img src="foto11.jpeg" loading="lazy" width="233" height="350"><img src="foto2.jpeg" loading="lazy" width="233" height="350"><img src="foto3.jpeg" loading="lazy" width="233" height="350"><img src="foto4.jpeg" loading="lazy" width="233" height="350"><img src="foto5.jpeg" loading="lazy" width="233" height="350"><img src="foto6.jpeg" loading="lazy" width="233" height="350"><img src="foto7.jpeg" loading="lazy" width="233" height="350"><img src="foto8.jpeg" loading="lazy" width="233" height="350"><img src="foto9.jpeg" loading="lazy" width="233" height="350"><img src="foto10.jpeg" loading="lazy" width="233" height="350"><img src="foto1.jpeg" loading="lazy" width="233" height="350"><img src="foto12.jpeg" loading="lazy" width="233" height="350"><img src="foto13.jpeg" loading="lazy" width="233" height="350"><img src="foto14.jpeg" loading="lazy" width="233" height="350">
 </div>
 </section>
 <section>
@@ -140,27 +140,26 @@ const t={cs:{hero:"Video editor & photographer",contactBtn:"Kontakt",aboutText:"
 function setLang(l){document.querySelectorAll("[data-i18n]").forEach(e=>{e.innerHTML=t[l][e.dataset.i18n]})}
 
 document.addEventListener('DOMContentLoaded',()=>{
-  // Feedback scroll loop
   const track=document.getElementById('chatTrack');
   if(track) track.innerHTML+=track.innerHTML;
 
-  // Auto-scrolling Gallery
   const gal = document.getElementById('autoGallery');
-  let isDown = false;
+  let isInteracting = false;
   
-  // Zastavíme auto-scroll, pokud uživatel na galerii klikne/sáhne
-  gal.addEventListener('mousedown', () => isDown = true);
-  window.addEventListener('mouseup', () => isDown = false);
+  gal.addEventListener('touchstart', () => isInteracting = true);
+  gal.addEventListener('touchend', () => setTimeout(() => isInteracting = false, 2000));
+  gal.addEventListener('mousedown', () => isInteracting = true);
+  gal.addEventListener('mouseup', () => isInteracting = false);
 
   setInterval(() => {
-    if (isDown) return;
-    const scrollAmount = gal.clientWidth * 0.8; // Posun o 80% šířky okna
+    if (isInteracting) return;
+    const step = gal.clientWidth * 0.8;
     if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 10) {
       gal.scrollTo({left: 0, behavior: 'smooth'});
     } else {
-      gal.scrollBy({left: scrollAmount, behavior: 'smooth'});
+      gal.scrollBy({left: step, behavior: 'smooth'});
     }
-  }, 3500); // Každých 3.5 vteřiny
+  }, 3000);
 });
 </script>
 </body>
