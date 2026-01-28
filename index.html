@@ -64,8 +64,17 @@ body::before{
 
 /* SECTIONS */
 section{padding:120px 6%}
-h2{font-size:32px;font-weight:500;margin-bottom:30px;letter-spacing:1px;}
+h2{font-size:32px;font-weight:500;margin-bottom:15px;letter-spacing:1px;}
 h3{opacity:.7;margin-bottom:10px;font-weight:500;}
+
+/* PRICING NOTE */
+.pricing-note {
+  margin-bottom: 40px;
+  opacity: 0.6;
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 700px;
+}
 
 /* HERO */
 .hero{
@@ -264,6 +273,9 @@ footer{text-align:center;padding:60px;opacity:.4}
 
 <section>
 <h2 data-i18n="pricing">Služby, Ceník & Balíčky</h2>
+<p class="pricing-note" data-i18n="priceInfo">
+  Ceny jsou orientační a odvíjejí se od náročnosti projektu. Konečná částka závisí na délce dodaného materiálu, složitosti střihu, barevných korekcích a množství speciálních efektů. Pro přesnou kalkulaci mě neváhejte kontaktovat.
+</p>
 <div class="pricing">
   <div class="card"><h3>🎬 Reels / Shorts</h3><p class="price">od 500 Kč</p></div>
   <div class="card"><h3>📺 YouTube video</h3><p class="price">od 1 500 Kč</p></div>
@@ -294,6 +306,7 @@ const t={
   reels:"Reels / TikTok",
   gallery:"Fotogalerie",
   pricing:"Služby, Ceník & Balíčky",
+  priceInfo: "Ceny jsou orientační a odvíjejí se od náročnosti projektu. Konečná částka závisí na délce dodaného materiálu, složitosti střihu, barevných korekcích a množství speciálních efektů. Pro přesnou kalkulaci mě neváhejte kontaktovat.",
   drag:"← Tahej pro zobrazení →",
   contactBtn:"Kontakt",
   contactTitle:"Kontakt"
@@ -305,6 +318,7 @@ const t={
   reels:"Reels / TikTok",
   gallery:"Photo Gallery",
   pricing:"Services & Pricing",
+  priceInfo: "Prices are indicative and depend on the complexity of the project. The final amount depends on the length of the material, complexity of editing, color grading, and amount of special effects. For an exact quote, do not hesitate to contact me.",
   drag:"← Drag to view →",
   contactBtn:"Contact",
   contactTitle:"Contact"
