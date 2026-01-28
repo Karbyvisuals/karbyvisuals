@@ -29,7 +29,19 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .video-slider::-webkit-scrollbar,.gallery-wrapper::-webkit-scrollbar{display:none}
 .video-slider.horizontal iframe{min-width:85vw;max-width:400px;height:220px;border-radius:15px;scroll-snap-align:center;border:none;background:#000}
 .video-slider.vertical video{min-width:260px;height:460px;border-radius:18px;background:#111;object-fit:cover;scroll-snap-align:center}
-.gallery-wrapper img{height:350px;border-radius:15px;scroll-snap-align:center;flex-shrink:0;background:#1a1a1a}
+
+/* OPRAVA POMĚRU STRAN FOTEK */
+.gallery-wrapper img{
+  height:400px; /* Pevná výška */
+  width: auto;   /* Šířka se přizpůsobí poměru */
+  max-width: 90vw; /* Na mobilu nebudou širší než displej */
+  border-radius:15px;
+  scroll-snap-align:center;
+  flex-shrink:0; /* Zabrání smrštění */
+  background:#1a1a1a;
+  object-fit: contain; /* Zajistí, že fotka bude v rámci rozměrů celá */
+}
+
 .chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:25px;border:1px solid rgba(255,255,255,.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
 .chat-track{display:flex;flex-direction:column;gap:20px;padding:20px;animation:scrollUp 25s linear infinite;will-change:transform;transform:translateZ(0)}
 @keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
@@ -47,7 +59,12 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .bundle-card{border:1px solid #ff7a18;background:rgba(255,122,24,.05)}
 .social-links a{display:block;margin-bottom:15px;font-size:18px;color:#ff7a18;text-decoration:none;font-weight:500}
 footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
-@media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}}
+@media(max-width:600px){
+  section{padding:60px 5%}
+  .hero{gap:20px}
+  .top-bar{height:70px}
+  .gallery-wrapper img{height:320px} /* O něco menší na mobilu, aby to vypadalo lépe */
+}
 </style>
 </head>
 <body>
@@ -88,17 +105,17 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
 <h3 style="margin-top:40px" data-i18n="reels">Reels / TikTok</h3>
 <p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
 <div class="video-slider vertical">
-  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4#t=0.1" type="video/mp4"></video>
-  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x#t=0.1" type="video/mp4"></video>
-  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf#t=0.1" type="video/mp4"></video>
-  <video controls preload="metadata" muted loop playsinline poster=""><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw#t=0.1" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4#t=0.1" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x#t=0.1" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf#t=0.1" type="video/mp4"></video>
+  <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw#t=0.1" type="video/mp4"></video>
 </div>
 </section>
 <section>
 <h2 data-i18n="gallery">Fotogalerie</h2>
 <p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
 <div class="gallery-wrapper" id="autoGallery">
-  <img src="foto11.jpeg" loading="lazy" width="233" height="350"><img src="foto2.jpeg" loading="lazy" width="233" height="350"><img src="foto3.jpeg" loading="lazy" width="233" height="350"><img src="foto4.jpeg" loading="lazy" width="233" height="350"><img src="foto5.jpeg" loading="lazy" width="233" height="350"><img src="foto6.jpeg" loading="lazy" width="233" height="350"><img src="foto7.jpeg" loading="lazy" width="233" height="350"><img src="foto8.jpeg" loading="lazy" width="233" height="350"><img src="foto9.jpeg" loading="lazy" width="233" height="350"><img src="foto10.jpeg" loading="lazy" width="233" height="350"><img src="foto1.jpeg" loading="lazy" width="233" height="350"><img src="foto12.jpeg" loading="lazy" width="233" height="350"><img src="foto13.jpeg" loading="lazy" width="233" height="350"><img src="foto14.jpeg" loading="lazy" width="233" height="350">
+  <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy"><img src="foto9.jpeg" loading="lazy"><img src="foto10.jpeg" loading="lazy"><img src="foto1.jpeg" loading="lazy"><img src="foto12.jpeg" loading="lazy"><img src="foto13.jpeg" loading="lazy"><img src="foto14.jpeg" loading="lazy">
 </div>
 </section>
 <section>
@@ -153,7 +170,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   setInterval(() => {
     if (isInteracting) return;
-    const step = gal.clientWidth * 0.8;
+    const step = 300; // Fixní posun o 300px
     if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 10) {
       gal.scrollTo({left: 0, behavior: 'smooth'});
     } else {
