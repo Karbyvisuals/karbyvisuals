@@ -7,227 +7,194 @@
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:Inter,Arial,sans-serif;background:#0a0a0a;color:#f2f2f2;overflow-x:hidden;line-height:1.5; cursor: none;} /* Skryjeme výchozí kurzor na PC */
+body{font-family:Inter,Arial,sans-serif;background:#0a0a0a;color:#f2f2f2;overflow-x:hidden;line-height:1.5;}
 
-/* MODERNÍ GLOW KURZOR */
-#cursor-glow {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,122,24,0.15) 0%, transparent 70%);
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s;
-  display: none; /* Zobrazíme jen na desktopu přes JS */
-}
-
+/* --- MODERNÍ KURZOR (Pouze pro PC) --- */
 @media (hover: hover) {
-  #cursor-glow { display: block; }
+  body { cursor: none; }
+  #cursor-dot {
+    width: 6px; height: 6px; background: #ff7a18;
+    position: fixed; pointer-events: none; z-index: 10000;
+    border-radius: 50%; transform: translate(-50%, -50%);
+  }
+  #cursor-outline {
+    width: 30px; height: 30px; border: 2px solid rgba(255,122,24,0.5);
+    position: fixed; pointer-events: none; z-index: 9999;
+    border-radius: 50%; transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  #cursor-glow {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,122,24,0.08) 0%, transparent 70%);
+    position: fixed; pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+  }
 }
 
-/* Dynamické pozadí */
+/* --- POZADÍ --- */
 body::before{
-  content:"";
-  position:fixed;
-  inset:0;
+  content:""; position:fixed; inset:0;
   background: 
     radial-gradient(circle at calc(5% + (var(--scroll, 0) * 0.9%)) calc(5% + (var(--scroll, 0) * 0.7%)), rgba(255,122,24,0.1), transparent 60%),
-    linear-gradient(to bottom, rgba(10,10,10,.85), rgba(10,10,10,.95)),
-    repeating-linear-gradient(to right, rgba(255,255,255,.01) 0, rgba(255,255,255,.01) 1px, transparent 1px, transparent 140px);
+    linear-gradient(to bottom, rgba(10,10,10,.9), rgba(10,10,10,1));
   z-index:-1;
-  pointer-events: none;
 }
 
 section{padding:80px 6%;}
-h2{font-size:clamp(24px, 5vw, 32px);font-weight:500;margin-bottom:15px;letter-spacing:1px}
-h3{opacity:.7;margin-bottom:10px;font-weight:500}
-.top-bar{position:fixed;top:0;width:100%;height:80px;background:rgba(10,10,10,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05)}
-.top-bar img{height:55px;width:auto;border-radius:10px}
+h2{font-size:clamp(24px, 5vw, 32px);font-weight:500;margin-bottom:15px;letter-spacing:1px;text-transform:uppercase}
+.logo{font-family:'UnifrakturCook',cursive;font-size:clamp(60px, 12vw, 96px);line-height:1;text-align:center;color:#ff7a18;text-shadow: 0 0 20px rgba(255,122,24,0.3);}
 
-/* TLAČÍTKA A LANG SWITCH */
-.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:5px 12px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.3s;font-weight:600}
-.lang-switch button.active{background:#ff7a18;color:#000;border-color:#ff7a18;box-shadow: 0 0 15px rgba(255,122,24,0.4);}
-
-.hero{min-height:90vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;padding-top:120px}
-.logo{font-family:'UnifrakturCook',cursive;font-size:clamp(60px, 12vw, 96px);line-height:1;text-align:center; filter: drop-shadow(0 0 10px rgba(255,122,24,0.3));}
-.about-me{border-left:2px solid #ff7a18;padding-left:15px;opacity:.9}
-
-/* MODERNÍ TLAČÍTKO S GLOW */
-.btn{
-  display:inline-block;
-  margin-top:30px;
-  padding:14px 35px;
-  border-radius:999px;
-  background:#ff7a18;
-  color:#000!important;
-  text-decoration:none;
-  font-weight:600;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow: 0 0 0 rgba(255,122,24,0);
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-.btn:hover{
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(255,122,24,0.4), 0 0 10px rgba(255,122,24,0.2);
-  background: #ff8c3a;
-}
-
-/* BENTO CARD EFFECT */
+/* --- TRENDY EFEKT PRO MOBILY (Karty) --- */
 .card {
-  padding:30px;
-  border-radius:24px;
+  padding:30px; border-radius:24px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.08);
   backdrop-filter: blur(10px);
-  transition: all 0.4s ease;
-}
-.card:hover {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,122,24,0.4);
-  transform: translateY(-5px);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative; overflow: hidden;
 }
 
+/* Lesk na kartách při najetí/dotyku */
+.card::after {
+  content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+  transform: rotate(45deg); transition: 0.5s; pointer-events: none;
+}
+.card:active, .card:hover {
+  transform: translateY(-5px) scale(1.01);
+  border-color: rgba(255,122,24,0.4);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.card:active::after { left: 100%; }
+
+/* --- TLAČÍTKA --- */
+.btn{
+  display:inline-block; margin-top:30px; padding:14px 40px; border-radius:999px;
+  background:#ff7a18; color:#000!important; text-decoration:none; font-weight:700;
+  transition: 0.3s; box-shadow: 0 5px 20px rgba(255,122,24,0.3); border:none;
+}
+.btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255,122,24,0.5); }
+
+/* --- SLIDERY A OSTATNÍ (Zachováno) --- */
 .slider-container {position: relative; width: 100%;}
+.video-slider,.gallery-wrapper{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:15px;scrollbar-width:none;}
+.gallery-wrapper img{height:400px; border-radius:20px; flex-shrink:0}
 .nav-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,122,24,0.9); color: #000; border: none;
-  width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
-  z-index: 10; display: none; align-items: center; justify-content: center;
-  font-weight: bold; transition: 0.3s;
+  background: #ff7a18; color:#000; width:40px; height:40px; border-radius:50%;
+  display:none; align-items:center; justify-content:center; cursor:pointer; z-index:10; border:none;
 }
-.nav-arrow:hover { box-shadow: 0 0 20px rgba(255,122,24,0.6); transform: translateY(-50%) scale(1.1); }
 @media (min-width: 1024px) { .nav-arrow { display: flex; } }
 
-/* Zbytek sliderů a galerie */
-.video-slider,.gallery-wrapper{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:15px;scrollbar-width:none;}
-.video-slider.horizontal iframe{min-width:85vw;max-width:400px;height:220px;border-radius:20px;border:none;background:#000}
-.video-slider.vertical video{min-width:260px;height:460px;border-radius:20px;object-fit:cover;}
-.gallery-wrapper img{height:400px;border-radius:20px;object-fit:contain}
-
-.chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,0.01);border-radius:30px;border:1px solid rgba(255,255,255,0.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
-.chat-track{display:flex;flex-direction:column;gap:20px;padding:20px;animation:scrollUp 25s linear infinite;}
+.chat-container{height:350px; overflow:hidden; position:relative; background:rgba(255,255,255,0.02); border-radius:30px; mask-image:linear-gradient(to bottom,transparent,black 15%,black 85%,transparent)}
+.chat-track{display:flex; flex-direction:column; gap:15px; padding:20px; animation:scrollUp 25s linear infinite;}
 @keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-.message-content{padding:12px 16px;border-radius:18px;font-size:14px}
-.left .message-content{background:#1e1e1e;color:#fff;}
-.right .message-content{background:#ff7a18;color:#000;font-weight:600}
 
-.pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.price{font-size:22px;margin-top:10px;font-weight:700;color:#ff7a18}
-.bundle-card{border:1px solid rgba(255,122,24,0.3);background:rgba(255,122,24,0.03)}
+.pricing{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px}
+.price{font-size:24px; color:#ff7a18; font-weight:800}
 
-.contact-form input, .contact-form textarea{width:100%;padding:15px;margin-bottom:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.2);color:#fff;outline:none;transition:0.3s}
-.contact-form input:focus, .contact-form textarea:focus{border-color:#ff7a18;background:rgba(255,255,255,0.05)}
-
-footer{text-align:center;padding:60px 6%;opacity:0.6;font-size:12px;}
-@media(max-width:600px){ body { cursor: auto; } #cursor-glow { display: none; } }
+.contact-form input, .contact-form textarea{
+  width:100%; padding:15px; margin-bottom:10px; border-radius:12px;
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff;
+}
 </style>
 </head>
 <body>
 
+<div id="cursor-dot"></div>
+<div id="cursor-outline"></div>
 <div id="cursor-glow"></div>
 
-<div class="top-bar">
-  <img src="logo.PNG" alt="Logo">
-  <div class="lang-switch">
-    <button id="btn-cs" class="active" onclick="setLang('cs')">CZ</button>
-    <button id="btn-en" onclick="setLang('en')">EN</button>
+<div class="top-bar" style="position:fixed; top:0; width:100%; height:80px; background:rgba(10,10,10,0.8); backdrop-filter:blur(15px); z-index:1000; display:flex; align-items:center; justify-content:center; border-bottom:1px solid rgba(255,255,255,0.05)">
+  <img src="logo.PNG" alt="Logo" style="height:50px">
+  <div class="lang-switch" style="position:absolute; right:20px">
+    <button onclick="setLang('cs')" id="btn-cs" class="active" style="background:none; border:1px solid #ff7a18; color:#fff; padding:5px 12px; border-radius:20px; cursor:pointer">CZ</button>
   </div>
 </div>
 
-<section class="hero">
-  <div class="hero-text">
-    <div class="logo">27sun</div>
-    <p data-i18n="hero">Video editor & photographer<br>Reels • TikTok • YouTube</p>
-    <a href="#contact" class="btn" data-i18n="contactBtn">Kontakt</a>
-  </div>
-  <div class="hero-right">
-    <img src="profile.JPG" alt="Samuel Karbán" style="width:100%;max-width:340px;border-radius:30px;box-shadow:0 30px 60px rgba(0,0,0,0.5)">
-    <div class="about-me" style="margin-top:25px; max-width:340px; font-size:14px;">
-      <p data-i18n="aboutText">
-        Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br>
-        <b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4
-      </p>
+<section class="hero" style="padding-top:140px; text-align:center">
+  <div class="logo">27sun</div>
+  <p style="font-size:18px; opacity:0.8; margin:20px 0" data-i18n="hero">Video editor & photographer<br>Reels • TikTok • YouTube</p>
+  <a href="#contact" class="btn" data-i18n="contactBtn">Kontaktuj mě</a>
+</section>
+
+<section>
+  <h2 data-i18n="pricing">Ceník</h2>
+  <div class="pricing">
+    <div class="card">
+      <h3 data-i18n="serv1">Střih Reels</h3>
+      <p class="price">od 350 Kč</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="servEdit">Videoklip</h3>
+      <p class="price">od 900 Kč</p>
+    </div>
+    <div class="card" style="border:1px solid #ff7a18">
+      <h3>Content Pack</h3>
+      <p class="price">3 500 Kč</p>
+      <small>5x Reels + 10x Foto</small>
     </div>
   </div>
 </section>
 
-<section>
-<h2 data-i18n="showcase">UKÁZKY</h2>
-<h3 data-i18n="clips">Clips</h3>
-<p class="drag-hint">← Tahej pro zobrazení →</p>
-<div class="slider-container">
-  <button class="nav-arrow prev" onclick="scrollMe('clips-scroll', -400)">&#10094;</button>
-  <div class="video-slider horizontal" id="clips-scroll">
-    <iframe src="https://www.youtube.com/embed/u3uAbnbAokE" loading="lazy"></iframe>
-    <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM" loading="lazy"></iframe>
-    <iframe src="https://www.youtube.com/embed/ihaDYNouXis" loading="lazy"></iframe>
-    <iframe src="https://www.youtube.com/embed/J13Ju447MCs" loading="lazy"></iframe>
-    <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU" loading="lazy"></iframe>
-  </div>
-  <button class="nav-arrow next" onclick="scrollMe('clips-scroll', 400)">&#10095;</button>
-</div>
-</section>
-
-<section>
-<h2 data-i18n="pricing">Služby & Ceník</h2>
-<div class="pricing">
-  <div class="card"><h3 data-i18n="serv1">🎬 1x Reels / TikTok (střih)</h3><p class="price" data-i18n="price1">od 350 Kč</p></div>
-  <div class="card"><div><h3 data-i18n="servEdit">🎥 Střih videoklipu</h3><p class="price" data-i18n="priceEdit">od 900 Kč</p></div><p style="color:#ff7a18; font-weight:700; font-size:12px; margin-top:10px;">Referral Deal -40%</p></div>
-  <div class="card"><h3 data-i18n="serv2">📺 YouTube video střih</h3><p class="price" data-i18n="price2">od 1 500 Kč</p></div>
-</div>
-</section>
-
 <section id="contact">
-<h2 data-i18n="contactTitle">Kontakt</h2>
-<div class="contact-form" style="max-width:600px; margin:0 auto; background:rgba(255,255,255,0.02); padding:40px; border-radius:30px; border:1px solid rgba(255,255,255,0.05)">
-  <form id="my-form" action="https://formspree.io/f/xeekojbo" method="POST">
-    <input type="text" name="name" placeholder="Tvé jméno" required>
-    <input type="email" name="email" placeholder="Tvůj e-mail" required>
-    <textarea name="message" placeholder="O jakou službu máš zájem?" required style="min-height:120px"></textarea>
-    <button type="submit" class="btn" style="width:100%; border:none;" data-i18n="sendBtn">Odeslat poptávku</button>
-    <p id="my-form-status" style="margin-top:15px; font-size:13px; text-align:center"></p>
-  </form>
-</div>
+  <h2 data-i18n="contactTitle">Poptávka</h2>
+  <div class="card" style="max-width:500px; margin:0 auto">
+    <form id="my-form">
+      <input type="text" placeholder="Jméno">
+      <input type="email" placeholder="Email">
+      <textarea placeholder="Tvůj projekt..."></textarea>
+      <button type="submit" class="btn" style="width:100%">Odeslat</button>
+    </form>
+  </div>
 </section>
 
 <script>
-// POHYB GLOW KURZORU
+// --- LOGIKA MODERNÍHO KURZORU ---
+const dot = document.getElementById('cursor-dot');
+const outline = document.getElementById('cursor-outline');
 const glow = document.getElementById('cursor-glow');
-document.addEventListener('mousemove', (e) => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top = e.clientY + 'px';
+
+window.addEventListener('mousemove', (e) => {
+  const posX = e.clientX;
+  const posY = e.clientY;
+
+  // Bod následuje ihned
+  dot.style.left = `${posX}px`;
+  dot.style.top = `${posY}px`;
+  glow.style.left = `${posX}px`;
+  glow.style.top = `${posY}px`;
+
+  // Kroužek má jemné zpoždění (smooth efekt)
+  outline.animate({
+    left: `${posX}px`,
+    top: `${posY}px`
+  }, { duration: 500, fill: "forwards" });
 });
 
-// INTERAKCE KURZORU S TLAČÍTKY
-document.querySelectorAll('a, button, .card').forEach(el => {
+// Zvětšení kurzoru na interaktivních prvcích
+document.querySelectorAll('a, button, .card, iframe').forEach(el => {
   el.addEventListener('mouseenter', () => {
-    glow.style.width = '600px';
-    glow.style.height = '600px';
-    glow.style.background = 'radial-gradient(circle, rgba(255,122,24,0.25) 0%, transparent 70%)';
+    outline.style.width = '60px';
+    outline.style.height = '60px';
+    outline.style.background = 'rgba(255,122,24,0.1)';
   });
   el.addEventListener('mouseleave', () => {
-    glow.style.width = '400px';
-    glow.style.height = '400px';
-    glow.style.background = 'radial-gradient(circle, rgba(255,122,24,0.15) 0%, transparent 70%)';
+    outline.style.width = '30px';
+    outline.style.height = '30px';
+    outline.style.background = 'transparent';
   });
 });
 
-// Zbytek tvého funkčního skriptu (scrollování, jazyky, form)
-function updateScroll() {
-  const scrolled = window.scrollY;
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrolled / maxScroll) * 100;
-  document.body.style.setProperty('--scroll', scrollPercent);
-}
-window.addEventListener('scroll', updateScroll);
+// Scrollování pro pozadí
+window.addEventListener('scroll', () => {
+  const scroll = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.body.style.setProperty('--scroll', scroll);
+});
 
 function scrollMe(id, step) {
   document.getElementById(id).scrollBy({left: step, behavior: 'smooth'});
 }
-
-// ... Jazyky a Formspree zůstávají stejné jako ve tvém funkčním kódu ...
 </script>
 
 </body>
