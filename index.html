@@ -34,7 +34,7 @@ body::before{
   position:fixed;
   top:0;
   width:100%;
-  height:100px; /* Zvětšeno ze 70px na 100px */
+  height:100px;
   background:rgba(10,10,10,.85);
   backdrop-filter:blur(8px);
   display:flex;
@@ -43,13 +43,13 @@ body::before{
   z-index:1000;
 }
 .top-bar img{
-  height:75px; /* Zvětšeno 1.8x (původně 42px) */
+  height:75px;
   width: auto;
   border-radius:12px;
-  transition: transform 0.3s ease; /* Plynulá animace */
+  transition: transform 0.3s ease;
 }
 .top-bar img:hover {
-  transform: scale(1.05); /* Jemné zvětšení při najetí myší */
+  transform: scale(1.05);
 }
 .lang-switch{
   position:absolute;
@@ -83,7 +83,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500;}
 
 /* HERO */
 .hero{
-  min-height:calc(100vh - 100px); /* Upraveno pro novou výšku lišty */
+  min-height:calc(100vh - 100px);
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -95,17 +95,29 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500;}
   line-height:1;
 }
 .hero-text p{margin-top:20px;opacity:.85;font-size:18px;}
+
+/* TLAČÍTKO KONTAKT */
 .btn{
   display:inline-block;
   margin-top:40px;
   padding:16px 40px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.4);
-  transition:.3s;
-  color:#fff;
+  background:#ff7a18; /* Permanentně oranžové */
+  color:#000 !important; /* Černý text */
   text-decoration:none;
+  font-weight: 600;
+  border:2px solid #ff7a18;
+  transition:.2s;
 }
-.btn:hover{background:#ff7a18;color:#000;border-color:#ff7a18;}
+.btn:hover{
+  background:#ff8c3b; /* Jen lehce zesvětlí při hoveru */
+  border-color:#ff8c3b;
+}
+.btn:active{
+  background:#cc6214; /* Ztmavne při kliknutí (stlačení) */
+  transform: translateY(2px); /* Jemný efekt stlačení dolů */
+}
+
 .hero img{
   width:360px;
   max-width:90%;
