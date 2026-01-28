@@ -48,6 +48,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .bundle-card{border:1px solid #ff7a18;background:rgba(255,122,24,.05)}
 .social-links a{display:block;margin-bottom:15px;font-size:18px;color:#ff7a18;text-decoration:none;font-weight:500}
 footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
+.contact-form input, .contact-form textarea{width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-family:inherit}
 @media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}.gallery-wrapper img{height:320px}}
 </style>
 </head>
@@ -104,7 +105,7 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
 </section>
 <section>
   <h2 data-i18n="reviewsTitle">Feedback</h2>
-  <p class="drag-hint" data-i18n="drag"><i> Feedback je brán ze zpráv </i> </p>
+  <p class="drag-hint"><i data-i18n="feedbackNote">Feedback je brán ze zpráv</i></p>
   <div class="chat-container">
     <div class="chat-track" id="chatTrack">
       <div class="chat-bubble left"><img src="nayssone.PNG" loading="lazy"><div class="message-content"><span class="sender-name">NAYSSONE</span>Fakt super práce kamo</div></div>
@@ -149,12 +150,21 @@ footer{text-align:center;padding:40px;opacity:.3;font-size:12px}
   <a href="https://www.instagram.com/27sun._?igsh=bmdvbjF0MjB1cjc5&utm_source=qr" target="_blank">📸 Instagram</a>
   <a href="https://www.tiktok.com/@s.karban" target="_blank">🎵 TikTok</a>
 </div>
+
+<div class="contact-form" style="margin-top:30px; background:rgba(255,255,255,0.03); padding:25px; border-radius:20px; border:1px solid rgba(255,255,255,0.1)">
+  <h3 data-i18n="formTitle" style="opacity:1; margin-bottom:15px">Pošli mi poptávku</h3>
+  <form action="mailto:samuelkarban@gmail.com" method="post" enctype="text/plain">
+    <input type="text" name="Jmeno" placeholder="Tvé jméno / Name" required>
+    <textarea name="Zprava" placeholder="O jakou službu máš zájem? / Your request" required style="min-height:100px"></textarea>
+    <button type="submit" class="btn" style="width:100%; border:none; cursor:pointer; margin-top:5px" data-i18n="sendBtn">Odeslat e-mail</button>
+  </form>
+</div>
 </section>
 <footer>© 2025 27sun</footer>
 <script>
 const t={
   cs:{
-    hero:"Video editor & photographer",contactBtn:"Kontakt",aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"UKÁZKY",clips:"Clips",reels:"Reels / TikTok",drag:"← Tahej pro zobrazení →",gallery:"Fotogalerie",reviewsTitle:"Feedback",pricing:"Služby & Ceník",
+    hero:"Video editor & photographer",contactBtn:"Kontakt",aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"UKÁZKY",clips:"Clips",reels:"Reels / TikTok",drag:"← Tahej pro zobrazení →",gallery:"Fotogalerie",reviewsTitle:"Feedback",feedbackNote:"Feedback je brán ze zpráv",pricing:"Služby & Ceník",
     serv1:"🎬 1x Reels / TikTok (střih)",price1:"od 350 Kč",
     servEdit:"🎥 Střih videoklipu",priceEdit:"od 900 Kč",refEdit:"od 540 Kč",
     servShoot:"🎥 Natáčení + Střih",priceShoot:"od 1 100 Kč",
@@ -162,10 +172,10 @@ const t={
     serv3:"📷 Focení + úprava",photoNote:"(v ceně 10 upravených fotek)",price3:"od 900 Kč",
     serv4:"🖼️ Úprava fotografie",singleNote:"(za jednu fotku)",price4:"od 150 Kč",refPhoto:"od 90 Kč",
     priceNote:"* Ceny jsou orientační a mohou se lišit dle náročnosti projektu.",
-    referral:"Referral Deal -40%:",ref1:"od 660 Kč",ref2:"od 540 Kč",bundles:"Výhodné Balíčky",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Fotek",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Fotek",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Fotek",refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby dál! Pokud tvůj známý objedná jakoukoliv službu, získáváš na svou příští objednávku automaticky <b>slevu 40 %</b>.",contactTitle:"Kontakt"
+    referral:"Referral Deal -40%:",ref1:"od 660 Kč",ref2:"od 540 Kč",bundles:"Výhodné Balíčky",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Fotek",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Fotek",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Fotek",refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby dál! Pokud tvůj známý objedná jakoukoliv službu, získáváš na svou příští objednávku automaticky <b>slevu 40 %</b>.",contactTitle:"Kontakt",formTitle:"Pošli mi poptávku",sendBtn:"Odeslat e-mail"
   },
   en:{
-    hero:"Video editor & photographer",contactBtn:"Contact",aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood. Petr Zoubek was a great inspiration.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"SHOWCASE",clips:"Clips",reels:"Reels / TikTok",drag:"← Drag to view →",gallery:"Gallery",reviewsTitle:"Feedback",pricing:"Services & Pricing",
+    hero:"Video editor & photographer",contactBtn:"Contact",aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood. Petr Zoubek was a great inspiration.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"SHOWCASE",clips:"Clips",reels:"Reels / TikTok",drag:"← Drag to view →",gallery:"Gallery",reviewsTitle:"Feedback",feedbackNote:"Feedback taken from messages",pricing:"Services & Pricing",
     serv1:"🎬 1x Reels / TikTok (Edit)",price1:"from 15 €",
     servEdit:"🎥 Music Video Editing",priceEdit:"from 36 €",refEdit:"from 21.6 €",
     servShoot:"🎥 Shooting + Edit",priceShoot:"from 45 €",
@@ -173,7 +183,7 @@ const t={
     serv3:"📷 Photos + Edit",photoNote:"(includes 10 edited photos)",price3:"from 36 €",
     serv4:"🖼️ Photo Retouch",singleNote:"(per photo)",price4:"from 6 €",refPhoto:"from 3.6 €",
     priceNote:"* Prices are indicative and may vary based on project complexity.",
-    referral:"Referral Deal -40%:",ref1:"from 27 €",ref2:"from 21 €",bundles:"Bundles",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Photos",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Photos",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Photos",refTitle:"🤝 Referral Program",refDesc:"Recommend my services! If your friend orders any service, you automatically get a 40% discount on your next order.",contactTitle:"Contact"
+    referral:"Referral Deal -40%:",ref1:"from 27 €",ref2:"from 21 €",bundles:"Bundles",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Photos",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Photos",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Photos",refTitle:"🤝 Referral Program",refDesc:"Recommend my services! If your friend orders any service, you automatically get a 40% discount on your next order.",contactTitle:"Contact",formTitle:"Send a request",sendBtn:"Send Email"
   }
 };
 
