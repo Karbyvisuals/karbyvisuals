@@ -16,22 +16,10 @@ body{
   overflow-x:hidden;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at left bottom,rgba(255,255,255,.12),transparent 45%),
-    linear-gradient(to bottom,rgba(10,10,10,.85),rgba(10,10,10,.95)),
-    repeating-linear-gradient(to right,rgba(255,255,255,.04) 0,rgba(255,255,255,.04) 1px,transparent 1px,transparent 140px);
-  z-index:-1;
-}
-
 /* TOP BAR */
 .top-bar{
   position:fixed;
   top:0;
-  left:0;
   width:100%;
   height:70px;
   background:rgba(10,10,10,.85);
@@ -41,12 +29,10 @@ body::before{
   justify-content:center;
   z-index:1000;
 }
-
 .top-bar img{
-  height:46px;
-  border-radius:14px;
+  height:44px;
+  border-radius:12px;
 }
-
 .lang-switch{
   position:absolute;
   right:20px;
@@ -63,37 +49,25 @@ body::before{
 .lang-switch button:hover{background:#ff7a18;color:#000}
 
 section{padding:120px 6%}
-h2{font-size:32px;font-weight:500;margin-bottom:30px}
-h3{font-weight:500;opacity:.75;margin-bottom:15px}
+h2{font-size:32px;font-weight:500;margin-bottom:20px}
+h3{opacity:.7;margin-bottom:10px}
 
+/* HERO */
 .hero{
   min-height:calc(100vh - 70px);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   text-align:center;
 }
-
 .logo{
   font-family:'UnifrakturCook',cursive;
   font-size:96px;
 }
+.hero p{margin-top:20px;opacity:.85}
 
-.hero p{margin-top:20px;font-size:18px;opacity:.85}
-
-.btn{
-  display:inline-block;
-  margin-top:40px;
-  padding:16px 40px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.4);
-  color:#fff;
-  transition:.3s;
-}
-.btn:hover{background:#ff7a18;color:#000}
-
-/* SLIDER HINT */
-.slider-hint{
+/* HINT */
+.drag-hint{
   font-size:14px;
   opacity:.5;
   margin-bottom:10px;
@@ -102,14 +76,15 @@ h3{font-weight:500;opacity:.75;margin-bottom:15px}
 /* VIDEO SLIDERS */
 .video-slider{
   display:flex;
-  gap:30px;
+  gap:24px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
   padding-bottom:20px;
 }
 .video-slider::-webkit-scrollbar{display:none}
 
-.video-slider.clips iframe{
+/* YOUTUBE CLIPS */
+.video-slider.horizontal iframe{
   min-width:360px;
   height:220px;
   border-radius:18px;
@@ -117,12 +92,14 @@ h3{font-weight:500;opacity:.75;margin-bottom:15px}
   scroll-snap-align:center;
 }
 
+/* REELS / TIKTOK – PHONE RATIO */
 .video-slider.vertical iframe{
   min-width:260px;
   height:460px;
-  border-radius:20px;
+  border-radius:22px;
   border:none;
   scroll-snap-align:center;
+  background:#000;
 }
 
 /* GALLERY */
@@ -131,13 +108,9 @@ h3{font-weight:500;opacity:.75;margin-bottom:15px}
   gap:20px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  padding-bottom:20px;
 }
-.gallery-wrapper::-webkit-scrollbar{display:none}
 .gallery-wrapper img{
   height:420px;
-  width:auto;
-  object-fit:cover;
   border-radius:20px;
   scroll-snap-align:center;
 }
@@ -145,7 +118,7 @@ h3{font-weight:500;opacity:.75;margin-bottom:15px}
 /* PRICING */
 .pricing{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:30px;
 }
 .card{
@@ -154,22 +127,16 @@ h3{font-weight:500;opacity:.75;margin-bottom:15px}
   background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.12);
 }
-.price{font-size:22px;margin-top:10px;opacity:.85}
-.note{font-size:14px;opacity:.6;margin-top:10px;font-style:italic}
+.price{margin-top:10px}
+.note{font-size:14px;opacity:.6;font-style:italic}
 
-/* CONTACT */
-.social-links a{
-  display:block;
-  margin-bottom:15px;
-  color:#ff7a18;
+/* MOBILE */
+@media(max-width:768px){
+  .logo{font-size:64px}
+  .gallery-wrapper img{height:260px}
 }
 
 footer{text-align:center;padding:60px;opacity:.4}
-
-@media(max-width:900px){
-  .logo{font-size:64px}
-  .gallery-wrapper img{height:280px}
-}
 </style>
 </head>
 
@@ -177,26 +144,46 @@ footer{text-align:center;padding:60px;opacity:.4}
 
 <!-- TOP BAR -->
 <div class="top-bar">
-  <img src="profile.PNG" alt="27sun">
+  <img src="profile.PNG">
   <div class="lang-switch">
     <button onclick="setLang('cs')">CZ</button>
     <button onclick="setLang('en')">EN</button>
   </div>
 </div>
 
+<!-- HERO -->
 <section class="hero">
   <div>
     <div class="logo">27sun</div>
-    <p data-i18n="hero">
-      Video editor & photographer<br>
-      Reels • TikTok • YouTube • Fotografie
-    </p>
-    <a href="#contact" class="btn" data-i18n="contactBtn">Kontakt</a>
+    <p data-i18n="hero">Video editor & photographer<br>Reels • TikTok • YouTube • Fotografie</p>
   </div>
 </section>
 
+<!-- VIDEO SHOWCASE -->
 <section>
-<h2 data-i18n="gallery">Fotogalerie</h2>
+<h2>UKÁZKY VIDEÍ</h2>
+
+<h3>Clips (YouTube)</h3>
+<p class="drag-hint">← Tahej pro zobrazení →</p>
+<div class="video-slider horizontal">
+  <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM"></iframe>
+  <iframe src="https://www.youtube.com/embed/ihaDYNouXis"></iframe>
+  <iframe src="https://www.youtube.com/embed/J13Ju447MCs"></iframe>
+</div>
+
+<h3 style="margin-top:60px">Reels / TikTok</h3>
+<p class="drag-hint">← Tahej pro zobrazení →</p>
+<div class="video-slider vertical">
+  <iframe src="https://www.instagram.com/reel/DFzwMMosCJ_/embed"></iframe>
+  <iframe src="https://www.instagram.com/reel/DO8bjzOisWy/embed"></iframe>
+  <iframe src="https://www.tiktok.com/embed/v2/NRAdmqB3"></iframe>
+  <iframe src="https://www.tiktok.com/embed/v2/NRAdureG"></iframe>
+</div>
+</section>
+
+<!-- GALLERY -->
+<section>
+<h2>Fotogalerie</h2>
 <div class="gallery-wrapper">
   <img src="foto11.jpeg">
   <img src="foto2.jpeg">
@@ -215,64 +202,24 @@ footer{text-align:center;padding:60px;opacity:.4}
 </div>
 </section>
 
+<!-- PRICING -->
 <section>
-<h2 data-i18n="pricing">Služby, Ceník & Balíčky</h2>
-
+<h2>Služby & Ceník</h2>
 <div class="pricing">
   <div class="card">
     <h3>📷 Focení + úprava</h3>
     <p class="price">od 1 500 Kč</p>
-    <p class="note">• možnost uplatnit Referral Deal –40 %</p>
+    <p class="note">možnost uplatnit Referral Deal –40 %</p>
   </div>
-
   <div class="card">
-    <h3>🖼️ Úprava jedné fotografie</h3>
+    <h3>🖼️ Úprava fotografie</h3>
     <p class="price">od 150 Kč / foto</p>
-    <p class="note">• možnost slevy z Referral Deal balíčku</p>
+    <p class="note">sleva až –40 % v balíčku</p>
   </div>
-
   <div class="card">
     <h3>🎬 Reels / Shorts</h3>
     <p class="price">od 500 Kč</p>
   </div>
-
-  <div class="card">
-    <h3>📺 YouTube video</h3>
-    <p class="price">od 1 500 Kč</p>
-  </div>
-
-  <div class="card">
-    <h3>🎥 Natáčení clipu + sestřih</h3>
-    <p class="price">od 2 500 Kč</p>
-  </div>
-</div>
-
-<h2 style="margin-top:80px">Balíčky</h2>
-<div class="pricing">
-  <div class="card">
-    <h3>🔥 Starter Content</h3>
-    <p>3× Reels / Shorts<br>Základní color grading</p>
-    <p class="price">1 300 Kč</p>
-  </div>
-  <div class="card">
-    <h3>🚀 Creator Pack</h3>
-    <p>Focení (10 fotek)<br>2× Reels / Shorts</p>
-    <p class="price">2 100 Kč</p>
-  </div>
-  <div class="card">
-    <h3>🤝 Referral Deal</h3>
-    <p>40 % sleva na focení + úpravu</p>
-    <p class="price">–40 %</p>
-  </div>
-</div>
-</section>
-
-<section id="contact">
-<h2 data-i18n="contact">Kontakt</h2>
-<p>📩 samuelkarban@gmail.com</p>
-<div class="social-links">
-  <a href="https://instagram.com/s.karban_" target="_blank">Instagram</a>
-  <a href="https://www.tiktok.com/@s.karban" target="_blank">TikTok</a>
 </div>
 </section>
 
@@ -280,22 +227,9 @@ footer{text-align:center;padding:60px;opacity:.4}
 
 <script>
 const t={
-  cs:{
-    hero:"Video editor & photographer<br>Reels • TikTok • YouTube • Fotografie",
-    contactBtn:"Kontakt",
-    gallery:"Fotogalerie",
-    pricing:"Služby, Ceník & Balíčky",
-    contact:"Kontakt"
-  },
-  en:{
-    hero:"Video editor & photographer<br>Reels • TikTok • YouTube • Photography",
-    contactBtn:"Contact",
-    gallery:"Photo gallery",
-    pricing:"Services, Pricing & Packages",
-    contact:"Contact"
-  }
+  cs:{hero:"Video editor & photographer<br>Reels • TikTok • YouTube • Fotografie"},
+  en:{hero:"Video editor & photographer<br>Reels • TikTok • YouTube • Photography"}
 };
-
 function setLang(l){
   document.querySelectorAll("[data-i18n]").forEach(e=>{
     e.innerHTML=t[l][e.dataset.i18n];
