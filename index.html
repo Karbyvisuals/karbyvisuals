@@ -9,90 +9,92 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:Inter,Arial,sans-serif;background:#0a0a0a;color:#f2f2f2;overflow-x:hidden;line-height:1.5}
 
-/* DYNAMICKÝ GRADIENT PO ÚHLOPŘÍČCE */
+/* Dynamické pozadí */
 body::before{
-  content:""; position:fixed; inset:0;
+  content:"";
+  position:fixed;
+  inset:0;
   background: 
     radial-gradient(circle at var(--scroll-x, 0%) var(--scroll-y, 0%), rgba(255,122,24,0.18), transparent 50%),
     linear-gradient(to bottom, rgba(10,10,10,.85), rgba(10,10,10,.95)),
     repeating-linear-gradient(to right, rgba(255,255,255,.01) 0, rgba(255,255,255,.01) 1px, transparent 1px, transparent 140px);
-  z-index:-1; pointer-events: none;
+  z-index:-1;
+  pointer-events: none;
 }
 
-/* --- MODERNÍ KURZOR (Pouze pro PC) --- */
-@media (hover: hover) {
-  body { cursor: none; }
-  #cursor-dot { width: 6px; height: 6px; background: #ff7a18; position: fixed; pointer-events: none; z-index: 10000; border-radius: 50%; transform: translate(-50%, -50%); }
-  #cursor-outline { width: 35px; height: 35px; border: 2px solid rgba(255,122,24,0.5); position: fixed; pointer-events: none; z-index: 9999; border-radius: 50%; transform: translate(-50%, -50%); transition: transform 0.15s ease-out; }
-  #cursor-glow { width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,122,24,0.1) 0%, transparent 70%); position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); }
-  a:hover ~ #cursor-outline, button:hover ~ #cursor-outline { transform: translate(-50%, -50%) scale(1.5); background: rgba(255,122,24,0.1); }
-}
+section{padding:100px 8%; max-width: 1400px; margin: 0 auto;}
+h2{font-size:clamp(28px, 6vw, 42px);font-weight:600;margin-bottom:10px;letter-spacing:1px;color:#fff}
+.section-subtitle{opacity:.6; font-size: 14px; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; display: block;}
 
-section{padding:80px 6%;}
-h2{font-size:clamp(26px, 6vw, 36px);font-weight:600;margin-bottom:15px;letter-spacing:1px}
-h3{opacity:.7;margin-bottom:10px;font-weight:500}
+/* ZVĚTŠENÉ LOGO V TOP BARU */
+.top-bar{position:fixed;top:0;width:100%;height:110px;background:rgba(10,10,10,.9);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.08)}
+.top-bar img{height:85px;width:auto;border-radius:10px;transition: transform 0.3s ease; filter: drop-shadow(0 0 10px rgba(255,122,24,0.2));}
 
-/* --- VĚTŠÍ LOGO --- */
-.top-bar{position:fixed;top:0;width:100%;height:100px;background:rgba(10,10,10,.85);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05)}
-.top-bar img{height:80px; width:auto; border-radius:12px;}
+.lang-switch{position:absolute;right:25px}.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:6px 14px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.3s;font-weight:600}
+.lang-switch button.active{background:#ff7a18;color:#000;border-color:#ff7a18;box-shadow: 0 0 15px rgba(255,122,24,0.4);}
 
-.lang-switch{position:absolute;right:15px}.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:6px 14px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:13px;transition:.3s;font-weight:600}
-.lang-switch button.active{background:#ff7a18;color:#000;border-color:#ff7a18;box-shadow: 0 0 20px rgba(255,122,24,0.4);}
+.hero{min-height:95vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:60px;padding-top:140px}
+.logo-text{font-family:'UnifrakturCook',cursive;font-size:clamp(80px, 15vw, 130px);line-height:1;text-align:center;filter: drop-shadow(0 0 30px rgba(255,122,24,0.2))}
+.hero-text{flex:1;min-width:320px;text-align:center}
+.hero-right{flex:1;min-width:320px;display:flex;flex-direction:column;align-items:center}
+.hero img{width:100%;max-width:380px;border-radius:24px;box-shadow:0 30px 60px rgba(0,0,0,.6);border: 1px solid rgba(255,255,255,0.1)}
+.about-me{text-align:left;font-size:15px;max-width:380px;margin-top:25px;border-left:3px solid #ff7a18;padding-left:20px;opacity:.9;background: rgba(255,255,255,0.02); padding: 20px; border-radius: 0 15px 15px 0;}
+.about-me b{color:#ff7a18}
 
-.hero{min-height:90vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;padding-top:140px}
-.logo{font-family:'UnifrakturCook',cursive;font-size:clamp(70px, 15vw, 110px);line-height:1;text-align:center; filter: drop-shadow(0 0 25px rgba(255,122,24,0.2))}
+.btn{display:inline-block;margin-top:35px;padding:18px 45px;border-radius:999px;background:#ff7a18;color:#000!important;text-decoration:none;font-weight:700;transition:.3s;box-shadow:0 0 25px rgba(255,122,24,0.3);border:none;cursor:pointer}
+.btn:hover{transform:translateY(-4px);box-shadow:0 0 40px rgba(255,122,24,0.6)}
 
-/* --- PODSVÍCENÁ TLAČÍTKA + MOBILNÍ EFEKT --- */
-.btn{
-  display:inline-block; margin-top:30px; padding:16px 45px; border-radius:999px; background:#ff7a18; color:#000!important; text-decoration:none; font-weight:700; transition: .3s;
-  box-shadow: 0 0 15px rgba(255,122,24,0.3); position: relative; border: none;
-}
-.btn:hover{ transform: translateY(-3px); box-shadow: 0 0 35px rgba(255,122,24,0.6); }
-.btn:active { transform: scale(0.95); box-shadow: 0 0 10px rgba(255,122,24,0.8); } /* Mobilní feedback */
+.drag-hint{font-size:13px;opacity:.5;margin-bottom:15px;display:flex;align-items:center;gap:8px}
 
-/* KARTY */
-.card{
-  padding:30px; border-radius:24px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,0.1); backdrop-filter:blur(5px);
-  display:flex; flex-direction:column; justify-content:space-between; transition: 0.3s;
-}
-.card:active { transform: scale(0.98); border-color: #ff7a18; } /* Mobilní feedback */
-.bundle-card{border:1px solid #ff7a18; background:rgba(255,122,24,.05); box-shadow: inset 0 0 20px rgba(255,122,24,0.05);}
+/* SLIDERY */
+.slider-container {position: relative; width: 100%; margin-bottom: 50px;}
+.nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: #ff7a18; color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10; display: none; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; box-shadow: 0 0 20px rgba(255,122,24,0.4); }
+@media (min-width: 1024px) { .nav-arrow { display: flex; } }
+.nav-arrow.prev {left: -25px;} .nav-arrow.next {right: -25px;}
 
-.video-slider,.gallery-wrapper{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:15px;scrollbar-width:none;}
-.video-slider iframe, .video-slider video, .gallery-wrapper img { border-radius: 18px; scroll-snap-align: center; }
+.video-slider,.gallery-wrapper{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:20px;scrollbar-width:none;scroll-behavior: smooth;}
+.video-slider.horizontal iframe{min-width:320px; width: 450px; height:250px;border-radius:18px;scroll-snap-align:center;border:none;background:#000}
+.video-slider.vertical video{min-width:280px;height:500px;border-radius:20px;background:#111;object-fit:cover;scroll-snap-align:center}
+.gallery-wrapper img{height:450px;width:auto;max-width:90vw;border-radius:18px;scroll-snap-align:center;flex-shrink:0;background:#1a1a1a;object-fit:contain}
 
-/* CHAT */
-.chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:25px;border:1px solid rgba(255,255,255,0.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
-.chat-track{display:flex;flex-direction:column;gap:20px;padding:20px;animation:scrollUp 25s linear infinite;}
+/* FEEDBACK CHAT */
+.chat-container{height:450px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:30px;border:1px solid rgba(255,255,255,.05);mask-image:linear-gradient(to bottom,transparent,black 15%,black 85%,transparent)}
+.chat-track{display:flex;flex-direction:column;gap:25px;padding:30px;animation:scrollUp 30s linear infinite;}
 @keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-.chat-bubble{display:flex;align-items:flex-end;gap:10px;max-width:90%;}
+.chat-bubble{display:flex;align-items:flex-end;gap:12px;max-width:85%}
 .chat-bubble.right{align-self:flex-end;flex-direction:row-reverse}
-.chat-bubble img{width:35px;height:35px;border-radius:50%;}
-.message-content{padding:12px 16px;border-radius:18px;font-size:14px}
-.right .message-content{background:#ff7a18;color:#000;font-weight:500;}
+.chat-bubble img{width:40px;height:40px;border-radius:50%;object-fit:cover; border: 1px solid rgba(255,122,24,0.3)}
+.message-content{padding:14px 18px;border-radius:20px;font-size:14px; line-height: 1.4}
+.left .message-content{background:#262626;color:#fff;border-bottom-left-radius:4px}
+.right .message-content{background:#ff7a18;color:#000;border-bottom-right-radius:4px;font-weight:500;box-shadow: 0 0 20px rgba(255,122,24,0.15);}
+.sender-name{display:block;font-size:10px;opacity:.5;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
 
-/* CENÍK A TEXTY */
-.pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.price{font-size:22px;margin-top:10px;font-weight:700;color:#fff}
-.price-tag{color:#ff7a18; font-weight: 700;}
-.discount{font-size:12px;color:#ff7a18;margin-top:8px;font-weight:600}
+/* CENÍK */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.card{padding:35px;border-radius:24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(5px);display:flex;flex-direction:column;justify-content:space-between;transition: .4s ease;}
+.card:hover{border-color: rgba(255,122,24,0.4); transform: translateY(-5px); background: rgba(255,255,255,0.05);}
+.price{font-size:22px;margin-top:12px;font-weight:700; color: #fff}
+.discount{font-size:13px;color:#ff7a18;margin-top:10px;font-weight:600}
+.price-tag{color:#ff7a18; font-weight: 800; margin-left: 5px;}
+.bundle-card{border:1px solid rgba(255,122,24,0.4);background:rgba(255,122,24,.05);box-shadow: inset 0 0 30px rgba(255,122,24,0.05);}
 
-footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,255,0.05)}
-.disclaimer-text{margin-top:20px; opacity:0.5; font-size:11px; max-width:750px; margin-inline:auto; line-height:1.6}
+.contact-form input, .contact-form textarea{width:100%;padding:15px;margin-bottom:15px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-family:inherit;outline:none;transition: 0.3s;}
+.contact-form input:focus, .contact-form textarea:focus{border-color:#ff7a18; background:rgba(255,255,255,0.08);}
 
-@media(max-width:600px){
-  section{padding:50px 5%}
-  .top-bar{height:85px}
+footer{text-align:center;padding:80px 8% 50px;border-top:1px solid rgba(255,255,255,0.05)}
+.disclaimer-text{margin-top:25px; opacity:0.4; font-size:11px; max-width:800px; margin-inline:auto; line-height:1.7}
+
+@media(max-width:768px){
+  section{padding:80px 6%}
+  .top-bar{height:90px}
   .top-bar img{height:65px}
-  .hero{padding-top:110px}
+  .hero{padding-top:120px; gap:40px}
+  .gallery-wrapper img{height:350px}
+  .nav-arrow{display:none}
 }
 </style>
 </head>
 <body>
-
-<div id="cursor-dot"></div>
-<div id="cursor-outline"></div>
-<div id="cursor-glow"></div>
 
 <div class="top-bar">
   <img src="logo.PNG" alt="Logo">
@@ -104,15 +106,15 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
 
 <section class="hero">
   <div class="hero-text">
-    <div class="logo">27sun</div>
+    <div class="logo-text">27sun</div>
     <p data-i18n="hero">Video editor & photographer<br>Reels • TikTok • YouTube</p>
     <a href="#contact" class="btn" data-i18n="contactBtn">Kontakt</a>
   </div>
   <div class="hero-right">
-    <img src="profile.JPG" alt="Samuel Karbán" fetchpriority="high" style="width:100%;max-width:340px;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.5)">
-    <div class="about-me" style="text-align:left;font-size:14px;max-width:340px;margin-top:20px;border-left:2px solid #ff7a18;padding-left:15px;opacity:.9">
+    <img src="profile.JPG" alt="Samuel Karbán" fetchpriority="high">
+    <div class="about-me">
       <p data-i18n="aboutText">
-        Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství.<br><br>
+        Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br>
         <b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4
       </p>
     </div>
@@ -121,46 +123,108 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
 
 <section>
 <h2 data-i18n="showcase">UKÁZKY</h2>
-<h3 data-i18n="clips">Clips</h3>
-<div class="video-slider" id="clips-scroll" style="display:flex;gap:15px;overflow-x:auto;">
-  <iframe src="https://www.youtube.com/embed/u3uAbnbAokE" style="min-width:85vw;max-width:400px;height:220px;border:none;"></iframe>
-  <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM" style="min-width:85vw;max-width:400px;height:220px;border:none;"></iframe>
+<span class="section-subtitle" data-i18n="clipsSub">Clips & Projects</span>
+<p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
+<div class="slider-container">
+  <button class="nav-arrow prev" onclick="scrollMe('clips-scroll', -450)">&#10094;</button>
+  <div class="video-slider horizontal" id="clips-scroll">
+    <iframe src="https://www.youtube.com/embed/u3uAbnbAokE" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/ihaDYNouXis" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/J13Ju447MCs" loading="lazy"></iframe>
+    <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU" loading="lazy"></iframe>
+  </div>
+  <button class="nav-arrow next" onclick="scrollMe('clips-scroll', 450)">&#10095;</button>
+</div>
+
+<h2 data-i18n="reels">Short-form</h2>
+<span class="section-subtitle">Reels / TikTok / Shorts</span>
+<p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
+<div class="slider-container">
+  <button class="nav-arrow prev" onclick="scrollMe('reels-scroll', -300)">&#10094;</button>
+  <div class="video-slider vertical" id="reels-scroll">
+    <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4#t=0.1" type="video/mp4"></video>
+    <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x#t=0.1" type="video/mp4"></video>
+    <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf#t=0.1" type="video/mp4"></video>
+    <video controls preload="metadata" muted loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw#t=0.1" type="video/mp4"></video>
+  </div>
+  <button class="nav-arrow next" onclick="scrollMe('reels-scroll', 300)">&#10095;</button>
 </div>
 </section>
 
 <section>
-  <h2 data-i18n="reviewsTitle">Feedback</h2>
-  <p style="font-size:13px; opacity:.5; margin-bottom:15px;"><i data-i18n="feedbackNote">Feedback je brán ze zpráv</i></p>
+<h2 data-i18n="gallery">FOTOGALERIE</h2>
+<span class="section-subtitle" data-i18n="gallerySub">Photography Portfolio</span>
+<p class="drag-hint" data-i18n="drag">← Tahej pro zobrazení →</p>
+<div class="slider-container">
+  <button class="nav-arrow prev" onclick="scrollMe('autoGallery', -450)">&#10094;</button>
+  <div class="gallery-wrapper" id="autoGallery">
+    <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy"><img src="foto9.jpeg" loading="lazy"><img src="foto10.jpeg" loading="lazy"><img src="foto1.jpeg" loading="lazy"><img src="foto12.jpeg" loading="lazy"><img src="foto13.jpeg" loading="lazy"><img src="foto14.jpeg" loading="lazy">
+  </div>
+  <button class="nav-arrow next" onclick="scrollMe('autoGallery', 450)">&#10095;</button>
+</div>
+</section>
+
+<section>
+  <h2 data-i18n="reviewsTitle">FEEDBACK</h2>
+  <span class="section-subtitle" data-i18n="reviewsSub">Autentické zprávy od mých klientů</span>
   <div class="chat-container">
     <div class="chat-track" id="chatTrack">
-      <div class="chat-bubble left"><img src="nayssone.PNG"><div class="message-content"><span data-i18n="msg1">Fakt super práce kamo</span></div></div>
-      <div class="chat-bubble right"><img src="nikofadess.PNG"><div class="message-content"><span data-i18n="msg2">predtym to bolo ppci kamo a teraz uplny strop</span></div></div>
-      <div class="chat-bubble left"><img src="navy.PNG"><div class="message-content"><span data-i18n="msgNavy">hele kamo pokracuj dal delas neco co tady v cesku chybi...</span></div></div>
+      <div class="chat-bubble left"><img src="nayssone.PNG" loading="lazy"><div class="message-content"><span class="sender-name">NAYSSONE</span><span data-i18n="msg1">Fakt super práce kamo</span></div></div>
+      <div class="chat-bubble right"><img src="nikofadess.PNG" loading="lazy"><div class="message-content"><span class="sender-name">NIKOFADESS</span><span data-i18n="msg2">predtym to bolo ppci kamo a teraz uplny strop</span></div></div>
+      <div class="chat-bubble left"><img src="navy.PNG" loading="lazy"><div class="message-content"><span class="sender-name">NAVY</span><span data-i18n="msgNavy">hele kamo pokracuj dal delas neco co tady v cesku chybi beres to vazne a jde to videt z prace co delas big up fotky a stříh popici</span></div></div>
+      <div class="chat-bubble right"><img src="nikofadess.PNG" loading="lazy"><div class="message-content"><span class="sender-name">NIKOFADESS</span><span data-i18n="msg3">braaaaaaaacho extremne to je diki moooc</span></div></div>
+      <div class="chat-bubble left"><img src="nayssone.PNG" loading="lazy"><div class="message-content"><span class="sender-name">NAYSSONE</span><span data-i18n="msg4">Diky za dnešek, bomba uplne, az budeš mít hned posílej</span></div></div>
     </div>
   </div>
 </section>
 
 <section>
-<h2 data-i18n="pricing">Služby & Ceník</h2>
-<div class="pricing">
-  <div class="card"><h3 data-i18n="serv1">🎬 1x Reels / TikTok</h3><p class="price" data-i18n="price1">od 350 Kč</p></div>
+<h2 data-i18n="pricing">SLUŽBY & CENÍK</h2>
+<span class="section-subtitle" data-i18n="pricingSub">Uvedené ceny jsou orientační a závisí na náročnosti projektu</span>
+<div class="pricing-grid">
+  <div class="card"><h3 data-i18n="serv1">🎬 1x Reels / TikTok (střih)</h3><p class="price" data-i18n="price1">od 350 Kč</p></div>
   <div class="card"><div><h3 data-i18n="servEdit">🎥 Střih videoklipu</h3><p class="price" data-i18n="priceEdit">od 900 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="refEdit">od 540 Kč</span></p></div>
   <div class="card"><div><h3 data-i18n="servShoot">🎥 Natáčení + Střih</h3><p class="price" data-i18n="priceShoot">od 1 100 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="ref1">od 660 Kč</span></p></div>
+  <div class="card"><div><h3 data-i18n="serv2">📺 YouTube video střih</h3><p class="price" data-i18n="price2">od 1 500 Kč</p></div></div>
+  <div class="card"><div><h3 data-i18n="serv3">📷 Focení + úprava</h3><p class="price" data-i18n="price3">od 900 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="ref2">od 540 Kč</span></p></div>
+  <div class="card"><div><h3 data-i18n="serv4">🖼️ Úprava fotografie</h3><p class="price" data-i18n="price4">od 150 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="refPhoto">od 90 Kč</span></p></div>
 </div>
-<p style="font-size:13px; opacity:.5; margin-top:20px; text-align:center" data-i18n="priceNote">* Ceny jsou orientační a mohou se lišit dle náročnosti projektu.</p>
+
+<h2 style="margin-top:60px" data-i18n="bundles">VÝHODNÉ BALÍČKY</h2>
+<div class="pricing-grid">
+  <div class="card bundle-card"><h3 data-i18n="bundle1">Content Pack S</h3><p data-i18n="bundle1Desc">5x Reels + 10x Fotek</p><p class="price">3 500 Kč</p></div>
+  <div class="card bundle-card"><h3 data-i18n="bundle2">Content Pack M</h3><p data-i18n="bundle2Desc">10x Reels + 20x Fotek</p><p class="price">5 000 Kč</p></div>
+  <div class="card bundle-card"><h3 data-i18n="bundle3">Content Pack Master</h3><p data-i18n="bundle3Desc">20x Reels + 40x Fotek</p><p class="price">9 000 Kč</p></div>
+</div>
+
+<div class="card" style="margin-top:30px; border: 1px dashed #ff7a18; background: rgba(255,122,24,.02);">
+  <h3 data-i18n="refTitle">🤝 Referral Program</h3>
+  <p data-i18n="refDesc" style="font-size:14px; opacity:.8;">Doporuč mé služby dál! Pokud tvůj známý objedná jakoukoliv službu, získáváš na svou příští objednávku automaticky <b>slevu 40 %</b>.</p>
+</div>
 </section>
 
 <section id="contact">
-<h2 data-i18n="contactTitle">Kontakt</h2>
-<div class="social-links">
-  <a href="https://www.instagram.com/27sun._?igsh=bmdvbjF0MjB1cjc5&utm_source=qr" target="_blank">📸 Instagram</a>
-  <a href="https://www.tiktok.com/@s.karban" target="_blank">🎵 TikTok</a>
+<h2 data-i18n="contactTitle">KONTAKT</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: start;">
+  <div style="flex: 1; min-width: 280px;">
+    <p style="margin-bottom:20px;opacity:.8; font-size: 18px;">📩 samuelkarban@gmail.com</p>
+    <div style="display: flex; gap: 15px; flex-direction: column;">
+      <a href="https://www.instagram.com/27sun._?igsh=bmdvbjF0MjB1cjc5&utm_source=qr" target="_blank" style="color:#ff7a18; text-decoration:none; font-weight:600; font-size: 20px;">📸 Instagram</a>
+      <a href="https://www.tiktok.com/@s.karban" target="_blank" style="color:#ff7a18; text-decoration:none; font-weight:600; font-size: 20px;">🎵 TikTok</a>
+    </div>
+  </div>
+  <div class="contact-form" style="flex: 1.5; min-width: 300px; background:rgba(255,255,255,0.03); padding:30px; border-radius:25px; border:1px solid rgba(255,255,255,0.08)">
+    <h3 data-i18n="formTitle" style="margin-bottom:20px">Pošli mi poptávku</h3>
+    <form id="my-form" action="https://formspree.io/f/xeekojbo" method="POST">
+      <input type="text" name="name" id="f-name" placeholder="Tvé jméno" required>
+      <input type="email" name="email" id="f-email" placeholder="Tvůj e-mail" required>
+      <textarea name="message" id="f-msg" placeholder="O jakou službu máš zájem?" required style="min-height:120px"></textarea>
+      <button type="submit" id="my-form-button" class="btn" style="width:100%; margin-top:5px" data-i18n="sendBtn">Odeslat e-mail</button>
+      <p id="my-form-status" style="margin-top:15px; font-size:13px; text-align:center"></p>
+    </form>
+  </div>
 </div>
-<form id="my-form" action="https://formspree.io/f/xeekojbo" method="POST" class="card" style="margin-top:30px;">
-  <input type="text" name="name" id="f-name" placeholder="Tvé jméno" required style="width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;">
-  <textarea name="message" id="f-msg" placeholder="O jakou službu máš zájem?" required style="width:100%;padding:12px;height:100px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-family:inherit;"></textarea>
-  <button type="submit" class="btn" style="width:100%;" data-i18n="sendBtn">Odeslat e-mail</button>
-</form>
 </section>
 
 <footer>
@@ -171,21 +235,6 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
 </footer>
 
 <script>
-// --- KURZOR LOGIKA ---
-const dot = document.getElementById('cursor-dot');
-const outline = document.getElementById('cursor-outline');
-const glow = document.getElementById('cursor-glow');
-
-if (window.matchMedia("(hover: hover)").matches) {
-  window.addEventListener('mousemove', (e) => {
-    const x = e.clientX, y = e.clientY;
-    dot.style.left = x + 'px'; dot.style.top = y + 'px';
-    glow.style.left = x + 'px'; glow.style.top = y + 'px';
-    outline.animate({ left: x + 'px', top: y + 'px' }, { duration: 500, fill: "forwards" });
-  });
-}
-
-// --- DYNAMICKÝ GRADIENT ---
 function handleDynamicBg() {
   const scrolled = window.scrollY;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -194,13 +243,19 @@ function handleDynamicBg() {
   document.body.style.setProperty('--scroll-y', scrollPercent + '%');
 }
 window.addEventListener('scroll', handleDynamicBg);
+window.addEventListener('resize', handleDynamicBg);
+handleDynamicBg();
+
+function scrollMe(id, step) {
+  document.getElementById(id).scrollBy({left: step, behavior: 'smooth'});
+}
 
 const t={
   cs:{
-    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Kontakt",aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let...",showcase:"UKÁZKY",clips:"Clips",reviewsTitle:"Feedback",feedbackNote:"Feedback je brán ze zpráv",msg1:"Fakt super práce kamo",msg2:"predtym to bolo ppci kamo a teraz uplny strop",msgNavy:"hele kamo pokracuj dal...",pricing:"Služby & Ceník",priceNote:"* Ceny jsou orientační a mohou se lišit dle náročnosti projektu.",contactTitle:"Kontakt",sendBtn:"Odeslat e-mail",disclaimer:"Tento web je nevýdělečným osobním portfoliem..."
+    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Kontakt",aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"UKÁZKY",clipsSub:"Klipová a projektová tvorba",reels:"SHORT-FORM",drag:"← Tahej pro zobrazení →",gallery:"FOTOGALERIE",gallerySub:"Fotografické portfolio",reviewsTitle:"FEEDBACK",reviewsSub:"Autentické zprávy od mých klientů",msg1:"Fakt super práce kamo", msg2:"predtym to bolo ppci kamo a teraz uplny strop", msgNavy:"hele kamo pokracuj dal delas neco co tady v cesku chybi beres to vazne a jde to videt z prace co delas big up fotky a stříh popici", msg3:"braaaaaaaacho extremne to je diki moooc", msg4:"Diky za dnešek, bomba uplne, az budeš mít hned posílej", pricing:"SLUŽBY & CENÍK",pricingSub:"Uvedené ceny jsou orientační a závisí na náročnosti projektu",serv1:"🎬 1x Reels / TikTok (střih)",price1:"od 350 Kč",servEdit:"🎥 Střih videoklipu",priceEdit:"od 900 Kč",refEdit:"od 540 Kč",servShoot:"🎥 Natáčení + Střih",priceShoot:"od 1 100 Kč",serv2:"📺 YouTube video střih",price2:"od 1 500 Kč",serv3:"📷 Focení + úprava",price3:"od 900 Kč",serv4:"🖼️ Úprava fotografie",price4:"od 150 Kč",refPhoto:"od 90 Kč",bundles:"VÝHODNÉ BALÍČKY",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Fotek",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Fotek",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Fotek",refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby dál! Pokud tvůj známý objedná jakoukoliv službu, získáváš na svou příští objednávku automaticky <b>slevu 40 %</b>.",contactTitle:"KONTAKT",formTitle:"Pošli mi poptávku",sendBtn:"Odeslat e-mail",fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba.", disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností..."
   },
   en:{
-    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Contact",aboutText:"My name is Samuel...",showcase:"SHOWCASE",clips:"Clips",reviewsTitle:"Feedback",feedbackNote:"Feedback taken from messages",msg1:"Great work!",msg2:"Next level!",msgNavy:"Keep going...",pricing:"Services & Pricing",priceNote:"* Prices are indicative and may vary.",contactTitle:"Contact",sendBtn:"Send Email",disclaimer:"This website is a non-profit portfolio..."
+    hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Contact",aboutText:"My name is <b>Samuel Karbán</b>, 18 y.o. editor using <b>DaVinci Resolve</b> since March 2025. Creating since childhood. Inspired by Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"SHOWCASE",clipsSub:"Music videos & projects",reels:"SHORT-FORM",drag:"← Drag to scroll →",gallery:"GALLERY",gallerySub:"Photography portfolio",reviewsTitle:"FEEDBACK",reviewsSub:"Authentic messages from my clients",msg1:"Great work bro!", msg2:"It was cool before, now it's top level!", msgNavy:"Keep going man, you're doing something unique in CZ. It shows you take it seriously. Big up for photos and edits!", msg3:"Broooo that's extreme, thanks a lot!", msg4:"Thanks for today, fire work. Send it as soon as you have it!", pricing:"SERVICES & PRICING",pricingSub:"Prices are indicative and vary based on project complexity",serv1:"🎬 1x Reels Edit",price1:"from 15 €",servEdit:"🎥 Music Video",priceEdit:"from 36 €",refEdit:"from 21 €",servShoot:"🎥 Shoot + Edit",priceShoot:"from 45 €",serv2:"📺 YouTube Edit",price2:"from 60 €",serv3:"📷 Photos + Edit",price3:"from 36 €",serv4:"🖼️ Retouch",price4:"from 6 €",refPhoto:"from 3.6 €",bundles:"BUNDLES",bundle1:"Pack S",bundle1Desc:"5x Reels + 10x Photos",bundle2:"Pack M",bundle2Desc:"10x Reels + 20x Photos",bundle3:"Pack Master",bundle3Desc:"20x Reels + 40x Photos",refTitle:"🤝 Referral",refDesc:"Get 40% off for referral!",contactTitle:"CONTACT",formTitle:"Send an Inquiry",sendBtn:"Send Email",fName:"Name", fEmail:"Email", fMsg:"Message", fOk: "Sent!", fErr: "Error.", disclaimer: "Non-profit portfolio..."
   }
 };
 
@@ -214,7 +269,26 @@ function setLang(l){
 
 document.addEventListener('DOMContentLoaded',()=>{
   const track=document.getElementById('chatTrack'); if(track) track.innerHTML+=track.innerHTML;
-  handleDynamicBg();
+  const gal = document.getElementById('autoGallery');
+  let isInteracting = false;
+  gal.addEventListener('mousedown', () => isInteracting = true);
+  gal.addEventListener('touchstart', () => isInteracting = true);
+  gal.addEventListener('mouseup', () => isInteracting = false);
+  gal.addEventListener('touchend', () => isInteracting = false);
+  
+  setInterval(() => {
+    if (isInteracting) return;
+    if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 10) gal.scrollTo({left: 0, behavior: 'smooth'});
+    else gal.scrollBy({left: 300, behavior: 'smooth'});
+  }, 3500);
+
+  var form = document.getElementById("my-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    var status = document.getElementById("my-form-status");
+    fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { 'Accept': 'application/json' } })
+    .then(res => { if(res.ok){ status.innerHTML = "Odesláno!"; form.reset(); } });
+  });
 });
 </script>
 </body>
