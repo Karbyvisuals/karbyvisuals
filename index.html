@@ -9,7 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:Inter,Arial,sans-serif;background:#0a0a0a;color:#f2f2f2;overflow-x:hidden;line-height:1.5}
 
-/* Canvas pozadí */
+/* Canvas pro interaktivní efekt */
 #bg-canvas {
   position: fixed;
   top: 0;
@@ -68,7 +68,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .video-slider.vertical video{min-width:260px;height:460px;border-radius:18px;background:#111;object-fit:cover;scroll-snap-align:center}
 .gallery-wrapper img{height:400px;width:auto;max-width:90vw;border-radius:15px;scroll-snap-align:center;flex-shrink:0;background:#1a1a1a;object-fit:contain}
 
-.chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:25px;border:1px solid rgba(255,255,255,.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
+.chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:25px;border:1px solid rgba(255,255,255,0.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
 .chat-track{display:flex;flex-direction:column;gap:20px;padding:20px;animation:scrollUp 25s linear infinite;will-change:transform;transform:translateZ(0)}
 @keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 .chat-bubble{display:flex;align-items:flex-end;gap:10px;max-width:90%}
@@ -307,6 +307,7 @@ function animate() {
 }
 
 window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+window.addEventListener('touchstart', (e) => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
 window.addEventListener('touchmove', (e) => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
 window.addEventListener('resize', () => { initCanvas(); initParticles(); });
 
@@ -314,7 +315,7 @@ initCanvas();
 initParticles();
 animate();
 
-/* Tvůj původní kód */
+/* Původní logika webu */
 function updateScroll() {
   const scrolled = window.scrollY;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
