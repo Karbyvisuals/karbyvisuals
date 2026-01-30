@@ -193,6 +193,11 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
 
 <h2 style="margin-top:50px" data-i18n="bundles">Výhodné Balíčky</h2>
 <div class="pricing">
+  <div class="card bundle-card">
+    <h3 data-i18n="bundleRef">Referral Balíček</h3>
+    <p data-i18n="bundleRefDesc">Sleva -40 % na vše při doporučení nového klienta</p>
+    <p class="price" data-i18n="bundleRefPrice">Individuální</p>
+  </div>
   <div class="card bundle-card"><h3 data-i18n="bundle1">Content Pack S</h3><p data-i18n="bundle1Desc">5x Reels + 10x Fotek</p><p class="price" data-i18n="b1Price">3 500 Kč</p></div>
   <div class="card bundle-card"><h3 data-i18n="bundle2">Content Pack M</h3><p data-i18n="bundle2Desc">10x Reels + 20x Fotek</p><p class="price" data-i18n="b2Price">5 000 Kč</p></div>
   <div class="card bundle-card"><h3 data-i18n="bundle3">Content Pack Master</h3><p data-i18n="bundle3Desc">20x Reels + 40x Fotek</p><p class="price" data-i18n="b3Price">9 000 Kč</p></div>
@@ -305,6 +310,7 @@ const t = {
     disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností. Uvedené částky nejsou prodejní cenou, nýbrž odhadovanou hodnotou autorské odměny za tvůrčí činnost v rámci příležitostné výpomoci (ve smyslu § 10 zákona o daních z příjmů).",
     gameTitle: "27sun Challenge", gameRules: "Chytej foťáky! Dosáhni přesně 27 bodů během 60 sekund pro slevový kód. Pokud překročíš 27 nebo vyprší čas, prohráváš.", gameStart: "Hrát o slevy", gameScore: "Body", gameWin: "VÝHRA!", gameOpenBox: "Klikni na box a odhal svou slevu", gameApply: "Kód zkopíruj a vlož do poptávky níže.", gameWonText: "Vyhrál jsi slevu", gameBundleNote: "*Slevy se nevztahují na již zvýhodněné balíčky.",
     serv1: "🎬 1x Reels / TikTok (střih)", price1: "od 350 Kč", servEdit: "🎥 Střih videoklipu", priceEdit: "od 900 Kč", refEdit: "od 540 Kč", servShoot: "🎥 Natáčení + Střih", priceShoot: "od 1 100 Kč", ref1: "od 660 Kč", serv2: "📺 YouTube video střih", ytNote: "(cena za 10 min. videa - vlogy, reakce apod.)", price2: "od 1 500 Kč", serv3: "📷 Focení + úprava", photoNote: "(v ceně 10 upravených fotek)", price3: "od 900 Kč", ref2: "od 540 Kč", serv4: "🖼️ Úprava fotografie", singleNote: "(za jednu fotku)", price4: "od 150 Kč", refPhoto: "od 90 Kč",
+    bundleRef: "Referral Balíček", bundleRefDesc: "Sleva -40 % na vše při doporučení nového klienta", bundleRefPrice: "Individuální",
     bundle1: "Content Pack S", bundle1Desc: "5x Reels + 10x Fotek", b1Price: "3 500 Kč", bundle2: "Content Pack M", bundle2Desc: "10x Reels + 20x Fotek", b2Price: "5 000 Kč", bundle3: "Content Pack Master", bundle3Desc: "20x Reels + 40x Fotek", b3Price: "9 000 Kč"
   },
   en: {
@@ -315,6 +321,7 @@ const t = {
     disclaimer: "This website is a non-profit personal portfolio for skill presentation. Listed amounts are estimated rewards for creative work as occasional assistance.",
     gameTitle: "27sun Challenge", gameRules: "Catch the cameras! Reach exactly 27 points within 60 seconds for a discount code. If you exceed 27 or time runs out, you lose.", gameStart: "Play for discounts", gameScore: "Score", gameWin: "YOU WIN!", gameOpenBox: "Click the box to reveal your discount", gameApply: "Copy the code and include it in your request.", gameWonText: "You won a discount of", gameBundleNote: "*Discounts do not apply to already discounted bundles.",
     serv1: "🎬 1x Reels / TikTok (edit)", price1: "from 15 €", servEdit: "🎥 Music Video Edit", priceEdit: "from 36 €", refEdit: "from 22 €", servShoot: "🎥 Filming + Editing", priceShoot: "from 44 €", ref1: "from 26 €", serv2: "📺 YouTube video editing", ytNote: "(price for 10 min. video - vlogs, etc.)", price2: "from 60 €", serv3: "📷 Photoshoot + edit", photoNote: "(includes 10 edited photos)", price3: "from 36 €", ref2: "from 22 €", serv4: "🖼️ Photo retouch", singleNote: "(per single photo)", price4: "from 6 €", refPhoto: "from 4 €",
+    bundleRef: "Referral Bundle", bundleRefDesc: "-40% discount on everything when referring a new client", bundleRefPrice: "Individual",
     bundle1: "Content Pack S", bundle1Desc: "5x Reels + 10x Photos", b1Price: "140 €", bundle2: "Content Pack M", bundle2Desc: "10x Reels + 20x Photos", b2Price: "200 €", bundle3: "Content Pack Master", bundle3Desc: "20x Reels + 40x Photos", b3Price: "360 €"
   }
 };
@@ -380,10 +387,10 @@ function spawnTarget() {
   
   target.onclick = (e) => { 
     e.stopPropagation(); 
-    target.classList.add('hit'); // Přidání animace zásahu
+    target.classList.add('hit'); 
     score++; 
     document.getElementById('current-score').innerText = score; 
-    setTimeout(spawnTarget, 100); // Malá prodleva aby byla animace vidět
+    setTimeout(spawnTarget, 100); 
   };
   
   area.appendChild(target);
