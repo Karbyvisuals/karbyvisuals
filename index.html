@@ -1,45 +1,205 @@
-<section id="challenge">
-  <h2 data-i18n="gameTitle">27sun Challenge</h2>
-  <p style="margin-bottom:20px; opacity:0.8;" data-i18n="gameRules">
-    Pravidla: Chytej foťáky! Pokud dosáhneš skóre <b>27</b>, vygeneruje se ti unikátní kód na <b>30% slevu</b>. 
-    Kód je jedinečný – zkopíruj ho a pošli mi ho v poptávce.
-  </p>
-  
-  <div id="game-container">
-    <div id="game-ui">Score: 0</div>
-    <button id="game-start-btn" onclick="startGame()">HRÁT O SLEVU</button>
-    <canvas id="game-canvas"></canvas>
+<div id="game-modal" class="game-overlay">
+  <div class="game-content">
+    <button class="game-close" onclick="closeGame()">&times;</button>
     
-    <div id="promo-reveal">
-      <h2 style="color:#ff7a18">VYHRÁL JSI!</h2>
-      <p>Tvůj unikátní kód na slevu 30%:</p>
-      <div id="dynamic-code" style="font-size:24px; font-weight:900; margin:20px 0; letter-spacing:2px; border: 2px dashed #ff7a18; padding: 10px 20px; background: rgba(255,122,24,0.1);">
-        GENERUJI...
+    <div id="game-start-screen">
+      <h2 data-i18n="gameTitle">27sun Challenge</h2>
+      <p data-i18n="gameRules">Chytej foťáky! Dosáhni přesně 27 bodů pro slevový kód. Pokud překročíš 27, končíš.</p>
+      <button class="btn" onclick="startGame()" data-i18n="gameStart">Hrát o slevy</button>
+    </div>
+
+    <div id="game-play-screen" style="display:none">
+      <div class="game-stats">
+        <span data-i18n="gameScore">Body</span>: <b id="current-score">0</b> / 27
       </div>
-      <p style="font-size:12px; opacity:0.7;">(Tento kód je platný pouze pro tvou poptávku. Pošli mi ho do zpráv.)</p>
-      <button class="btn" onclick="location.reload()">Zavřít</button>
+      <div id="game-area"></div>
+    </div>
+
+    <div id="game-win-screen" style="display:none">
+      <h2 data-i18n="gameWin">VÝHRA!</h2>
+      <div class="loot-box" id="loot-box" onclick="openBox()">
+        <div class="box-lid"></div>
+        <div class="box-body"></div>
+        <div class="box-glow"></div>
+      </div>
+      <p id="box-hint" data-i18n="gameOpenBox">Klikni na box a odhal svou slevu</p>
+      
+      <div id="reward-display" style="display:none">
+        <div class="promo-wrap">
+          <span id="promo-code"></span>
+          <button class="copy-btn" onclick="copyPromo()" id="btn-copy">Copy</button>
+        </div>
+        <p id="copy-status"></p>
+        <p style="font-size:12px; opacity:0.6; margin-top:10px" data-i18n="gameApply">Kód vlož do poptávkového formuláře.</p>
+      </div>
     </div>
   </div>
-</section>
+</div>
+
+<style>
+/* CSS ZAPOUZDŘENÉ PRO HRU */
+.game-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+  display: none; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(10px);
+}
+.game-content {
+  background: #111; border: 1px solid #ff7a18; padding: 40px; border-radius: 30px;
+  width: 90%; max-width: 500px; text-align: center; position: relative;
+}
+.game-close {
+  position: absolute; top: 15px; right: 20px; background: none; border: none;
+  color: #fff; font-size: 30px; cursor: pointer;
+}
+#game-area {
+  height: 300px; background: rgba(255,255,255,0.02); border-radius: 15px;
+  position: relative; overflow: hidden; margin-top: 20px; cursor: crosshair;
+}
+.game-stats { font-size: 20px; margin-bottom: 10px; }
+.target {
+  position: absolute; width: 40px; height: 40px; background: #ff7a18;
+  border-radius: 8px; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; font-size: 20px; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+
+/* LOOTBOX STYLY */
+.loot-box {
+  width: 100px; height: 100px; margin: 30px auto; position: relative; cursor: pointer;
+  transition: transform 0.3s;
+}
+.loot-box:hover { transform: scale(1.1); }
+.box-body { position: absolute; bottom: 0; width: 100%; height: 60%; background: #ff7a18; border-radius: 5px; }
+.box-lid { position: absolute; top: 15%; width: 110%; left: -5%; height: 25%; background: #fff; border-radius: 5px; z-index: 2; transition: 0.5s; }
+.box-glow { position: absolute; inset: -20px; background: radial-gradient(circle, rgba(255,122,24,0.4), transparent 70%); opacity: 0; transition: 0.5s; }
+.loot-box.open .box-lid { transform: translateY(-30px) rotate(-10deg); opacity: 0; }
+.loot-box.open .box-glow { opacity: 1; }
+
+.promo-wrap {
+  display: flex; background: #222; border: 1px dashed #ff7a18; padding: 10px;
+  border-radius: 10px; justify-content: space-between; align-items: center; margin-top: 20px;
+}
+#promo-code { font-family: monospace; font-weight: bold; color: #ff7a18; font-size: 18px; }
+.copy-btn { background: #ff7a18; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-weight: 600; }
+</style>
 
 <script>
-/* --- LOGIKA GENEROVÁNÍ KÓDU --- */
-function generateSecureCode() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Bez 0, O, I pro čitelnost
-  let randomPart = '';
-  for (let i = 0; i < 4; i++) {
-    randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  // Kód obsahuje prefix SUN30 a náhodné 4 znaky
-  return `SUN30-${randomPart}`;
+// KONFIGURACE ŠANCÍ (Součet nemusí být 100, bere se to váhově)
+const CHANCES = [
+  { val: 10, weight: 60 },
+  { val: 15, weight: 30 },
+  { val: 25, weight: 9 },
+  { val: 100, weight: 1 } // 1% šance
+];
+
+let score = 0;
+let gameTimer;
+
+function openGame() { document.getElementById('game-modal').style.display = 'flex'; }
+function closeGame() { 
+  document.getElementById('game-modal').style.display = 'none';
+  resetGame();
 }
 
-/* --- ÚPRAVA V HERMÍ SMYČCE --- */
-// (v místě kde hráč dosáhne 27 bodů)
-if(score >= 27) {
-  gameActive = false;
-  const uniqueCode = generateSecureCode();
-  document.getElementById('dynamic-code').innerText = uniqueCode;
-  document.getElementById('promo-reveal').style.display = 'flex';
+function resetGame() {
+  score = 0;
+  clearTimeout(gameTimer);
+  document.getElementById('game-area').innerHTML = '';
+  document.getElementById('game-start-screen').style.display = 'block';
+  document.getElementById('game-play-screen').style.display = 'none';
+  document.getElementById('game-win-screen').style.display = 'none';
+}
+
+function startGame() {
+  score = 0;
+  document.getElementById('current-score').innerText = score;
+  document.getElementById('game-start-screen').style.display = 'none';
+  document.getElementById('game-play-screen').style.display = 'block';
+  spawnTarget();
+}
+
+function spawnTarget() {
+  const area = document.getElementById('game-area');
+  area.innerHTML = '';
+  
+  if (score >= 28) {
+    alert(document.getElementById('btn-cs').classList.contains('active') ? "Moc bodů! Zkus to znovu." : "Too many points! Try again.");
+    resetGame();
+    return;
+  }
+
+  if (score === 27) {
+    winGame();
+    return;
+  }
+
+  const target = document.createElement('div');
+  target.className = 'target';
+  target.innerHTML = '📷';
+  
+  const x = Math.random() * (area.clientWidth - 50);
+  const y = Math.random() * (area.clientHeight - 50);
+  
+  target.style.left = x + 'px';
+  target.style.top = y + 'px';
+  
+  target.onclick = (e) => {
+    e.stopPropagation();
+    score++;
+    document.getElementById('current-score').innerText = score;
+    spawnTarget();
+  };
+
+  area.appendChild(target);
+
+  // Časovač se zrychluje s body
+  const speed = Math.max(400, 1200 - (score * 35));
+  clearTimeout(gameTimer);
+  gameTimer = setTimeout(spawnTarget, speed);
+}
+
+function winGame() {
+  document.getElementById('game-play-screen').style.display = 'none';
+  document.getElementById('game-win-screen').style.display = 'block';
+  document.getElementById('loot-box').classList.remove('open');
+  document.getElementById('reward-display').style.display = 'none';
+  document.getElementById('box-hint').style.display = 'block';
+}
+
+function openBox() {
+  const box = document.getElementById('loot-box');
+  if(box.classList.contains('open')) return;
+  
+  box.classList.add('open');
+  
+  // Výpočet náhodné slevy
+  const totalWeight = CHANCES.reduce((acc, c) => acc + c.weight, 0);
+  let random = Math.random() * totalWeight;
+  let selected = CHANCES[0];
+  
+  for (let c of CHANCES) {
+    if (random < c.weight) {
+      selected = c;
+      break;
+    }
+    random -= c.weight;
+  }
+
+  const randStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+  const finalCode = `27SUN-${selected.val}-${randStr}`;
+  
+  document.getElementById('promo-code').innerText = finalCode;
+  document.getElementById('box-hint').style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('reward-display').style.display = 'block';
+  }, 500);
+}
+
+function copyPromo() {
+  const code = document.getElementById('promo-code').innerText;
+  navigator.clipboard.writeText(code);
+  const btn = document.getElementById('btn-copy');
+  const isEn = !document.getElementById('btn-cs').classList.contains('active');
+  btn.innerText = isEn ? 'Copied!' : 'Zkopírováno!';
+  setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
 }
 </script>
