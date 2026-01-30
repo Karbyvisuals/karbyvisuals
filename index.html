@@ -65,6 +65,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .contact-form input, .contact-form textarea{width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-family:inherit}
 footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,255,0.05)}
 .disclaimer-text{margin-top:20px; opacity:0.5; font-size:11px; max-width:750px; margin-inline:auto; line-height:1.6}
+.small-note {font-size: 11px; opacity: 0.5; margin-top: 8px;}
 
 /* GAME OVERLAY STYLES */
 .game-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(15px); }
@@ -174,10 +175,12 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
       <div class="chat-bubble left"><img src="nayssone.PNG" loading="lazy"><div class="message-content"><span class="sender-name">NAYSSONE</span><span data-i18n="msg4">Diky za dnešek, bomba uplne, az budeš mít hned posílej</span></div></div>
     </div>
   </div>
+  <p class="small-note" data-i18n="feedbackNote">Zpětná vazba je čerpána z reálných zpráv od mých klientů.</p>
 </section>
 
 <section>
 <h2 data-i18n="pricing">Služby & Ceník</h2>
+<p class="small-note" style="margin-bottom: 25px;" data-i18n="pricingNote">Uvedené ceny jsou pouze orientační. Finální částka se odvíjí od náročnosti projektu, délky materiálu a požadavků na postprodukci.</p>
 <div class="pricing">
   <div class="card"><h3 data-i18n="serv1">🎬 1x Reels / TikTok (střih)</h3><p class="price" data-i18n="price1">od 350 Kč</p></div>
   <div class="card"><div><h3 data-i18n="servEdit">🎥 Střih videoklipu</h3><p class="price" data-i18n="priceEdit">od 900 Kč</p></div><p class="discount"><span data-i18n="referral">Referral Deal -40%:</span> <span class="price-tag" data-i18n="refEdit">od 540 Kč</span></p></div>
@@ -301,7 +304,9 @@ const t = {
     hero:"Video editor & photographer<br>Reels • TikTok • YouTube", contactBtn:"Kontakt", aboutText:"Jmenuju se <b>Samuel Karbán</b>, je mi 18 let a stříhání se věnuju od března 2025 v <b>DaVinci Resolve</b>. K tvorbě mě to táhlo už od dětství. Velkou inspirací mi byl Petr Zoubek.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",
     showcase:"UKÁZKY", clips:"Clips", reels:"Reels / TikTok", drag:"← Tahej pro zobrazení →", gallery:"Fotogalerie", reviewsTitle:"Feedback",
     msg1:"Fakt super práce kamo", msg2:"predtym to bolo ppci kamo a teraz uplny strop", msgNavy:"hele kamo pokracuj dal delas neco co tady v cesku chybi beres to vazne a jde to videt z prace co delas big up fotky a stříh popici", msg3:"braaaaaaaacho extremne to je diki moooc", msg4:"Diky za dnešek, bomba uplne, az budeš mít hned posílej",
-    pricing:"Služby & Ceník", playGame:"🎮 Hraj o slevy až 100 %", referral:"Referral Deal -40%:", bundles:"Výhodné Balíčky", contactTitle:"Kontakt", formTitle:"Pošli mi poptávku", sendBtn:"Odeslat e-mail", fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání.",
+    feedbackNote: "Zpětná vazba je čerpána z reálných zpráv od mých klientů.",
+    pricing:"Služby & Ceník", pricingNote: "Uvedené ceny jsou pouze orientační. Finální částka se odvíjí od náročnosti projektu, délky materiálu a požadavků na postprodukci.",
+    playGame:"🎮 Hraj o slevy až 100 %", referral:"Referral Deal -40%:", bundles:"Výhodné Balíčky", contactTitle:"Kontakt", formTitle:"Pošli mi poptávku", sendBtn:"Odeslat e-mail", fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání.",
     disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností. Uvedené částky nejsou prodejní cenou, nýbrž odhadovanou hodnotou autorské odměny za tvůrčí činnost v rámci příležitostné výpomoci (ve smyslu § 10 zákona o daních z příjmů).",
     gameTitle: "27sun Challenge", gameRules: "Chytej foťáky! Dosáhni přesně 27 bodů během 60 sekund pro slevový kód. Pokud překročíš 27 nebo vyprší čas, prohráváš.", gameStart: "Hrát o slevy", gameScore: "Body", gameWin: "VÝHRA!", gameOpenBox: "Klikni na box a odhal svou slevu", gameApply: "Kód zkopíruj a vlož do poptávky níže.", gameWonText: "Vyhrál jsi slevu", gameBundleNote: "*Slevy se nevztahují na již zvýhodněné balíčky.",
     serv1: "🎬 1x Reels / TikTok (střih)", price1: "od 350 Kč", servEdit: "🎥 Střih videoklipu", priceEdit: "od 900 Kč", refEdit: "od 540 Kč", servShoot: "🎥 Natáčení + Střih", priceShoot: "od 1 100 Kč", ref1: "od 660 Kč", serv2: "📺 YouTube video střih", ytNote: "(cena za 10 min. videa - vlogy, reakce apod.)", price2: "od 1 500 Kč", serv3: "📷 Focení + úprava", photoNote: "(v ceně 10 upravených fotek)", price3: "od 900 Kč", ref2: "od 540 Kč", serv4: "🖼️ Úprava fotografie", singleNote: "(za jednu fotku)", price4: "od 150 Kč", refPhoto: "od 90 Kč",
@@ -311,7 +316,9 @@ const t = {
     hero:"Video editor & photographer<br>Reels • TikTok • YouTube", contactBtn:"Contact", aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",
     showcase:"SHOWCASE", clips:"Clips", reels:"Reels / TikTok", drag:"← Drag to view →", gallery:"Gallery", reviewsTitle:"Feedback",
     msg1:"Really great work mate", msg2:"it was awesome before but now it's next level", msgNavy:"Keep going, you're doing something that's missing here in CZ, you take it seriously and it shows, big up.", msg3:"brooooooo this is extreme, thanks a lot", msg4:"Thanks for today, absolutely fire!",
-    pricing:"Services & Pricing", playGame:"🎮 Play for up to 100% discount", referral:"Referral Deal -40%:", bundles:"Bundles", contactTitle:"Contact", formTitle:"Send a request", sendBtn:"Send Email", fName:"Your name", fEmail:"Your e-mail", fMsg:"Your request", fOk: "Thanks! Message sent.", fErr: "Oops! Error sending.",
+    feedbackNote: "Feedback is based on actual messages from my clients.",
+    pricing:"Services & Pricing", pricingNote: "Listed prices are for guidance only. The final cost depends on project complexity, footage length, and post-production requirements.",
+    playGame:"🎮 Play for up to 100% discount", referral:"Referral Deal -40%:", bundles:"Bundles", contactTitle:"Contact", formTitle:"Send a request", sendBtn:"Send Email", fName:"Your name", fEmail:"Your e-mail", fMsg:"Your request", fOk: "Thanks! Message sent.", fErr: "Oops! Error sending.",
     disclaimer: "This website is a non-profit personal portfolio for skill presentation. Listed amounts are estimated rewards for creative work as occasional assistance.",
     gameTitle: "27sun Challenge", gameRules: "Catch the cameras! Reach exactly 27 points within 60 seconds for a discount code. If you exceed 27 or time runs out, you lose.", gameStart: "Play for discounts", gameScore: "Score", gameWin: "YOU WIN!", gameOpenBox: "Click the box to reveal your discount", gameApply: "Copy the code and include it in your request.", gameWonText: "You won a discount of", gameBundleNote: "*Discounts do not apply to already discounted bundles.",
     serv1: "🎬 1x Reels / TikTok (edit)", price1: "from 15 €", servEdit: "🎥 Music Video Edit", priceEdit: "from 36 €", refEdit: "from 22 €", servShoot: "🎥 Filming + Editing", priceShoot: "from 44 €", ref1: "from 26 €", serv2: "📺 YouTube video editing", ytNote: "(price for 10 min. video - vlogs, etc.)", price2: "from 60 €", serv3: "📷 Photoshoot + edit", photoNote: "(includes 10 edited photos)", price3: "from 36 €", ref2: "from 22 €", serv4: "🖼️ Photo retouch", singleNote: "(per single photo)", price4: "from 6 €", refPhoto: "from 4 €",
@@ -380,10 +387,10 @@ function spawnTarget() {
   
   target.onclick = (e) => { 
     e.stopPropagation(); 
-    target.classList.add('hit'); // Přidání animace zásahu
+    target.classList.add('hit'); 
     score++; 
     document.getElementById('current-score').innerText = score; 
-    setTimeout(spawnTarget, 100); // Malá prodleva aby byla animace vidět
+    setTimeout(spawnTarget, 100); 
   };
   
   area.appendChild(target);
