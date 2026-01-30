@@ -289,7 +289,7 @@ const t={
     refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby! Pokud tvůj známý objedná, získáváš na příští projekt <b>slevu 40 %</b>.",bundleRefPrice:"Individuální",
     contactTitle:"Kontakt",formTitle:"Pošli mi poptávku",sendBtn:"Odeslat e-mail",fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání.",
     disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností. Uvedené částky nejsou prodejní cenou, nýbrž odhadovanou hodnotou autorské odměny za tvůrčí činnost v rámci příležitostné výpomoci. Veškeré spolupráce jsou řešeny individuální dohodou.",
-    gameTitle: "27sun Challenge", gameRules: "Chytej foťáky! Dosáhni přesně 27 bodů během 60 sekund. Pokud překročíš 27 nebo vyprší čas, prohráváš.<br><br><b>S každým bodem se hra zrychluje!</b><br><br><b>*Slevu nelze uplatnit na zvýhodněné balíčky.</b>", gameStart: "Hrát o slevy", gameScore: "Body", gameWin: "VÝHRA!", gameOpenBox: "Klikni na box a odhal slevu", gameApply: "Kód zkopíruj a vlož do poptávky níže.", gameWonText: "Vyhrál jsi slevu"
+    gameTitle: "27sun Challenge", gameRules: "Chytej foťáky! Dosáhni přesně 27 bodů během 60 sekund. Pokud překročíš 27 nebo vyprší čas, prohráváš.<br><br><b style='color:#ff7a18'>*Slevu nelze uplatnit na zvýhodněné balíčky.</b>", gameStart: "Hrát o slevy", gameScore: "Body", gameWin: "VÝHRA!", gameOpenBox: "Klikni na box a odhal slevu", gameApply: "Kód zkopíruj a vlož do poptávky níže.", gameWonText: "Vyhrál jsi slevu"
   },
   en:{
     hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Contact",aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",showcase:"SHOWCASE",clips:"Clips",reels:"Reels / TikTok",drag:"← Drag to view →",gallery:"Gallery",reviewsTitle:"Feedback",feedbackNote:"Feedback taken from messages",
@@ -299,7 +299,7 @@ const t={
     refTitle:"🤝 Referral Program",refDesc:"Recommend my services! If your friend orders, you automatically get a <b>40% discount</b>.",bundleRefPrice:"Individual",
     contactTitle:"Contact",formTitle:"Send a request",sendBtn:"Send Email",fName:"Your name", fEmail:"Your e-mail", fMsg:"Your request", fOk: "Thanks! Message sent.", fErr: "Oops! Error sending.",
     disclaimer: "This website is a non-profit personal portfolio. Amounts are estimated author's rewards for creative work. Collaborations are subject to individual agreement.",
-    gameTitle: "27sun Challenge", gameRules: "Catch the cameras! Reach exactly 27 points within 60 seconds. Exceed 27 or run out of time and you lose.<br><br><b>The game speeds up with every point!</b><br><br><b>*Discount cannot be applied to bundles.</b>", gameStart: "Play for discounts", gameScore: "Score", gameWin: "YOU WIN!", gameOpenBox: "Click the box to reveal discount", gameApply: "Copy the code and use it in your request.", gameWonText: "You won a discount of"
+    gameTitle: "27sun Challenge", gameRules: "Catch the cameras! Reach exactly 27 points within 60 seconds. Exceed 27 or run out of time and you lose.<br><br><b style='color:#ff7a18'>*Discount cannot be applied to bundles.</b>", gameStart: "Play for discounts", gameScore: "Score", gameWin: "YOU WIN!", gameOpenBox: "Click the box to reveal discount", gameApply: "Copy the code and use it in your request.", gameWonText: "You won a discount of"
   }
 };
 
@@ -374,16 +374,16 @@ function spawnTarget() {
     this.classList.add('hit');
     score++; 
     document.getElementById('current-score').innerText = score; 
-    setTimeout(spawnTarget, 50); // Okamžitý spawn nového po zásahu
+    setTimeout(spawnTarget, 50); 
   };
   area.appendChild(target);
 
-  // DYNAMICKÁ OBTÍŽNOST: Začíná na 1200ms, končí na 350ms
-  let difficultySpeed = Math.max(350, 1200 - (score * 35)); 
+  // UPRAVENÁ OBTÍŽNOST: Start 1200ms, ubrání 25ms/bod, minimum 450ms
+  let difficultySpeed = Math.max(450, 1200 - (score * 25)); 
 
   clearTimeout(gameTimer); 
   gameTimer = setTimeout(() => {
-    if (score < 27) spawnTarget(); // Pokud nestihneš kliknout, foťák uteče jinam
+    if (score < 27) spawnTarget(); 
   }, difficultySpeed);
 }
 
