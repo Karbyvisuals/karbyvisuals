@@ -378,8 +378,8 @@ function spawnTarget() {
   };
   area.appendChild(target);
 
-  // UPRAVENÁ OBTÍŽNOST: Start 1200ms, ubrání 25ms/bod, minimum 450ms
-  let difficultySpeed = Math.max(450, 1200 - (score * 25)); 
+  // NOVÉ NASTAVENÍ: Start 1200ms, ubrání 30ms na bod, minimum 400ms
+  let difficultySpeed = Math.max(400, 1200 - (score * 30)); 
 
   clearTimeout(gameTimer); 
   gameTimer = setTimeout(() => {
