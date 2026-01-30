@@ -42,6 +42,39 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .btn{display:inline-block;margin-top:30px;padding:14px 35px;border-radius:999px;background:#ff7a18;color:#000!important;text-decoration:none;font-weight:600;transition:.2s; border:none; cursor:pointer;}
 .drag-hint{font-size:13px;opacity:.5;margin-bottom:12px;display:flex;align-items:center;gap:5px}
 
+/* AUTOMAT STYLY */
+.slot-machine {
+  background: rgba(255,255,255,0.03);
+  border: 2px solid #ff7a18;
+  border-radius: 25px;
+  padding: 30px;
+  text-align: center;
+  max-width: 500px;
+  margin: 40px auto;
+  box-shadow: 0 0 30px rgba(255,122,24,0.1);
+}
+.slots {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 25px 0;
+}
+.reel {
+  width: 80px;
+  height: 80px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.spinning { animation: spinAn 0.1s infinite linear; }
+@keyframes spinAn { 0% { transform: translateY(-5px); } 100% { transform: translateY(5px); } }
+#slot-result { min-height: 24px; font-weight: 600; color: #ff7a18; margin-top: 15px; }
+
+/* ZBYTEK STYLŮ */
 .slider-container {position: relative; width: 100%;}
 .nav-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
@@ -83,7 +116,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,255,0.05)}
 .disclaimer-text{margin-top:20px; opacity:0.5; font-size:11px; max-width:750px; margin-inline:auto; line-height:1.6}
 
-@media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}.gallery-wrapper img{height:320px}}
+@media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}.gallery-wrapper img{height:320px}.reel{width:60px;height:60px;font-size:30px}}
 </style>
 </head>
 <body>
@@ -105,9 +138,22 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
   <div class="hero-right">
     <img src="profile.JPG" alt="Samuel Karbán" fetchpriority="high">
     <div class="about-me">
-      <div data-i18n="aboutText">
-        </div>
+      <div data-i18n="aboutText"></div>
     </div>
+  </div>
+</section>
+
+<section style="background: rgba(255,122,24,0.02);">
+  <div class="slot-machine">
+    <h2 data-i18n="slotTitle" style="margin-bottom: 5px;">Zkus štěstí!</h2>
+    <p data-i18n="slotDesc" style="font-size: 13px; opacity: 0.7;">Vyhraj slevu na svůj projekt</p>
+    <div class="slots">
+      <div class="reel" id="reel1">🎬</div>
+      <div class="reel" id="reel2">📸</div>
+      <div class="reel" id="reel3">🎞️</div>
+    </div>
+    <button class="btn" onclick="spin()" id="spin-btn" data-i18n="spinBtn" style="margin-top: 0;">ZATOČIT</button>
+    <p id="slot-result"></p>
   </div>
 </section>
 
@@ -234,6 +280,38 @@ function scrollMe(id, step) {
   document.getElementById(id).scrollBy({left: step, behavior: 'smooth'});
 }
 
+// LOGIKA AUTOMATU
+const symbols = ['🎬', '📸', '🎞️', '✂️', '🔥'];
+function spin() {
+  const btn = document.getElementById('spin-btn');
+  const reels = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
+  const resultText = document.getElementById('slot-result');
+  const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
+
+  btn.disabled = true;
+  resultText.innerHTML = "";
+  
+  reels.forEach(r => r.classList.add('spinning'));
+
+  setTimeout(() => {
+    reels.forEach(r => r.classList.remove('spinning'));
+    const results = reels.map(r => {
+      const res = symbols[Math.floor(Math.random() * symbols.length)];
+      r.innerHTML = res;
+      return res;
+    });
+
+    if (results[0] === results[1] && results[1] === results[2]) {
+      resultText.innerHTML = t[currentLang].slotWin;
+      resultText.style.color = "#00ff00";
+    } else {
+      resultText.innerHTML = t[currentLang].slotLoss;
+      resultText.style.color = "#ff7a18";
+    }
+    btn.disabled = false;
+  }, 1000);
+}
+
 const t={
   cs:{
     hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Kontakt",
@@ -244,7 +322,8 @@ const t={
     bundles:"Výhodné Balíčky",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Fotek",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Fotek",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Fotek",
     refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby! Pokud tvůj známý objedná, získáváš na příští projekt <b>slevu 40 %</b>.",bundleRefPrice:"Individuální",
     contactTitle:"Kontakt",formTitle:"Pošli mi poptávku",sendBtn:"Odeslat e-mail",fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání.",
-    disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností. Uvedené částky nejsou prodejní cenou, nýbrž odhadovanou hodnotou autorské odměny za tvůrčí činnost v rámci příležitostné výpomoci. Veškeré spolupráce jsou řešeny individuální dohodou."
+    disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností. Uvedené částky nejsou prodejní cenou, nýbrž odhadovanou hodnotou autorské odměny za tvůrčí činnost v rámci příležitostné výpomoci. Veškeré spolupráce jsou řešeny individuální dohodou.",
+    slotTitle:"Zkus štěstí!", slotDesc:"Vyhraj slevu na svůj projekt", spinBtn:"ZATOČIT", slotWin:"JACKPOT! Máš u mě slevu 20 %!", slotLoss:"Téměř! Zkus to znovu."
   },
   en:{
     hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Contact",
@@ -255,7 +334,8 @@ const t={
     bundles:"Bundles",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Photos",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Photos",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Photos",
     refTitle:"🤝 Referral Program",refDesc:"Recommend my services! If your friend orders, you automatically get a <b>40% discount</b>.",bundleRefPrice:"Individual",
     contactTitle:"Contact",formTitle:"Send a request",sendBtn:"Send Email",fName:"Your name", fEmail:"Your e-mail", fMsg:"Your request", fOk: "Thanks! Message sent.", fErr: "Oops! Error sending.",
-    disclaimer: "This website is a non-profit personal portfolio. Amounts are estimated author's rewards for creative work. Collaborations are subject to individual agreement."
+    disclaimer: "This website is a non-profit personal portfolio. Amounts are estimated author's rewards for creative work. Collaborations are subject to individual agreement.",
+    slotTitle:"Try your luck!", slotDesc:"Win a discount for your project", spinBtn:"SPIN", slotWin:"JACKPOT! You got 20% discount!", slotLoss:"So close! Try again."
   }
 };
 
