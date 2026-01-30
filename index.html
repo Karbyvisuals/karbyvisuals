@@ -228,6 +228,7 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
     <div id="game-start-screen">
       <h2 data-i18n="gameTitle">27sun Challenge</h2>
       <p data-i18n="gameRules" style="margin: 15px 0; opacity: 0.8; font-size: 14px;"></p>
+      <p style="color:#ff7a18; font-size:12px; margin-bottom:15px; font-weight:600;" data-i18n="gameBundleNote"></p>
       <button class="btn" onclick="startGame()" data-i18n="gameStart">Hrát o slevy</button>
     </div>
     <div id="game-play-screen" style="display:none">
@@ -247,6 +248,7 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
         <div id="reward-amount"></div>
         <div class="promo-wrap"><span id="promo-code"></span><button class="copy-btn" onclick="copyPromo()" id="btn-copy">Copy</button></div>
         <p style="font-size:11px; opacity:0.5; margin-top:12px;" data-i18n="gameApply"></p>
+        <p style="color:#ff7a18; font-size:10px; margin-top:5px; font-weight:600;" data-i18n="gameBundleNote"></p>
       </div>
     </div>
   </div>
@@ -300,7 +302,7 @@ const t = {
     msg1:"Fakt super práce kamo", msg2:"predtym to bolo ppci kamo a teraz uplny strop", msgNavy:"hele kamo pokracuj dal delas neco co tady v cesku chybi beres to vazne a jde to videt z prace co delas big up fotky a stříh popici", msg3:"braaaaaaaacho extremne to je diki moooc", msg4:"Diky za dnešek, bomba uplne, az budeš mít hned posílej",
     pricing:"Služby & Ceník", playGame:"🎮 Hraj o slevy až 100 %", referral:"Referral Deal -40%:", bundles:"Výhodné Balíčky", contactTitle:"Kontakt", formTitle:"Pošli mi poptávku", sendBtn:"Odeslat e-mail", fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání.",
     disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností. Uvedené částky nejsou prodejní cenou, nýbrž odhadovanou hodnotou autorské odměny za tvůrčí činnost v rámci příležitostné výpomoci (ve smyslu § 10 zákona o daních z příjmů).",
-    gameTitle: "27sun Challenge", gameRules: "Chytej foťáky! Dosáhni přesně 27 bodů během 60 sekund pro slevový kód. Pokud překročíš 27 nebo vyprší čas, prohráváš.", gameStart: "Hrát o slevy", gameScore: "Body", gameWin: "VÝHRA!", gameOpenBox: "Klikni na box a odhal svou slevu", gameApply: "Kód zkopíruj a vlož do poptávky níže.", gameWonText: "Vyhrál jsi slevu"
+    gameTitle: "27sun Challenge", gameRules: "Chytej foťáky! Dosáhni přesně 27 bodů během 60 sekund pro slevový kód. Pokud překročíš 27 nebo vyprší čas, prohráváš.", gameStart: "Hrát o slevy", gameScore: "Body", gameWin: "VÝHRA!", gameOpenBox: "Klikni na box a odhal svou slevu", gameApply: "Kód zkopíruj a vlož do poptávky níže.", gameWonText: "Vyhrál jsi slevu", gameBundleNote: "*Slevy se nevztahují na již zvýhodněné balíčky."
   },
   en: {
     hero:"Video editor & photographer<br>Reels • TikTok • YouTube", contactBtn:"Contact", aboutText:"My name is <b>Samuel Karbán</b>, I'm 18 years old and I've been editing since March 2025 in <b>DaVinci Resolve</b>. I've been drawn to creation since childhood.<br><br><b>Gear:</b> Sony ZV-E10 + Sigma 16mm f1.4",
@@ -308,7 +310,7 @@ const t = {
     msg1:"Really great work mate", msg2:"it was awesome before but now it's next level", msgNavy:"Keep going, you're doing something that's missing here in CZ, you take it seriously and it shows, big up.", msg3:"brooooooo this is extreme, thanks a lot", msg4:"Thanks for today, absolutely fire!",
     pricing:"Services & Pricing", playGame:"🎮 Play for up to 100% discount", referral:"Referral Deal -40%:", bundles:"Bundles", contactTitle:"Contact", formTitle:"Send a request", sendBtn:"Send Email", fName:"Your name", fEmail:"Your e-mail", fMsg:"Your request", fOk: "Thanks! Message sent.", fErr: "Oops! Error sending.",
     disclaimer: "This website is a non-profit personal portfolio for skill presentation. Listed amounts are estimated rewards for creative work as occasional assistance.",
-    gameTitle: "27sun Challenge", gameRules: "Catch the cameras! Reach exactly 27 points within 60 seconds for a discount code. If you exceed 27 or time runs out, you lose.", gameStart: "Play for discounts", gameScore: "Score", gameWin: "YOU WIN!", gameOpenBox: "Click the box to reveal your discount", gameApply: "Copy the code and include it in your request.", gameWonText: "You won a discount of"
+    gameTitle: "27sun Challenge", gameRules: "Catch the cameras! Reach exactly 27 points within 60 seconds for a discount code. If you exceed 27 or time runs out, you lose.", gameStart: "Play for discounts", gameScore: "Score", gameWin: "YOU WIN!", gameOpenBox: "Click the box to reveal your discount", gameApply: "Copy the code and include it in your request.", gameWonText: "You won a discount of", gameBundleNote: "*Discounts do not apply to already discounted bundles."
   }
 };
 
