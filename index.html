@@ -79,7 +79,6 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
   margin: 20px 0; font-family: monospace; color: #ff7a18; word-break: break-all;
 }
 
-/* ZBYTEK STYLŮ */
 .slider-container {position: relative; width: 100%;}
 .nav-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
@@ -281,7 +280,6 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
 </footer>
 
 <script>
-// Pomocné funkce
 function updateScroll() {
   const scrolled = window.scrollY;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -294,14 +292,13 @@ function scrollMe(id, step) {
 }
 
 /* --- LOGIKA AUTOMATU --- */
-const symbols = ['🎬', '📸', '🎞️', '✂️', '🔥', '⭐️', '💎'];
+const symbols = ['🔥', '💎', '⭐', '🎬', '📸', '🎞️', '✂️'];
 const spinLimit = 20;
 const resetTime = 24 * 60 * 60 * 1000;
 
 function initReels() {
   document.querySelectorAll('.reel').forEach(reel => {
     reel.innerHTML = '';
-    // Naplníme dostatkem symbolů, aby se při točení nezobrazilo prázdno
     for(let i=0; i<60; i++) {
       const div = document.createElement('div');
       div.innerText = symbols[Math.floor(Math.random() * symbols.length)];
@@ -361,21 +358,17 @@ async function spin() {
   else if (rand < 35) winLabel = "SLEVA 5%";
 
   reels.forEach((reel, i) => {
-    // Resetujeme pozici
     reel.style.transition = 'none';
     reel.style.top = '0px';
     
-    // Malá pauza na reset
     setTimeout(() => {
-      const targetIdx = 40 + Math.floor(Math.random() * 5); // Cílový index (daleko v poli)
+      const targetIdx = 40 + Math.floor(Math.random() * 5);
       const targetY = targetIdx * 80;
-      
       reel.style.transition = `top ${2.5 + i * 0.5}s cubic-bezier(0.45, 0.05, 0.55, 0.95)`;
       reel.style.top = `-${targetY}px`;
       
       if (winLabel !== "") {
-        // Pokud je výhra, sjednotíme symboly na cílovém poli
-        const winSym = symbols[0]; 
+        const winSym = symbols[Math.floor(Math.random() * 3)]; 
         reel.children[targetIdx].innerText = winSym;
       }
     }, 50);
@@ -420,7 +413,7 @@ const t={
     bundles:"Výhodné Balíčky",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Fotek",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Fotek",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Fotek",
     refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby! Pokud tvůj známý objedná, získáváš na příští projekt <b>slevu 40 %</b>.",bundleRefPrice:"Individuální",
     contactTitle:"Kontakt",formTitle:"Pošli mi poptávku",sendBtn:"Odeslat e-mail",fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání.",
-    disclaimer: "Tento web je nevýdělečným osobním portfoliem. Veškeré spolupráce jsou řešeny individuální dohodou.",
+    disclaimer: "Tento web slouží jako portfolio mých prací. Ceny jsou pouze orientační. Veškeré služby poskytuji po vzájemné dohodě.",
     slotTitle:"Zkus štěstí!", spinBtn:"ZATOČIT"
   },
   en:{
@@ -432,7 +425,7 @@ const t={
     bundles:"Bundles",bundle1:"Content Pack S",bundle1Desc:"5x Reels + 10x Photos",bundle2:"Content Pack M",bundle2Desc:"10x Reels + 20x Photos",bundle3:"Content Pack Master",bundle3Desc:"20x Reels + 40x Photos",
     refTitle:"🤝 Referral Program",refDesc:"Recommend me! Get a <b>40% discount</b> on your next project.",bundleRefPrice:"Individual",
     contactTitle:"Contact",formTitle:"Send request",sendBtn:"Send Email",fName:"Your name", fEmail:"Your e-mail", fMsg:"Your request", fOk: "Message sent!", fErr: "Error.",
-    disclaimer: "Non-profit personal portfolio. Collaborations are individual.",
+    disclaimer: "This website serves as a portfolio of my work. Prices are only indicative. All services are provided upon mutual agreement.",
     slotTitle:"Try your luck!", spinBtn:"SPIN"
   }
 };
@@ -441,8 +434,6 @@ function setLang(l){
   document.querySelectorAll("[data-i18n]").forEach(e=>{
     const item=t[l][e.dataset.i18n];
     if(item) e.innerHTML=item;
-    
-    // Specifické ceny pro EN
     if(l==='en'){
       if(e.dataset.i18n==='bundle1') e.nextElementSibling.nextElementSibling.innerHTML='140 €';
       if(e.dataset.i18n==='bundle2') e.nextElementSibling.nextElementSibling.innerHTML='200 €';
@@ -464,10 +455,8 @@ function setLang(l){
 document.addEventListener('DOMContentLoaded',()=>{
   initReels();
   setLang('cs');
-  
   const track=document.getElementById('chatTrack');
   if(track) track.innerHTML+=track.innerHTML;
-  
   const gal = document.getElementById('autoGallery');
   setInterval(() => {
     if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 10) {
@@ -476,7 +465,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       gal.scrollBy({left: 300, behavior: 'smooth'});
     }
   }, 3000);
-
   document.getElementById("my-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const status = document.getElementById("my-form-status");
