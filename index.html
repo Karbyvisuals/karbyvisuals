@@ -55,11 +55,12 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .nav-arrow.next {right: -18px;}
 @media (min-width: 1024px) { .nav-arrow { display: flex; } }
 
-.video-slider,.gallery-wrapper{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:15px;scrollbar-width:none;scroll-behavior: smooth;}
+/* OPRAVA: Zajištění viditelnosti videí a fotek */
+.video-slider,.gallery-wrapper{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:15px;scrollbar-width:none;scroll-behavior: smooth; position: relative; z-index: 5;}
 .video-slider::-webkit-scrollbar,.gallery-wrapper::-webkit-scrollbar{display:none}
-.video-slider.horizontal iframe{min-width:85vw;max-width:400px;height:220px;border-radius:15px;scroll-snap-align:center;border:none;background:#000}
-.video-slider.vertical video{min-width:260px;height:460px;border-radius:18px;background:#111;object-fit:cover;scroll-snap-align:center}
-.gallery-wrapper img{height:400px;width:auto;max-width:90vw;border-radius:15px;scroll-snap-align:center;flex-shrink:0;background:#1a1a1a;object-fit:contain}
+.video-slider.horizontal iframe{min-width:85vw;max-width:400px;height:220px;border-radius:15px;scroll-snap-align:center;border:none;background:#000; display: block;}
+.video-slider.vertical video{min-width:260px;height:460px;border-radius:18px;background:#111;object-fit:cover;scroll-snap-align:center; display: block;}
+.gallery-wrapper img{height:400px;width:auto;max-width:90vw;border-radius:15px;scroll-snap-align:center;flex-shrink:0;background:#1a1a1a;object-fit:contain; display: block;}
 
 .chat-container{height:400px;overflow:hidden;position:relative;background:rgba(255,255,255,.02);border-radius:25px;border:1px solid rgba(255,255,255,0.05);mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
 .chat-track{display:flex;flex-direction:column;gap:20px;padding:20px;animation:scrollUp 25s linear infinite;will-change:transform;transform:translateZ(0)}
@@ -83,7 +84,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,255,0.05)}
 .disclaimer-text{margin-top:20px; opacity:0.5; font-size:11px; max-width:750px; margin-inline:auto; line-height:1.6}
 
-/* SLOT MACHINE DESIGN UPDATED */
+/* SLOT MACHINE STYLES */
 .game-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(15px); }
 .game-content { 
     background: #0d0d0d; border: 2px solid #ff7a18; padding: 35px; border-radius: 24px; 
@@ -119,6 +120,21 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
     font-size: 40px !important;
     font-weight: 900;
     margin: 15px 0 !important;
+}
+
+/* OPRAVA: Viditelnost tlačítka Zkusit znovu */
+.btn-reset {
+    margin-top: 25px; 
+    background: transparent; 
+    border: 1px solid #ff7a18; 
+    color: #ff7a18 !important; 
+    padding: 12px 25px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-reset:hover {
+    background: rgba(255, 122, 24, 0.1);
 }
 
 @media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}.gallery-wrapper img{height:320px}}
@@ -289,7 +305,7 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
         </div>
         <p style="font-size:11px; opacity:0.5; margin-top:12px;">Kód vlož do poptávky níže. *Slevu nelze uplatnit na balíčky.</p>
       </div>
-      <button class="btn" onclick="resetGame()" style="margin-top:25px; background:none; border:1px solid #ff7a18; color:#ff7a18;">Zkusit znovu</button>
+      <button class="btn-reset" onclick="resetGame()">Zkusit znovu</button>
     </div>
   </div>
 </div>
@@ -303,19 +319,18 @@ const DISCOUNT_MAP = {
     30: "T", 25: "DP", 20: "DV", 15: "PA", 10: "D", 5: "P"
 };
 
-// UPRAVENÉ ŠANCE: 50% nic, nejčastější jsou 5-10%
 const REWARDS = [
-    { val: 0, prob: 0.50 },   // 50% Nic
-    { val: 5, prob: 0.25 },   // 25% šance na 5%
-    { val: 10, prob: 0.12 },  // 12% šance na 10%
-    { val: 15, prob: 0.05 },  // 5%
-    { val: 20, prob: 0.03 },  // 3%
-    { val: 25, prob: 0.02 },  // 2%
-    { val: 30, prob: 0.015 }, // 1.5%
-    { val: 45, prob: 0.008 }, // 0.8%
-    { val: 70, prob: 0.004 }, // 0.4%
-    { val: 80, prob: 0.002 }, // 0.2%
-    { val: 100, prob: 0.001 } // 0.1% Jackpot
+    { val: 0, prob: 0.50 },   
+    { val: 5, prob: 0.25 },   
+    { val: 10, prob: 0.12 },  
+    { val: 15, prob: 0.05 },  
+    { val: 20, prob: 0.03 },  
+    { val: 25, prob: 0.02 },  
+    { val: 30, prob: 0.015 }, 
+    { val: 45, prob: 0.008 }, 
+    { val: 70, prob: 0.004 }, 
+    { val: 80, prob: 0.002 }, 
+    { val: 100, prob: 0.001 } 
 ];
 
 function generateRandomCode(discountVal) {
@@ -393,7 +408,7 @@ function setLang(l){
   document.getElementById('btn-' + l).classList.add('active');
 }
 
-/* --- SLOT LOGIC UPDATED --- */
+/* --- SLOT LOGIC --- */
 let isSpinning = false;
 
 function initReels() {
@@ -469,7 +484,6 @@ function spinSlots() {
         if (winVisual) {
             reel.children[stopIndex].innerHTML = winIcon;
         } else {
-            // Prohra: náhodné ikony, ale nesmí se shodovat všechny tři
             reel.children[stopIndex].innerHTML = SYMBOLS[(Math.floor(Math.random() * SYMBOLS.length) + i) % SYMBOLS.length];
         }
         
@@ -504,7 +518,6 @@ function resetGame() {
     document.getElementById('game-start-screen').style.display = 'block';
     document.getElementById('game-win-screen').style.display = 'none';
     
-    // Resetuj vizuál válců bez animace
     [1,2,3].forEach(id => {
         const reel = document.getElementById(`reel${id}`);
         reel.style.transition = 'none';
