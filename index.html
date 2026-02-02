@@ -40,6 +40,7 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .gear-list li::before {content: "•"; color: #ff7a18; display: inline-block; width: 1em; margin-left: 0;}
 
 .btn{display:inline-block;margin-top:30px;padding:14px 35px;border-radius:999px;background:#ff7a18;color:#000!important;text-decoration:none;font-weight:600;transition:.2s; border:none; cursor:pointer;}
+.btn:disabled{background:#444; cursor:not-allowed;}
 .drag-hint{font-size:13px;opacity:.5;margin-bottom:12px;display:flex;align-items:center;gap:5px}
 
 .slider-container {position: relative; width: 100%;}
@@ -99,7 +100,7 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
 .reel-strip {
     position: absolute; width: 100%; left: 0; top: 0;
     display: flex; flex-direction: column;
-    transition: transform 3s cubic-bezier(0.15, 0, 0.15, 1);
+    /* transition se ovládá přes JS */
 }
 .slot-icon { 
     height: 120px; min-height: 120px; display: flex; 
@@ -133,6 +134,13 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
 }
 .btn-reset:hover {
     background: rgba(255, 122, 24, 0.1);
+}
+
+#game-status-msg {
+    margin-top: 15px;
+    font-weight: 500;
+    min-height: 20px;
+    color: #ff7a18;
 }
 
 @media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}.gallery-wrapper img{height:320px}}
@@ -290,6 +298,7 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
       </div>
 
       <button id="spin-btn" class="btn" onclick="spinSlots()" data-i18n="gameStart">Roztočit automat</button>
+      <div id="game-status-msg"></div>
     </div>
 
     <div id="game-win-screen" style="display:none">
@@ -365,7 +374,7 @@ const t={
     refTitle:"🤝 Referral Program",refDesc:"Doporuč mé služby! Pokud tvůj známý objedná, získáváš na příští projekt <b>slevu 40 %</b>.",bundleRefPrice:"Individuální",
     contactTitle:"Kontakt",formTitle:"Pošli mi poptávku",sendBtn:"Odeslat e-mail",fName:"Tvé jméno", fEmail:"Tvůj e-mail", fMsg:"O jakou službu máš zájem?", fOk: "Díky! Zpráva byla odeslána.", fErr: "Chyba při odesílání.",
     disclaimer: "Tento web je nevýdělečným osobním portfoliem sloužícím k prezentaci mých dovedností. Uvedené částky nejsou prodejní cenou, nýbrž odhadovanou hodnotou autorské odměny za tvůrčí činnost v rámci příležitostné výpomoci. Veškeré spolupráce jsou řešeny individuální dohodou.",
-    gameTitle: "27sun Slot Machine", gameStart: "Roztočit automat", gameWin: "VÝHRA!", gameWonText: "Sleva vygenerována:"
+    gameTitle: "27sun Slot Machine", gameStart: "Roztočit automat", gameWin: "VÝHRA!", gameWonText: "Sleva vygenerována:", tryAgain: "Skoro! Zkus to znovu.", limitReached: "Dnes vyčerpáno. Zkus to zítra!"
   },
   en:{
     hero:"Video editor & photographer<br>Reels • TikTok • YouTube",contactBtn:"Contact",
@@ -377,7 +386,7 @@ const t={
     refTitle:"🤝 Referral Program",refDesc:"Recommend my services! If your friend orders, you automatically get a <b>40% discount</b>.",bundleRefPrice:"Individual",
     contactTitle:"Contact",formTitle:"Send a request",sendBtn:"Send Email",fName:"Your name", fEmail:"Your e-mail", fMsg:"Your request", fOk: "Thanks! Message sent.", fErr: "Oops! Error sending.",
     disclaimer: "This website is a non-profit personal portfolio. Amounts are estimated author's rewards for creative work. Collaborations are subject to individual agreement.",
-    gameTitle: "27sun Slot Machine", gameStart: "Spin the Slots", gameWin: "YOU WIN!", gameWonText: "Discount generated:"
+    gameTitle: "27sun Slot Machine", gameStart: "Spin the Slots", gameWin: "YOU WIN!", gameWonText: "Discount generated:", tryAgain: "Close! Try again.", limitReached: "Limit reached. Try tomorrow!"
   }
 };
 
@@ -445,6 +454,7 @@ function openGame() {
     document.getElementById('game-modal').style.display = 'flex';
     initReels();
     updateAttemptsUI();
+    document.getElementById('game-status-msg').innerText = "";
 }
 
 function closeGame() { document.getElementById('game-modal').style.display = 'none'; }
@@ -459,7 +469,9 @@ function spinSlots() {
 
     isSpinning = true;
     const btn = document.getElementById('spin-btn');
+    const msg = document.getElementById('game-status-msg');
     btn.disabled = true;
+    msg.innerText = "";
 
     const rand = Math.random();
     let cumulativeProb = 0;
@@ -485,21 +497,38 @@ function spinSlots() {
             reel.children[stopIndex].innerHTML = SYMBOLS[(Math.floor(Math.random() * SYMBOLS.length) + i) % SYMBOLS.length];
         }
         
+        reel.style.transition = 'transform 3s cubic-bezier(0.15, 0, 0.15, 1)';
         setTimeout(() => {
             reel.style.transform = `translateY(-${stopIndex * 120}px)`;
-        }, i * 300);
+        }, i * 150);
     });
 
     setTimeout(() => {
         isSpinning = false;
+        const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
+        
         if (winVisual) {
             showWin(winVal);
         } else {
             updateAttemptsUI();
-            if(getAttempts() < 10) alert("Skoro! Zkus to znovu.");
-            else alert("Dnes už máš vyčerpáno všech 10 pokusů. Zkus to zítra!");
+            if(getAttempts() < 10) {
+                msg.innerText = t[currentLang].tryAgain;
+                setTimeout(() => resetReelsOnly(), 500); // Reset po krátké pauze pro plynulost
+            } else {
+                msg.innerText = t[currentLang].limitReached;
+            }
+            btn.disabled = (getAttempts() >= 10);
         }
     }, 4000);
+}
+
+function resetReelsOnly() {
+    [1, 2, 3].forEach(id => {
+        const reel = document.getElementById(`reel${id}`);
+        reel.style.transition = 'none';
+        reel.style.transform = 'translateY(0)';
+        reel.offsetHeight; // force reflow
+    });
 }
 
 function showWin(val) {
@@ -515,23 +544,8 @@ function resetGame() {
     isSpinning = false;
     document.getElementById('game-start-screen').style.display = 'block';
     document.getElementById('game-win-screen').style.display = 'none';
-    
-    [1, 2, 3].forEach(id => {
-        const reel = document.getElementById(`reel${id}`);
-        
-        // Okamžitě vypne animaci, aby se válec mohl vrátit na start bez "létání"
-        reel.style.transition = 'none'; 
-        reel.style.transform = 'translateY(0)'; 
-        
-        // Force reflow: Přinutí prohlížeč tyto změny zaregistrovat okamžitě
-        reel.offsetHeight; 
-        
-        // S krátkou pauzou vrátí plynulou animaci pro další točení
-        setTimeout(() => {
-            reel.style.transition = 'transform 3s cubic-bezier(0.15, 0, 0.15, 1)';
-        }, 50);
-    });
-    
+    document.getElementById('game-status-msg').innerText = "";
+    resetReelsOnly();
     updateAttemptsUI();
 }
 
