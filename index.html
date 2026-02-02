@@ -516,11 +516,20 @@ function resetGame() {
     document.getElementById('game-start-screen').style.display = 'block';
     document.getElementById('game-win-screen').style.display = 'none';
     
-    [1,2,3].forEach(id => {
+    [1, 2, 3].forEach(id => {
         const reel = document.getElementById(`reel${id}`);
-        reel.style.transition = 'none';
-        reel.style.transform = 'translateY(0)';
-        setTimeout(() => reel.style.transition = 'transform 3s cubic-bezier(0.15, 0, 0.15, 1)', 50);
+        
+        // Okamžitě vypne animaci, aby se válec mohl vrátit na start bez "létání"
+        reel.style.transition = 'none'; 
+        reel.style.transform = 'translateY(0)'; 
+        
+        // Force reflow: Přinutí prohlížeč tyto změny zaregistrovat okamžitě
+        reel.offsetHeight; 
+        
+        // S krátkou pauzou vrátí plynulou animaci pro další točení
+        setTimeout(() => {
+            reel.style.transition = 'transform 3s cubic-bezier(0.15, 0, 0.15, 1)';
+        }, 50);
     });
     
     updateAttemptsUI();
@@ -538,7 +547,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   
   const gal = document.getElementById('autoGallery');
   
-  // PŘIDÁNO: Optimalizovaný auto-scroll, který neběží, pokud uživatel není u galerie
   let scrollInterval;
   const startScroll = () => {
     scrollInterval = setInterval(() => {
@@ -552,7 +560,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   const stopScroll = () => clearInterval(scrollInterval);
   
-  // Zastavit scroll při interakci uživatele
   gal.addEventListener('touchstart', stopScroll);
   gal.addEventListener('mousedown', stopScroll);
   
