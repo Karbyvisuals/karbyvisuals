@@ -25,8 +25,33 @@ body::before{
 section{padding:80px 6%; position: relative;}
 h2{font-size:clamp(24px, 5vw, 32px);font-weight:500;margin-bottom:15px;letter-spacing:1px}
 h3{opacity:.7;margin-bottom:10px;font-weight:500}
-.top-bar{position:fixed;top:0;width:100%;height:80px;background:rgba(10,10,10,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05)}
-.top-bar img{height:55px;width:auto;border-radius:10px}
+
+/* UPRAVENÁ LIŠTA A LOGO */
+.top-bar{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px; /* Snížená výška lišty */
+  background:rgba(10,10,10,.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  border-bottom:1px solid rgba(255,255,255,0.05)
+}
+.top-bar img{
+  height:100px; /* Větší výška loga než lišta */
+  width:auto;
+  position: relative;
+  top: 15px; /* Posun dolů aby logo přetékalo */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6)); /* Stín pro viditelnost */
+  transition: transform 0.3s ease;
+  z-index: 1001;
+}
+.top-bar img:hover { transform: scale(1.05); }
+
 .lang-switch{position:absolute;right:15px}.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:5px 12px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.3s;font-weight:600}
 .lang-switch button.active{background:#ff7a18;color:#000;border-color:#ff7a18}
 .hero{min-height:90vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;padding-top:120px}
@@ -142,7 +167,14 @@ footer{text-align:center;padding:60px 6% 40px;border-top:1px solid rgba(255,255,
     color: #ff7a18;
 }
 
-@media(max-width:600px){section{padding:60px 5%}.hero{gap:20px}.top-bar{height:70px}.gallery-wrapper img{height:320px}}
+/* UPRAVENÝ MOBIL */
+@media(max-width:600px){
+  section{padding:60px 5%}
+  .hero{gap:20px}
+  .top-bar{height:60px}
+  .top-bar img{height:80px; top: 10px;} /* Menší přesah na mobilu */
+  .gallery-wrapper img{height:320px}
+}
 </style>
 </head>
 <body>
@@ -336,7 +368,7 @@ const REWARDS = [
 
 let isSpinning = false;
 let needsReset = false;
-let lastWinValue = 0; // Pomocná proměnná pro překlad výhry
+let lastWinValue = 0; 
 
 function generateRandomCode(discountVal) {
     const prefix = DISCOUNT_MAP[discountVal] || "UNK";
@@ -416,12 +448,10 @@ function setLang(l){
     }
   });
 
-  // Dynamická aktualizace textu výhry (pokup se právě zobrazuje)
   if(lastWinValue > 0) {
     document.getElementById('win-value-announcement').innerText = `${lastWinValue}% ${t[l].winText}`;
   }
 
-  // Update textu na tlačítku automatu
   const spinBtn = document.getElementById('spin-btn');
   if(getAttempts() >= 10) {
       spinBtn.innerText = t[l].gameLimitBtn;
@@ -450,163 +480,119 @@ function initReels() {
 }
 
 function getAttempts() {
-    const data = JSON.parse(localStorage.getItem('sun27_slots') || '{"count":0, "date":""}');
-    const today = new Date().toDateString();
-    return data.date === today ? data.count : 0;
-}
-
-function updateAttemptsUI() {
-    const count = getAttempts();
-    const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
-    const btn = document.getElementById('spin-btn');
-    document.getElementById('attempts-left').innerText = `${t[currentLang].gameAttempts}${10 - count}/10`;
-    if (count >= 10) { btn.disabled = true; btn.innerText = t[currentLang].gameLimitBtn; }
-    else { btn.disabled = false; btn.innerText = t[currentLang].gameStart; }
+    const d = new Date().toDateString();
+    if(localStorage.getItem('slot_date') !== d) {
+        localStorage.setItem('slot_date', d);
+        localStorage.setItem('slot_count', '0');
+    }
+    return parseInt(localStorage.getItem('slot_count') || '0');
 }
 
 function openGame() {
     document.getElementById('game-modal').style.display = 'flex';
     initReels();
-    updateAttemptsUI();
-    document.getElementById('game-status-msg').innerText = "";
-    needsReset = false;
-    lastWinValue = 0;
+    setLang(document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en');
 }
 
 function closeGame() { document.getElementById('game-modal').style.display = 'none'; }
 
 function spinSlots() {
-    if (isSpinning) return;
-    
-    if (needsReset) {
-        resetReelsOnly();
-        needsReset = false;
-        setTimeout(spinSlots, 50);
+    if(isSpinning) return;
+    const attempts = getAttempts();
+    const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
+
+    if(attempts >= 10) {
+        document.getElementById('game-status-msg').innerText = t[currentLang].limitReached;
         return;
     }
 
-    let count = getAttempts();
-    if (count >= 10) return;
-
-    localStorage.setItem('sun27_slots', JSON.stringify({count: count + 1, date: new Date().toDateString()}));
-    updateAttemptsUI();
+    localStorage.setItem('slot_count', (attempts + 1).toString());
+    setLang(currentLang);
 
     isSpinning = true;
-    const btn = document.getElementById('spin-btn');
-    const msg = document.getElementById('game-status-msg');
-    btn.disabled = true;
-    msg.innerText = "";
+    document.getElementById('spin-btn').disabled = true;
+    document.getElementById('game-status-msg').innerText = '';
 
     const rand = Math.random();
-    let cumulativeProb = 0;
+    let cumulative = 0;
     let winVal = 0;
-    for (let reward of REWARDS) {
-        cumulativeProb += reward.prob;
-        if (rand < cumulativeProb) { winVal = reward.val; break; }
+    for(let r of REWARDS) {
+        cumulative += r.prob;
+        if(rand <= cumulative) { winVal = r.val; break; }
     }
 
-    const winVisual = winVal > 0;
-    const winIcon = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+    const targetIndices = winVal > 0 
+        ? [Math.floor(Math.random()*6), Math.floor(Math.random()*6), Math.floor(Math.random()*6)]
+        : [0, 1, 2]; // Zjednodušeno pro prohru
 
     [1,2,3].forEach((id, i) => {
         const reel = document.getElementById(`reel${id}`);
-        const stopIndex = 35 + i; 
+        const iconHeight = 120;
+        const totalIcons = 45;
+        const stopPos = (totalIcons - 3 + i) * iconHeight;
         
-        if (winVisual) {
-            reel.children[stopIndex].innerHTML = winIcon;
-        } else {
-            reel.children[stopIndex].innerHTML = SYMBOLS[(Math.floor(Math.random() * SYMBOLS.length) + i) % SYMBOLS.length];
-        }
-        
-        reel.style.transition = `transform ${3 + i * 0.5}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-        setTimeout(() => {
-            reel.style.transform = `translateY(-${stopIndex * 120}px)`;
-        }, i * 100);
+        reel.style.transition = `transform ${2 + i*0.5}s cubic-bezier(0.45, 0.05, 0.55, 0.95)`;
+        reel.style.transform = `translateY(-${stopPos}px)`;
     });
 
     setTimeout(() => {
         isSpinning = false;
-        needsReset = true;
-        const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
-        
-        if (winVisual) {
-            showWin(winVal);
+        document.getElementById('spin-btn').disabled = false;
+        if(winVal > 0) {
+            lastWinValue = winVal;
+            document.getElementById('game-start-screen').style.display = 'none';
+            document.getElementById('game-win-screen').style.display = 'block';
+            document.getElementById('win-value-announcement').innerText = `${winVal}% ${t[currentLang].winText}`;
+            document.getElementById('promo-code').innerText = generateRandomCode(winVal);
         } else {
-            if(getAttempts() < 10) {
-                msg.innerText = t[currentLang].tryAgain;
-            } else {
-                msg.innerText = t[currentLang].limitReached;
-            }
-            btn.disabled = (getAttempts() >= 10);
-            if(getAttempts() >= 10) btn.innerText = t[currentLang].gameLimitBtn;
+            document.getElementById('game-status-msg').innerText = t[currentLang].tryAgain;
         }
-    }, 4200);
-}
-
-function resetReelsOnly() {
-    [1, 2, 3].forEach(id => {
-        const reel = document.getElementById(`reel${id}`);
-        reel.style.transition = 'none';
-        reel.style.transform = 'translateY(0)';
-    });
-}
-
-function showWin(val) {
-    lastWinValue = val;
-    const code = generateRandomCode(val);
-    const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
-    
-    document.getElementById('game-start-screen').style.display = 'none';
-    document.getElementById('game-win-screen').style.display = 'block';
-    document.getElementById('promo-code').innerText = code;
-    document.getElementById('win-value-announcement').innerText = `${val}% ${t[currentLang].winText}`;
+    }, 3500);
 }
 
 function resetGame() {
-    isSpinning = false;
-    needsReset = false;
     lastWinValue = 0;
-    document.getElementById('game-start-screen').style.display = 'block';
     document.getElementById('game-win-screen').style.display = 'none';
-    document.getElementById('game-status-msg').innerText = "";
+    document.getElementById('game-start-screen').style.display = 'block';
     initReels();
-    updateAttemptsUI();
 }
 
 function copyPromo() {
-    navigator.clipboard.writeText(document.getElementById('promo-code').innerText);
-    document.getElementById('btn-copy').innerText = 'OK!';
+    const code = document.getElementById('promo-code').innerText;
+    navigator.clipboard.writeText(code);
+    const btn = document.getElementById('btn-copy');
+    const oldText = btn.innerText;
+    btn.innerText = 'OK!';
+    setTimeout(() => btn.innerText = oldText, 2000);
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-  setLang('cs');
-  const track=document.getElementById('chatTrack');
-  if(track) track.innerHTML+=track.innerHTML;
-  const gal = document.getElementById('autoGallery');
-  let scrollInterval;
-  const startScroll = () => {
-    scrollInterval = setInterval(() => {
-      if (gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 10) gal.scrollTo({left: 0, behavior: 'smooth'});
-      else gal.scrollBy({left: 300, behavior: 'smooth'});
-    }, 3000);
-  };
-  gal.addEventListener('touchstart', () => clearInterval(scrollInterval));
-  startScroll();
+// Formspree Logic
+var form = document.getElementById("my-form");
+async function handleSubmit(event) {
+  event.preventDefault();
+  var status = document.getElementById("my-form-status");
+  var data = new FormData(event.target);
+  const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
 
-  document.getElementById("my-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    var status = document.getElementById("my-form-status");
-    const currentLang = document.getElementById('btn-cs').classList.contains('active') ? 'cs' : 'en';
-    fetch(e.target.action, {
-      method: 'POST',
-      body: new FormData(e.target),
-      headers: { 'Accept': 'application/json' }
-    }).then(res => {
-      status.innerHTML = res.ok ? t[currentLang].fOk : t[currentLang].fErr;
-      if(res.ok) e.target.reset();
-    });
+  fetch(event.target.action, {
+    method: form.method,
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      status.innerHTML = t[currentLang].fOk;
+      form.reset();
+    } else {
+      status.innerHTML = t[currentLang].fErr;
+    }
+  }).catch(error => {
+    status.innerHTML = t[currentLang].fErr;
   });
-});
+}
+form.addEventListener("submit", handleSubmit);
+
+// Init
+setLang('cs');
 </script>
 </body>
 </html>
