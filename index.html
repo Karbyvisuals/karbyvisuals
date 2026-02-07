@@ -6,112 +6,52 @@
 <title>karbyvisuals – Creative Studio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root {
-    --primary: #ff7a18;
-    --bg: #050505;
-    --card: #111;
-}
-
+:root { --primary: #ff7a18; --bg: #050505; --card: #111; }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Inter', sans-serif; background: var(--bg); color: #fff; overflow-x:hidden; scroll-behavior: smooth;}
+body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(255,122,24,0.1) 0%, transparent 50%), linear-gradient(180deg, #050505 0%, #0a0a0a 100%); z-index: -1; }
 
-body::before {
-    content: ""; position: fixed; inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(255,122,24,0.1) 0%, transparent 50%),
-                linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
-    z-index: -1;
-}
-
-.top-bar {
-    position: fixed; top: 0; width: 100%; height: 70px;
-    background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 1000; border-bottom: 1px solid rgba(255,122,24,0.2);
-}
-.logo { 
-    font-weight: 900; font-size: 24px; color: var(--primary); 
-    text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none;
-}
+.top-bar { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; z-index: 1000; border-bottom: 1px solid rgba(255,122,24,0.2); }
+.logo { font-weight: 900; font-size: 24px; color: var(--primary); text-transform: uppercase; letter-spacing: 3px; cursor: pointer; text-decoration: none; }
 
 section { padding: 140px 6% 60px; min-height: 100vh; display: none; }
 section.active { display: block; animation: fadeIn 0.4s ease-out; }
-
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* HOME SCREEN */
 .home-content { text-align: center; margin-bottom: 80px; }
 .home-title { font-size: clamp(45px, 10vw, 90px); font-weight: 900; line-height: 0.9; }
-.home-subtitle { color: var(--primary); letter-spacing: 6px; font-weight: 700; font-size: 14px; margin-top: 40px; } /* Větší mezera */
+.home-subtitle { color: var(--primary); letter-spacing: 6px; font-weight: 700; font-size: 14px; margin-top: 40px; }
 
 .home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 60px; }
-.nav-card {
-    background: var(--card); border: 1px solid rgba(255,255,255,0.05);
-    padding: 60px 20px; border-radius: 28px; text-align: center;
-    cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.nav-card:hover { border-color: var(--primary); transform: translateY(-10px); background: #1a1a1a; box-shadow: 0 15px 30px rgba(255,122,24,0.1); }
+.nav-card { background: var(--card); border: 1px solid rgba(255,255,255,0.05); padding: 60px 20px; border-radius: 28px; text-align: center; cursor: pointer; transition: 0.4s; }
+.nav-card:hover { border-color: var(--primary); transform: translateY(-10px); background: #1a1a1a; }
 
-/* SLIDERY */
-.slider-container { 
-    position: relative; width: 100%; max-width: 1100px; margin: 30px auto; 
-    overflow: hidden; border-radius: 24px; background: #000;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-}
+.slider-container { position: relative; width: 100%; max-width: 1100px; margin: 30px auto; overflow: hidden; border-radius: 24px; background: #000; box-shadow: 0 40px 80px rgba(0,0,0,0.8); }
 .slider-track { display: flex; transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1); }
-.slide { 
-    min-width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; 
-    background: #000;
-}
-.slide iframe { width: 100%; height: 100%; border: none; } /* Fix velikosti YT */
-.slide img, .slide video { 
-    max-width: 100%; max-height: 100%; object-fit: contain; 
-}
+.slide { min-width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; background: #000; }
+.slide iframe { width: 100%; height: 100%; border: none; }
+.slide img, .slide video { max-width: 100%; max-height: 100%; object-fit: contain; cursor: pointer; }
 
-/* REELS SPECIFIKACE */
 .reels-slider { max-width: 400px; }
 .reels-slider .slide { aspect-ratio: 9/16; }
 
-/* OVLÁDÁNÍ */
 .slider-controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-.control-btn {
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 18px; 
-    border-radius: 99px; cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; transition: 0.3s;
-}
+.control-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 18px; border-radius: 99px; cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: 700; transition: 0.3s; }
 .control-btn.active { background: var(--primary); border-color: var(--primary); color: #000; }
 
-.slider-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(0,0,0,0.6); border: 1px solid rgba(255,122,24,0.3); width: 45px; height: 45px;
-    border-radius: 50%; color: #fff; cursor: pointer; z-index: 10; font-size: 20px;
-}
+.slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); border: 1px solid rgba(255,122,24,0.3); width: 45px; height: 45px; border-radius: 50%; color: #fff; cursor: pointer; z-index: 10; }
 .prev { left: 15px; } .next { right: 15px; }
 
-/* FORMULÁŘE - JEDNOTNÝ STYL */
-.order-box {
-    max-width: 600px; margin: 70px auto; background: #0a0a0a;
-    padding: 45px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05);
-}
+.order-box { max-width: 600px; margin: 70px auto; background: #0a0a0a; padding: 45px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); }
 .order-box h4 { margin-bottom: 30px; text-align: center; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
-
-.form-group { margin-bottom: 25px; text-align: left; }
+.form-group { margin-bottom: 25px; }
 .form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: rgba(255,255,255,0.8); }
 .form-group label span { color: var(--primary); }
 
-input, textarea {
-    width: 100%; padding: 16px; border-radius: 14px;
-    background: #000; border: 1px solid #222; color: #fff; font-family: inherit; font-size: 15px; transition: 0.3s;
-}
-input::placeholder, textarea::placeholder { color: #444; }
-input:focus, textarea:focus { border-color: var(--primary); outline: none; background: #050505; }
-
-.btn-send {
-    width: 100%; padding: 18px; background: var(--primary); border: none;
-    border-radius: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px;
-}
-
-.back-link { display: block; text-align: center; margin-bottom: 40px; color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 900; letter-spacing: 2px; opacity: 0.7; }
-.back-link:hover { opacity: 1; }
-
+input, textarea { width: 100%; padding: 16px; border-radius: 14px; background: #000; border: 1px solid #222; color: #fff; font-family: inherit; font-size: 15px; }
+input:focus, textarea:focus { border-color: var(--primary); outline: none; }
+.btn-send { width: 100%; padding: 18px; background: var(--primary); border: none; border-radius: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+.back-link { display: block; text-align: center; margin-bottom: 40px; color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 900; letter-spacing: 2px; }
 </style>
 </head>
 <body>
@@ -125,7 +65,6 @@ input:focus, textarea:focus { border-color: var(--primary); outline: none; backg
         <h1 class="home-title">karbyvisuals</h1>
         <p class="home-subtitle">VIDEO • PHOTO • EDIT</p>
     </div>
-
     <div class="home-grid">
         <div class="nav-card" onclick="openSection('sec-clips')"><h3>Hudební Klipy</h3><p>SHOWCASE</p></div>
         <div class="nav-card" onclick="openSection('sec-reels')"><h3>Reels & TikTok</h3><p>SOCIAL MEDIA</p></div>
@@ -135,154 +74,94 @@ input:focus, textarea:focus { border-color: var(--primary); outline: none; backg
 </section>
 
 <section id="sec-clips">
-    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT DO MENU</a>
-    <h2 style="text-align:center; margin-bottom: 20px;">Hudební Klipy</h2>
-    
+    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT</a>
+    <h2 style="text-align:center; margin-bottom:20px;">Hudební Klipy</h2>
     <div class="slider-container" id="slider-clips">
         <button class="slider-btn prev" onclick="moveSlide('slider-clips', -1)">&#10094;</button>
         <div class="slider-track">
-            <div class="slide"><iframe src="https://www.youtube.com/embed/u3uAbnbAokE?enablejsapi=1&autoplay=1&mute=1"></iframe></div>
-            <div class="slide"><iframe src="https://www.youtube.com/embed/_VWkv_ONEiM?enablejsapi=1"></iframe></div>
-            <div class="slide"><iframe src="https://www.youtube.com/embed/ihaDYNouXis?enablejsapi=1"></iframe></div>
-            <div class="slide"><iframe src="https://www.youtube.com/embed/J13Ju447MCs?enablejsapi=1"></iframe></div>
-            <div class="slide"><iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU?enablejsapi=1"></iframe></div>
+            <div class="slide"><iframe src="https://www.youtube.com/embed/u3uAbnbAokE?enablejsapi=1&mute=1"></iframe></div>
+            <div class="slide"><iframe src="https://www.youtube.com/embed/_VWkv_ONEiM?enablejsapi=1&mute=1"></iframe></div>
+            <div class="slide"><iframe src="https://www.youtube.com/embed/ihaDYNouXis?enablejsapi=1&mute=1"></iframe></div>
         </div>
         <button class="slider-btn next" onclick="moveSlide('slider-clips', 1)">&#10095;</button>
     </div>
-    
-    <div class="slider-controls">
-        <button class="control-btn active" id="auto-clips" onclick="toggleAuto('slider-clips')">Autoposun</button>
-    </div>
-
+    <div class="slider-controls"><button class="control-btn active" id="auto-clips" onclick="toggleAuto('slider-clips')">Autoposun</button></div>
     <div class="order-box">
-        <h4>Poptat natočení klipu</h4>
-        <form action="https://formspree.io/f/xeekojbo" method="POST">
-            <div class="form-group">
-                <label>Tvůj Instagram <span>*</span></label>
-                <input type="text" name="instagram" placeholder="např. @tvojejmeno" required>
-            </div>
-            <div class="form-group">
-                <label>Tvůj e-mail <span>*</span></label>
-                <input type="email" name="email" placeholder="např. jmeno@seznam.cz" required>
-            </div>
-            <div class="form-group">
-                <label>Popis projektu</label>
-                <textarea name="detaily" rows="4" placeholder="Napiš mi svou představu..."></textarea>
-            </div>
-            <button type="submit" class="btn-send">Odeslat poptávku</button>
+        <h4>Natočit klip</h4>
+        <form onsubmit="return validateForm(this)" action="https://formspree.io/f/xeekojbo" method="POST">
+            <div class="form-group"><label>Instagram</label><input type="text" name="instagram" placeholder="@tvojejmeno"></div>
+            <div class="form-group"><label>E-mail</label><input type="email" name="email" placeholder="email@seznam.cz"></div>
+            <div class="form-group"><label>Představa projektu</label><textarea name="projekt" rows="3"></textarea></div>
+            <p style="font-size:10px; color:gray; margin-bottom:10px;">* Vyplň prosím aspoň Instagram nebo E-mail.</p>
+            <button type="submit" class="btn-send">Odeslat</button>
         </form>
     </div>
 </section>
 
 <section id="sec-reels">
-    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT DO MENU</a>
-    <h2 style="text-align:center; margin-bottom: 20px;">Reels & TikTok</h2>
-    
+    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT</a>
+    <h2 style="text-align:center; margin-bottom:20px;">Reels & TikTok</h2>
     <div class="slider-container reels-slider" id="slider-reels">
         <button class="slider-btn prev" onclick="moveSlide('slider-reels', -1)">&#10094;</button>
         <div class="slider-track">
-            <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" muted loop playsinline></video></div>
-            <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" muted loop playsinline></video></div>
-            <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" muted loop playsinline></video></div>
-            <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4" muted loop playsinline></video></div>
+            <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" loop playsinline onclick="togglePlay('slider-reels')"></video></div>
+            <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" loop playsinline onclick="togglePlay('slider-reels')"></video></div>
+            <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" loop playsinline onclick="togglePlay('slider-reels')"></video></div>
         </div>
         <button class="slider-btn next" onclick="moveSlide('slider-reels', 1)">&#10095;</button>
     </div>
-
     <div class="slider-controls">
         <button class="control-btn" id="pause-reels" onclick="togglePlay('slider-reels')">Pauza</button>
-        <button class="control-btn" id="sound-reels" onclick="toggleSound('slider-reels')">Zapnout zvuk</button>
+        <button class="control-btn active" id="sound-reels" onclick="toggleSound('slider-reels')">Zvuk: ZAP</button>
         <button class="control-btn active" id="auto-reels" onclick="toggleAuto('slider-reels')">Autoposun</button>
     </div>
-
     <div class="order-box">
         <h4>Poptat Reels balíček</h4>
-        <form action="https://formspree.io/f/xeekojbo" method="POST">
-            <div class="form-group">
-                <label>Tvůj Instagram <span>*</span></label>
-                <input type="text" name="instagram" placeholder="např. @tvojejmeno" required>
-            </div>
-            <div class="form-group">
-                <label>Tvůj e-mail <span>*</span></label>
-                <input type="email" name="email" placeholder="např. jmeno@seznam.cz" required>
-            </div>
-            <div class="form-group">
-                <label>Typ balíčku / Počet videí</label>
-                <textarea name="typ_reels" rows="3" placeholder="Co potřebuješ vytvořit?"></textarea>
-            </div>
+        <form onsubmit="return validateForm(this)" action="https://formspree.io/f/xeekojbo" method="POST">
+            <div class="form-group"><label>Instagram</label><input type="text" name="instagram" placeholder="@tvojejmeno"></div>
+            <div class="form-group"><label>E-mail</label><input type="email" name="email" placeholder="email@seznam.cz"></div>
+            <div class="form-group"><label>Typ balíčku</label><input type="text" name="balicek" placeholder="např. Silver / Gold"></div>
+            <div class="form-group"><label>Počet videí</label><input type="number" name="pocet" placeholder="Kolik kusů?"></div>
             <button type="submit" class="btn-send">Odeslat</button>
         </form>
     </div>
 </section>
 
 <section id="sec-yt">
-    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT DO MENU</a>
-    <h2 style="text-align:center; margin-bottom: 20px;">YouTube Střih</h2>
-    <div class="slider-container" id="slider-yt">
-        <div class="slider-track">
-            <div class="slide"><iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?enablejsapi=1"></iframe></div>
-        </div>
-    </div>
+    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT</a>
+    <h2 style="text-align:center; margin-bottom:20px;">YouTube Tvorba</h2>
+    <div class="slider-container"><div class="slide"><iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?enablejsapi=1&mute=1"></iframe></div></div>
     <div class="order-box">
-        <h4>Poptat střih videa</h4>
-        <form action="https://formspree.io/f/xeekojbo" method="POST">
-            <div class="form-group">
-                <label>Tvůj Instagram <span>*</span></label>
-                <input type="text" name="instagram" placeholder="např. @tvojejmeno" required>
-            </div>
-            <div class="form-group">
-                <label>Tvůj e-mail <span>*</span></label>
-                <input type="email" name="email" placeholder="např. jmeno@seznam.cz" required>
-            </div>
-            <button type="submit" class="btn-send">Mám zájem</button>
+        <h4>Poptat střih YT</h4>
+        <form onsubmit="return validateForm(this)" action="https://formspree.io/f/xeekojbo" method="POST">
+            <div class="form-group"><label>Instagram</label><input type="text" name="instagram" placeholder="@tvojejmeno"></div>
+            <div class="form-group"><label>E-mail</label><input type="email" name="email" placeholder="email@seznam.cz"></div>
+            <div class="form-group"><label>Délka videa</label><input type="text" name="delka" placeholder="např. 10-15 min"></div>
+            <div class="form-group"><label>Styl videa</label><textarea name="styl" placeholder="vlog, gaming, dokument..."></textarea></div>
+            <button type="submit" class="btn-send">Odeslat</button>
         </form>
     </div>
 </section>
 
 <section id="sec-photos">
-    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT DO MENU</a>
-    <h2 style="text-align:center; margin-bottom: 20px;">Fotogalerie</h2>
-    
+    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZPĚT</a>
+    <h2 style="text-align:center; margin-bottom:20px;">Fotogalerie</h2>
     <div class="slider-container" id="slider-photos">
         <button class="slider-btn prev" onclick="moveSlide('slider-photos', -1)">&#10094;</button>
         <div class="slider-track">
             <div class="slide"><img src="foto11.jpeg"></div>
             <div class="slide"><img src="foto2.jpeg"></div>
             <div class="slide"><img src="foto3.jpeg"></div>
-            <div class="slide"><img src="foto4.jpeg"></div>
-            <div class="slide"><img src="foto5.jpeg"></div>
-            <div class="slide"><img src="foto6.jpeg"></div>
-            <div class="slide"><img src="foto7.jpeg"></div>
-            <div class="slide"><img src="foto8.jpeg"></div>
-            <div class="slide"><img src="foto9.jpeg"></div>
-            <div class="slide"><img src="foto10.jpeg"></div>
-            <div class="slide"><img src="foto1.jpeg"></div>
-            <div class="slide"><img src="foto12.jpeg"></div>
-            <div class="slide"><img src="foto13.jpeg"></div>
-            <div class="slide"><img src="foto14.jpeg"></div>
         </div>
         <button class="slider-btn next" onclick="moveSlide('slider-photos', 1)">&#10095;</button>
     </div>
-
-    <div class="slider-controls">
-        <button class="control-btn active" id="auto-photos" onclick="toggleAuto('slider-photos')">Autoposun</button>
-    </div>
-
     <div class="order-box">
         <h4>Domluvit focení</h4>
-        <form action="https://formspree.io/f/xeekojbo" method="POST">
-            <div class="form-group">
-                <label>Tvůj Instagram <span>*</span></label>
-                <input type="text" name="instagram" placeholder="např. @tvojejmeno" required>
-            </div>
-            <div class="form-group">
-                <label>Odkud jsi? (Lokalita)</label>
-                <input type="text" name="lokalita" placeholder="např. Praha / Brno">
-            </div>
-            <div class="form-group">
-                <label>Kdy chceš fotit?</label>
-                <input type="text" name="kdy" placeholder="např. příští týden / září">
-            </div>
+        <form onsubmit="return validateForm(this)" action="https://formspree.io/f/xeekojbo" method="POST">
+            <div class="form-group"><label>Instagram</label><input type="text" name="instagram" placeholder="@tvojejmeno"></div>
+            <div class="form-group"><label>E-mail</label><input type="email" name="email" placeholder="email@seznam.cz"></div>
+            <div class="form-group"><label>Lokalita</label><input type="text" name="lokalita" placeholder="Kde budeme fotit?"></div>
+            <div class="form-group"><label>Kdy?</label><input type="text" name="kdy" placeholder="Datum / Čas"></div>
             <button type="submit" class="btn-send">Odeslat</button>
         </form>
     </div>
@@ -291,8 +170,7 @@ input:focus, textarea:focus { border-color: var(--primary); outline: none; backg
 <script>
 let sliderStates = {
     'slider-clips': { idx: 0, auto: true, paused: false },
-    'slider-reels': { idx: 0, auto: true, paused: false, muted: true },
-    'slider-yt': { idx: 0, auto: false, paused: false },
+    'slider-reels': { idx: 0, auto: true, paused: false, muted: false },
     'slider-photos': { idx: 0, auto: true, paused: false }
 };
 
@@ -301,41 +179,52 @@ function openSection(id) {
     document.getElementById(id).classList.add('active');
     window.scrollTo(0,0);
     history.pushState({sectionId: id}, "", "#" + id);
-    
     if(id === 'sec-reels') {
-        const firstVid = document.querySelector('#slider-reels video');
-        if(firstVid) firstVid.play();
+        const vids = document.querySelectorAll('#slider-reels video');
+        vids.forEach(v => { v.muted = sliderStates['slider-reels'].muted; v.play().catch(()=>{}); });
     }
 }
 
 function goHome() {
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
     document.getElementById('home').classList.add('active');
-    window.scrollTo(0,0);
     history.pushState({sectionId: 'home'}, "", " ");
 }
-
-window.onpopstate = (e) => {
-    if (e.state && e.state.sectionId) openSection(e.state.sectionId);
-    else goHome();
-};
 
 function moveSlide(sid, step) {
     const state = sliderStates[sid];
     const track = document.querySelector(`#${sid} .slider-track`);
     const slides = track.querySelectorAll('.slide');
-    
     state.idx = (state.idx + step + slides.length) % slides.length;
     track.style.transform = `translateX(-${state.idx * 100}%)`;
 
     if(sid === 'slider-reels') {
-        const videos = track.querySelectorAll('video');
-        videos.forEach((v, i) => {
+        track.querySelectorAll('video').forEach((v, i) => {
             v.pause();
-            v.muted = state.muted;
-            if(i === state.idx && !state.paused) v.play();
+            if(i === state.idx) {
+                v.currentTime = 0; // Restart videa od začátku
+                if(!state.paused) v.play();
+            }
         });
     }
+}
+
+function togglePlay(sid) {
+    const state = sliderStates[sid];
+    state.paused = !state.paused;
+    const btn = document.getElementById('pause-' + sid.split('-')[1]);
+    if(btn) btn.innerText = state.paused ? "Přehrát" : "Pauza";
+    const currentVid = document.querySelector(`#${sid} .slide:nth-child(${state.idx + 1}) video`);
+    if(currentVid) state.paused ? currentVid.pause() : currentVid.play();
+}
+
+function toggleSound(sid) {
+    const state = sliderStates[sid];
+    state.muted = !state.muted;
+    const btn = document.getElementById('sound-' + sid.split('-')[1]);
+    btn.innerText = state.muted ? "Zvuk: VYP" : "Zvuk: ZAP";
+    btn.classList.toggle('active', !state.muted);
+    document.querySelectorAll(`#${sid} video`).forEach(v => v.muted = state.muted);
 }
 
 function toggleAuto(sid) {
@@ -344,40 +233,23 @@ function toggleAuto(sid) {
     document.getElementById('auto-' + sid.split('-')[1]).classList.toggle('active', state.auto);
 }
 
-function togglePlay(sid) {
-    const state = sliderStates[sid];
-    state.paused = !state.paused;
-    const btn = document.getElementById('pause-' + sid.split('-')[1]);
-    btn.innerText = state.paused ? "Přehrát" : "Pauza";
-    btn.classList.toggle('active', state.paused);
-    
-    if(sid === 'slider-reels') {
-        const currentVid = document.querySelector(`#${sid} .slide:nth-child(${state.idx + 1}) video`);
-        if(currentVid) state.paused ? currentVid.pause() : currentVid.play();
+function validateForm(form) {
+    const ig = form.instagram.value.trim();
+    const mail = form.email.value.trim();
+    if (!ig && !mail) {
+        alert("Prosím vyplň aspoň Instagram nebo E-mail, ať se ti mám jak ozvat!");
+        return false;
     }
+    return true;
 }
 
-function toggleSound(sid) {
-    const state = sliderStates[sid];
-    state.muted = !state.muted;
-    const btn = document.getElementById('sound-' + sid.split('-')[1]);
-    btn.innerText = state.muted ? "Zapnout zvuk" : "Vypnout zvuk";
-    btn.classList.toggle('active', !state.muted);
-    
-    const currentVid = document.querySelector(`#${sid} .slide:nth-child(${state.idx + 1}) video`);
-    if(currentVid) currentVid.muted = state.muted;
-}
+setInterval(() => {
+    Object.keys(sliderStates).forEach(sid => {
+        if(sliderStates[sid].auto && !sliderStates[sid].paused) moveSlide(sid, 1);
+    });
+}, 5000);
 
-function initTimers() {
-    setInterval(() => {
-        Object.keys(sliderStates).forEach(sid => {
-            if(sliderStates[sid].auto && !sliderStates[sid].paused) moveSlide(sid, 1);
-        });
-    }, 5000);
-}
-
-window.onload = initTimers;
+window.onpopstate = (e) => e.state?.sectionId ? openSection(e.state.sectionId) : goHome();
 </script>
-
 </body>
 </html>
