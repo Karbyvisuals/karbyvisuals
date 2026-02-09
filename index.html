@@ -2,6 +2,7 @@
     <section>
         <button class="btn-back" onclick="goHome()">← Zpět</button>
         <h2 data-i18n="nav1">Hudební Klipy</h2>
+
         <div class="slider-container">
             <div class="video-slider horizontal" id="slider-clips">
                 <iframe src="https://www.youtube.com/embed/u3uAbnbAokE?autoplay=1&mute=1&loop=1&playlist=u3uAbnbAokE" loading="lazy"></iframe>
@@ -11,55 +12,81 @@
                 <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU?autoplay=1&mute=1&loop=1&playlist=PsFQpfMa7ZU" loading="lazy"></iframe>
             </div>
         </div>
+
         <div class="order-box">
             <h4 data-i18n="orderClip">Poptat hudební klip</h4>
             <form action="https://formspree.io/f/xeekojbo" method="POST">
-                <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                
                 <div class="form-group">
-                    <label>Typ produkce</label>
-                    <select name="produkce" onchange="const loc = this.closest('form').querySelector('.loc-box'); this.value==='nataceni' ? loc.style.display='block' : loc.style.display='none'" style="width: 100%; padding: 14px; border-radius: 12px; background: #000; border: 1px solid #222; color: #fff;">
-                        <option value="strih">Pouze střih</option>
-                        <option value="nataceni">Natáčení i střih</option>
-                    </select>
-                </div>
-                
-                <div class="form-group loc-box" style="display:none;">
-                    <label>Lokalita natáčení</label>
-                    <input type="text" name="lokalita" placeholder="Kde se bude natáčet?">
+                    <label>Instagram / E-mail</label>
+                    <input type="text" name="contact" placeholder="@tvojejmeno nebo email" required>
                 </div>
 
-                <div class="form-group"><label data-i18n="fMsg">Představa projektu</label><textarea name="message" rows="3"></textarea></div>
+                <div class="form-group">
+                    <label>Typ služby</label>
+                    <select name="typ_sluzby"
+                        onchange="const loc=this.closest('form').querySelector('.loc-box'); this.value==='Natáčení + Střih' ? loc.style.display='block' : loc.style.display='none'"
+                        style="width:100%;padding:14px;border-radius:12px;background:#000;border:1px solid #222;color:#fff;">
+                        <option value="Pouze střih">Pouze střih (máš natočeno)</option>
+                        <option value="Natáčení + Střih">Natáčení + Střih</option>
+                    </select>
+                </div>
+
+                <div class="form-group loc-box" style="display:none;">
+                    <label>Lokalita natáčení</label>
+                    <input type="text" name="lokalita" placeholder="Město nebo přesné místo">
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="fMsg">Představa projektu</label>
+                    <textarea name="message" rows="3"></textarea>
+                </div>
+
                 <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
             </form>
         </div>
     </section>
 </div>
+
 
 <div id="sec-reels" class="portfolio-page">
     <section>
         <button class="btn-back" onclick="goHome()">← Zpět</button>
         <h2 data-i18n="nav2">Reels & TikTok</h2>
+
         <div class="slider-container">
             <div class="video-slider vertical" id="slider-reels">
-                <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4#t=0.1" type="video/mp4"></video>
-                <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4#t=0.1" type="video/mp4"></video>
-                <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4#t=0.1" type="video/mp4"></video>
+                <video autoplay muted loop playsinline>
+                    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4#t=0.1">
+                </video>
+                <video autoplay muted loop playsinline>
+                    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4#t=0.1">
+                </video>
+                <video autoplay muted loop playsinline>
+                    <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4#t=0.1">
+                </video>
             </div>
         </div>
+
         <div class="order-box">
             <h4 data-i18n="orderReels">Poptat Reels</h4>
             <form action="https://formspree.io/f/xeekojbo" method="POST">
-                <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                
-                <div class="form-group"><label>Počet videí</label><input type="number" name="pocet_videi" placeholder="Např. 5" min="1"></div>
-                
                 <div class="form-group">
-                    <label>Typ videí</label>
-                    <select name="typ_videa" style="width: 100%; padding: 14px; border-radius: 12px; background: #000; border: 1px solid #222; color: #fff;">
-                        <option value="promo">Promo</option>
-                        <option value="reklama">Reklama</option>
-                        <option value="bezny_strih">Běžný střih</option>
+                    <label>Instagram / E-mail</label>
+                    <input type="text" name="contact" placeholder="@tvojejmeno nebo email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Počet videí</label>
+                    <input type="number" name="pocet_videi" min="1" placeholder="Např. 5">
+                </div>
+
+                <div class="form-group">
+                    <label>Typ videa</label>
+                    <select name="typ_reels"
+                        style="width:100%;padding:14px;border-radius:12px;background:#000;border:1px solid #222;color:#fff;">
+                        <option value="Běžný střih">Běžný střih</option>
+                        <option value="Promo">Promo</option>
+                        <option value="Reklama">Reklama</option>
                     </select>
                 </div>
 
@@ -68,32 +95,42 @@
         </div>
     </section>
 </div>
+
 
 <div id="sec-yt" class="portfolio-page">
     <section>
         <button class="btn-back" onclick="goHome()">← Zpět</button>
         <h2 data-i18n="nav3">YouTube Tvorba</h2>
+
         <div class="slider-container">
             <div class="video-slider horizontal" id="slider-yt">
                 <iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?autoplay=1&mute=1&loop=1&playlist=R_vEUMhXYWA" loading="lazy"></iframe>
             </div>
         </div>
+
         <div class="order-box">
             <h4 data-i18n="orderYT">Poptat střih YouTube</h4>
             <form action="https://formspree.io/f/xeekojbo" method="POST">
-                <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                
+                <div class="form-group">
+                    <label>Instagram / E-mail</label>
+                    <input type="text" name="contact" placeholder="@tvojejmeno nebo email" required>
+                </div>
+
                 <div class="form-group">
                     <label>Typ videa</label>
-                    <select name="yt_typ" style="width: 100%; padding: 14px; border-radius: 12px; background: #000; border: 1px solid #222; color: #fff;">
-                        <option value="vlog">Vlog</option>
-                        <option value="gameplay">Gameplay</option>
-                        <option value="reakce">Reakce</option>
-                        <option value="jine">Jiné</option>
+                    <select name="yt_typ"
+                        style="width:100%;padding:14px;border-radius:12px;background:#000;border:1px solid #222;color:#fff;">
+                        <option value="Vlog">Vlog</option>
+                        <option value="Gameplay">Gameplay</option>
+                        <option value="Reakce">Reakce</option>
+                        <option value="Jiné">Jiné</option>
                     </select>
                 </div>
-                
-                <div class="form-group"><label>Odhadovaná délka videa</label><input type="text" name="delka_videa" placeholder="Např. 10 minut"></div>
+
+                <div class="form-group">
+                    <label>Délka videa</label>
+                    <input type="text" name="delka" placeholder="Např. 10–15 minut">
+                </div>
 
                 <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
             </form>
@@ -101,30 +138,40 @@
     </section>
 </div>
 
+
 <div id="sec-photos" class="portfolio-page">
     <section>
         <button class="btn-back" onclick="goHome()">← Zpět</button>
         <h2 data-i18n="nav4">Fotografie</h2>
+
         <div class="gallery-wrapper" id="slider-photos">
-            <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy">
+            <img src="foto11.jpeg" loading="lazy">
+            <img src="foto2.jpeg" loading="lazy">
         </div>
+
         <div class="order-box">
             <h4 data-i18n="orderPhoto">Domluvit focení</h4>
             <form action="https://formspree.io/f/xeekojbo" method="POST">
-                <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label>Instagram / E-mail</label>
+                    <input type="text" name="contact" placeholder="@tvojejmeno nebo email" required>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
                     <div class="form-group">
                         <label>Termín</label>
-                        <input type="date" name="termin" style="color-scheme: dark;">
+                        <input type="date" name="termin" style="color-scheme:dark;">
                     </div>
                     <div class="form-group">
                         <label>Lokalita</label>
                         <input type="text" name="lokalita" placeholder="Město">
                     </div>
                 </div>
-                
-                <div class="form-group"><label>Podrobnosti</label><textarea name="podrobnosti" rows="3" placeholder="Styl focení, počet fotek atd..."></textarea></div>
+
+                <div class="form-group">
+                    <label>Podrobnosti</label>
+                    <textarea name="podrobnosti" rows="2" placeholder="Počet fotek, styl, účel…"></textarea>
+                </div>
 
                 <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
             </form>
