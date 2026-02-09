@@ -3,286 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>karbyvisuals – Creative Studio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<title>karbyvisuals</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 
 <style>
 :root { --primary:#ff7a18; --bg:#050505; --card:#111; }
+
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:#fff;
-    overflow-x:hidden;
-}
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-      radial-gradient(circle at 50% 0%, rgba(255,122,24,.1), transparent 50%),
-      linear-gradient(180deg,#050505,#0a0a0a);
-    z-index:-1;
+  font-family:Inter,sans-serif;
+  background:#0a0a0a;
+  color:#fff;
+  overflow-x:hidden;
 }
 
-/* TOP BAR */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,122,24,0.12), transparent 60%),
+    linear-gradient(to bottom,#050505,#0a0a0a);
+  z-index:-1;
+}
+
 .top-bar{
-    position:fixed;top:0;width:100%;height:70px;
-    background:rgba(0,0,0,.85);
-    backdrop-filter:blur(15px);
-    display:flex;justify-content:center;align-items:center;
-    z-index:1000;
-    border-bottom:1px solid rgba(255,122,24,.2);
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(12px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  border-bottom:1px solid rgba(255,122,24,.2)
 }
 .logo{
-    color:var(--primary);
-    font-weight:900;
-    letter-spacing:3px;
-    text-decoration:none;
-    font-size:24px;
-    cursor:pointer;
+  font-weight:900;
+  letter-spacing:3px;
+  color:var(--primary);
+  text-decoration:none;
+  font-size:22px;
 }
 
-/* SECTIONS */
 section{
-    padding:140px 6% 80px;
-    min-height:100vh;
-    display:none;
-}
-section.active{display:block;animation:fade .4s ease}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
-
-.home-title{
-    font-size:clamp(45px,10vw,90px);
-    font-weight:900;
-    text-align:center;
-}
-.home-sub{
-    text-align:center;
-    color:var(--primary);
-    letter-spacing:6px;
-    margin-top:30px;
-    font-weight:700;
+  padding:120px 6% 80px;
 }
 
-/* GRID */
-.home-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:30px;
-    margin-top:80px;
-}
-.nav-card{
-    background:var(--card);
-    padding:60px 20px;
-    border-radius:28px;
-    text-align:center;
-    cursor:pointer;
-    transition:.4s;
-    border:1px solid rgba(255,255,255,.05);
-}
-.nav-card:hover{
-    border-color:var(--primary);
-    transform:translateY(-10px);
+.hero{
+  min-height:90vh;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:60px;
+  padding-top:140px;
 }
 
-/* SLIDER */
+.hero-left{text-align:center}
+.hero-left .title{
+  font-family:'UnifrakturCook',cursive;
+  font-size:90px;
+}
+.hero-left p{opacity:.7;margin-top:15px}
+
+.hero-right img{
+  max-width:320px;
+  border-radius:22px;
+}
+
+.about-me{
+  max-width:320px;
+  margin-top:20px;
+  border-left:2px solid var(--primary);
+  padding-left:15px;
+  font-size:14px;
+}
+
+h2{text-align:center;margin-bottom:40px;font-weight:900}
+h3{text-align:center;margin-bottom:20px;opacity:.7}
+
 .slider-container{
-    position:relative;
-    max-width:1100px;
-    margin:40px auto;
-    overflow:hidden;
-    border-radius:24px;
-    background:#000;
+  position:relative;
+  max-width:1100px;
+  margin:0 auto;
+  background:#000;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.8)
 }
-.slider-track{display:flex;transition:.7s}
+.slider-track{
+  display:flex;
+  transition:.7s cubic-bezier(.23,1,.32,1)
+}
 .slide{
-    min-width:100%;
-    aspect-ratio:16/9;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  min-width:100%;
+  aspect-ratio:16/9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.slide iframe,.slide video,.slide img{
-    width:100%;height:100%;
-    object-fit:contain;
+.slide iframe,
+.slide video,
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
 }
 
-/* BUTTONS */
+.reels-slider{max-width:420px}
+.reels-slider .slide{aspect-ratio:9/16}
+
 .slider-btn{
-    position:absolute;top:50%;
-    transform:translateY(-50%);
-    width:45px;height:45px;
-    border-radius:50%;
-    background:rgba(0,0,0,.6);
-    color:#fff;
-    border:1px solid rgba(255,122,24,.3);
-    cursor:pointer;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:46px;height:46px;
+  border-radius:50%;
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,122,24,.4);
+  color:#fff;
+  cursor:pointer;
 }
 .prev{left:15px}
 .next{right:15px}
 
-/* ORDER */
 .order-box{
-    max-width:600px;
-    margin:80px auto;
-    background:#0a0a0a;
-    padding:45px;
-    border-radius:30px;
+  max-width:600px;
+  margin:70px auto 0;
+  background:#0a0a0a;
+  padding:45px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.05)
 }
 .order-box h4{
-    text-align:center;
-    color:var(--primary);
-    margin-bottom:30px;
+  text-align:center;
+  color:var(--primary);
+  margin-bottom:30px;
+  letter-spacing:2px
 }
+
 input,textarea{
-    width:100%;
-    padding:15px;
-    margin-bottom:20px;
-    border-radius:14px;
-    background:#000;
-    border:1px solid #222;
-    color:#fff;
+  width:100%;
+  padding:16px;
+  border-radius:14px;
+  background:#000;
+  border:1px solid #222;
+  color:#fff;
+  margin-bottom:15px;
 }
 .btn-send{
-    width:100%;
-    padding:18px;
-    border:none;
-    border-radius:14px;
-    background:var(--primary);
-    font-weight:900;
-    cursor:pointer;
+  width:100%;
+  padding:18px;
+  background:var(--primary);
+  border:none;
+  border-radius:14px;
+  font-weight:900;
+  cursor:pointer;
 }
 
-/* ABOUT */
-.about-box{
-    max-width:800px;
-    margin:0 auto;
-    background:#0a0a0a;
-    padding:60px;
-    border-radius:30px;
-    line-height:1.7;
+.chat-container{
+  max-width:800px;
+  margin:0 auto;
+  background:rgba(255,255,255,.03);
+  border-radius:25px;
+  padding:25px;
 }
+.chat-bubble{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+.chat-bubble img{
+  width:35px;height:35px;border-radius:50%
+}
+.chat-bubble.right{flex-direction:row-reverse}
+.message{
+  padding:12px 16px;
+  border-radius:18px;
+  font-size:14px;
+}
+.left .message{background:#262626}
+.right .message{background:var(--primary);color:#000}
 
-/* FEEDBACK */
-.feedback{
-    max-width:800px;
-    margin:40px auto;
-    display:flex;
-    flex-direction:column;
-    gap:20px;
+footer{
+  padding:60px 6%;
+  text-align:center;
+  opacity:.5;
+  font-size:12px;
 }
-.bubble{
-    background:#111;
-    padding:20px;
-    border-radius:20px;
-    max-width:80%;
-}
-.bubble.me{align-self:flex-end;background:#1a1a1a}
 </style>
 </head>
 
 <body>
 
 <div class="top-bar">
-  <a class="logo" onclick="goHome()">karbyvisuals</a>
+  <a class="logo">karbyvisuals</a>
 </div>
 
-<!-- HOME -->
-<section id="home" class="active">
-  <h1 class="home-title">karbyvisuals</h1>
-  <p class="home-sub">VIDEO • PHOTO • EDIT</p>
-
-  <div class="home-grid">
-    <div class="nav-card" onclick="openSection('clips')">Hudební klipy</div>
-    <div class="nav-card" onclick="openSection('reels')">Reels / TikTok</div>
-    <div class="nav-card" onclick="openSection('photos')">Fotografie</div>
-    <div class="nav-card" onclick="openSection('about')">O mně</div>
-    <div class="nav-card" onclick="openSection('feedback')">Feedback</div>
+<section class="hero">
+  <div class="hero-left">
+    <div class="title">27sun</div>
+    <p>Video editor & photographer<br>Reels • TikTok • YouTube</p>
   </div>
-</section>
-
-<!-- CLIPS -->
-<section id="clips">
-  <h2>Hudební klipy</h2>
-  <div class="slider-container" id="slider-clips">
-    <button class="slider-btn prev" onclick="move('slider-clips',-1)">‹</button>
-    <div class="slider-track">
-      <div class="slide"><iframe src="https://www.youtube.com/embed/u3uAbnbAokE?mute=1"></iframe></div>
-      <div class="slide"><iframe src="https://www.youtube.com/embed/_VWkv_ONEiM?mute=1"></iframe></div>
-      <div class="slide"><iframe src="https://www.youtube.com/embed/ihaDYNouXis?mute=1"></iframe></div>
-    </div>
-    <button class="slider-btn next" onclick="move('slider-clips',1)">›</button>
-  </div>
-
-  <div class="order-box">
-    <h4>Natočit klip</h4>
-    <input placeholder="Instagram">
-    <input placeholder="E-mail">
-    <textarea placeholder="Představa projektu"></textarea>
-    <button class="btn-send">Odeslat</button>
-  </div>
-</section>
-
-<!-- REELS -->
-<section id="reels">
-  <h2>Reels & TikTok</h2>
-  <div class="slider-container" id="slider-reels">
-    <div class="slider-track">
-      <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/finale_202_oqmn0s.mp4" controls></video></div>
-      <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" controls></video></div>
+  <div class="hero-right">
+    <img src="profile.JPG">
+    <div class="about-me">
+      <b>Samuel Karbán</b>, 18 let.<br>
+      Střih v DaVinci Resolve, video & foto tvorba.
     </div>
   </div>
 </section>
 
-<!-- PHOTOS -->
-<section id="photos">
-  <h2>Fotografie</h2>
-  <div class="slider-container" id="slider-photos">
-    <div class="slider-track">
-      <div class="slide"><img src="foto11.jpeg"></div>
-      <div class="slide"><img src="foto2.jpeg"></div>
-      <div class="slide"><img src="foto3.jpeg"></div>
-    </div>
+<section>
+<h2>Hudební Klipy</h2>
+<div class="slider-container" id="clips">
+  <button class="slider-btn prev" onclick="move('clips',-1)">‹</button>
+  <div class="slider-track">
+    <div class="slide"><iframe src="https://www.youtube.com/embed/u3uAbnbAokE"></iframe></div>
+    <div class="slide"><iframe src="https://www.youtube.com/embed/_VWkv_ONEiM"></iframe></div>
+    <div class="slide"><iframe src="https://www.youtube.com/embed/ihaDYNouXis"></iframe></div>
   </div>
+  <button class="slider-btn next" onclick="move('clips',1)">›</button>
+</div>
+
+<div class="order-box">
+<h4>Natočit klip</h4>
+<form action="https://formspree.io/f/xeekojbo" method="POST">
+<input name="instagram" placeholder="@instagram">
+<input name="email" type="email" placeholder="email">
+<textarea name="msg" placeholder="Představa projektu"></textarea>
+<button class="btn-send">Odeslat</button>
+</form>
+</div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <h2>O mně</h2>
-  <div class="about-box">
-    <p>
-      Jsem videomaker a editor zaměřený na moderní vizuál,
-      hudební klipy, reels a obsah pro sociální sítě.
-      Baví mě syrový styl, emoce a dynamika.
-    </p>
+<section>
+<h2>Reels / TikTok</h2>
+<div class="slider-container reels-slider" id="reels">
+  <button class="slider-btn prev" onclick="move('reels',-1)">‹</button>
+  <div class="slider-track">
+    <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/finale_202_oqmn0s.mp4" controls></video></div>
+    <div class="slide"><video src="https://res.cloudinary.com/dlrgsdnry/video/upload/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" controls></video></div>
   </div>
+  <button class="slider-btn next" onclick="move('reels',1)">›</button>
+</div>
 </section>
 
-<!-- FEEDBACK -->
-<section id="feedback">
-  <h2>Feedback</h2>
-  <div class="feedback">
-    <div class="bubble">„Totální bomba, přesně co jsme chtěli.“</div>
-    <div class="bubble me">„Rychlá domluva a top výsledek.“</div>
-    <div class="bubble">„Vizuál úplně jinde než konkurence.“</div>
-  </div>
+<section>
+<h2>Feedback</h2>
+<div class="chat-container">
+  <div class="chat-bubble left"><img src="nayssone.PNG"><div class="message">Fakt super práce kamo</div></div>
+  <div class="chat-bubble right"><img src="nikofadess.PNG"><div class="message">extrém, díky moc</div></div>
+</div>
 </section>
+
+<footer>
+© 2025 karbyvisuals • Samuel Karbán
+</footer>
 
 <script>
-let state={};
-function openSection(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-}
-function goHome(){openSection('home')}
 function move(id,dir){
-  if(!state[id])state[id]=0;
   const track=document.querySelector(`#${id} .slider-track`);
   const slides=track.children.length;
-  state[id]=(state[id]+dir+slides)%slides;
-  track.style.transform=`translateX(-${state[id]*100}%)`;
+  let i=track.dataset.i?Number(track.dataset.i):0;
+  i=(i+dir+slides)%slides;
+  track.style.transform=`translateX(-${i*100}%)`;
+  track.dataset.i=i;
 }
 </script>
 
