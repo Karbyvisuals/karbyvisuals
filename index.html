@@ -45,22 +45,35 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
 .nav-card h3 { opacity: 1; margin-bottom: 5px; font-size: 18px; }
 .nav-card p { font-size: 11px; color: var(--primary); font-weight: 700; letter-spacing: 2px; }
 
-.slider-container { position: relative; width: 100%; margin-bottom: 20px; }
-.video-slider, .gallery-wrapper { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:20px; scrollbar-width:none; scroll-behavior: smooth; }
+/* SLIDER UPDATES */
+.slider-container { position: relative; width: 100%; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+.video-slider, .gallery-wrapper { display:flex; gap:30px; overflow-x:auto; scroll-snap-type:x mandatory; padding: 40px 0; scrollbar-width:none; scroll-behavior: smooth; align-items: center; }
 .video-slider::-webkit-scrollbar { display:none; }
 
-.video-slider.horizontal iframe { 
-    min-width: 85vw; 
-    max-width: 700px; 
-    aspect-ratio: 16 / 9; 
-    border-radius: 15px; 
-    border: none; 
-    background: #000; 
-    scroll-snap-align: center; 
+.video-slider iframe, .video-slider video, .gallery-wrapper img { 
+    transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+    opacity: 0.4;
+    filter: grayscale(100%);
+    transform: scale(0.9);
 }
 
+/* Zvýrazněný prvek uprostřed */
+.video-slider .is-active, .gallery-wrapper .is-active { 
+    opacity: 1; 
+    filter: grayscale(0%);
+    transform: scale(1.05); /* Lehké zvětšení */
+    z-index: 10;
+}
+
+.video-slider.horizontal iframe { min-width: 80vw; max-width: 700px; aspect-ratio: 16 / 9; border-radius: 15px; border: none; background: #000; scroll-snap-align: center; }
 .video-slider.vertical video { min-width:280px; height:500px; border-radius:18px; object-fit:cover; scroll-snap-align: center; cursor: pointer; }
-.gallery-wrapper img { height:400px; border-radius:15px; scroll-snap-align: start; }
+.gallery-wrapper img { height:450px; border-radius:15px; scroll-snap-align: center; }
+
+/* Manuální šipky */
+.nav-arrow { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 20; position: absolute; top: 50%; transform: translateY(-50%); }
+.nav-arrow:hover { background: var(--primary); color: black; border-color: var(--primary); }
+.arrow-left { left: -10px; }
+.arrow-right { right: -10px; }
 
 .section-controls { display: flex; justify-content: center; gap: 10px; margin: 10px 0 40px; }
 .btn-control { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; font-size: 11px; font-weight: 800; text-transform: uppercase; }
@@ -79,12 +92,12 @@ select { appearance: none; cursor: pointer; }
 .chat-track{display:flex; flex-direction:column; gap:15px; padding:20px; animation:scrollUp 25s linear infinite;}
 @keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 
-/* Skrytá sekce pro lokalitu */
 .hidden { display: none; }
 
 @media(max-width:600px){
     .nav-grid { grid-template-columns: 1fr; }
     .video-slider.vertical video { min-width: 260px; height: 460px; }
+    .nav-arrow { display: none; } /* Na mobilu stačí swipe */
 }
 </style>
 </head>
@@ -139,13 +152,15 @@ select { appearance: none; cursor: pointer; }
             <button class="btn-back" onclick="goHome()">← Zpět</button>
             <h2 data-i18n="nav1">Hudební Klipy</h2>
             <div class="slider-container">
+                <button class="nav-arrow arrow-left" onclick="manualScroll('slider-clips', -1)">←</button>
                 <div class="video-slider horizontal" id="slider-clips">
-                    <iframe src="https://www.youtube.com/embed/u3uAbnbAokE?autoplay=1&mute=1&loop=1&playlist=u3uAbnbAokE" loading="lazy"></iframe>
-                    <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM?autoplay=1&mute=1&loop=1&playlist=_VWkv_ONEiM" loading="lazy"></iframe>
-                    <iframe src="https://www.youtube.com/embed/ihaDYNouXis?autoplay=1&mute=1&loop=1&playlist=ihaDYNouXis" loading="lazy"></iframe>
-                    <iframe src="https://www.youtube.com/embed/J13Ju447MCs?autoplay=1&mute=1&loop=1&playlist=J13Ju447MCs" loading="lazy"></iframe>
-                    <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU?autoplay=1&mute=1&loop=1&playlist=PsFQpfMa7ZU" loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/u3uAbnbAokE?enablejsapi=1&mute=1" loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM?enablejsapi=1&mute=1" loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/ihaDYNouXis?enablejsapi=1&mute=1" loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/J13Ju447MCs?enablejsapi=1&mute=1" loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU?enablejsapi=1&mute=1" loading="lazy"></iframe>
                 </div>
+                <button class="nav-arrow arrow-right" onclick="manualScroll('slider-clips', 1)">→</button>
             </div>
             <div class="section-controls">
                 <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
@@ -174,15 +189,15 @@ select { appearance: none; cursor: pointer; }
             <button class="btn-back" onclick="goHome()">← Zpět</button>
             <h2 data-i18n="nav2">Reels & TikTok</h2>
             <div class="slider-container">
+                <button class="nav-arrow arrow-left" onclick="manualScroll('slider-reels', -1)">←</button>
                 <div class="video-slider vertical" id="slider-reels">
-                    <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4#t=0.1" type="video/mp4"></video>
-                    <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4#t=0.1" type="video/mp4"></video>
-                    <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4#t=0.1" type="video/mp4"></video>
-                    <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4#t=0.1" type="video/mp4"></video>
-                    <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.mp4#t=0.1" type="video/mp4"></video>
-                    <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.mp4#t=0.1" type="video/mp4"></video>
-                    <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.mp4#t=0.1" type="video/mp4"></video>
+                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.mp4" type="video/mp4"></video>
                 </div>
+                <button class="nav-arrow arrow-right" onclick="manualScroll('slider-reels', 1)">→</button>
             </div>
             <div class="section-controls">
                 <button id="btn-mute" class="btn-control" onclick="toggleMute()">ZVUK: OFF</button>
@@ -206,7 +221,7 @@ select { appearance: none; cursor: pointer; }
             <h2 data-i18n="nav3">YouTube Tvorba</h2>
             <div class="slider-container">
                 <div class="video-slider horizontal" id="slider-yt">
-                    <iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?autoplay=1&mute=1&loop=1&playlist=R_vEUMhXYWA" loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?enablejsapi=1&mute=1" loading="lazy"></iframe>
                 </div>
             </div>
             <div class="order-box">
@@ -225,8 +240,12 @@ select { appearance: none; cursor: pointer; }
         <section>
             <button class="btn-back" onclick="goHome()">← Zpět</button>
             <h2 data-i18n="nav4">Fotografie</h2>
-            <div class="gallery-wrapper" id="slider-photos">
-                <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy"><img src="foto9.jpeg" loading="lazy"><img src="foto10.jpeg" loading="lazy"><img src="foto1.jpeg" loading="lazy"><img src="foto12.jpeg" loading="lazy"><img src="foto13.jpeg" loading="lazy"><img src="foto14.jpeg" loading="lazy">
+            <div class="slider-container">
+                <button class="nav-arrow arrow-left" onclick="manualScroll('slider-photos', -1)">←</button>
+                <div class="gallery-wrapper" id="slider-photos">
+                    <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy">
+                </div>
+                <button class="nav-arrow arrow-right" onclick="manualScroll('slider-photos', 1)">→</button>
             </div>
             <div class="section-controls">
                 <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
@@ -251,38 +270,20 @@ select { appearance: none; cursor: pointer; }
 
 <script>
 const t={
-  cs:{
-    workTitle:"Moje Tvorba", nav1:"Hudební Klipy", nav2:"Reels & TikTok", nav3:"YouTube Tvorba", nav4:"Fotografie",
-    reviewsTitle:"Feedback", sendBtn:"Odeslat poptávku",
-    orderClip:"Poptat hudební klip", orderReels:"Poptat Reels", orderYT:"Poptat střih YouTube", orderPhoto:"Domluvit focení",
-    fMsg:"Představa projektu", msg1:"Fakt super práce kamo", msg2:"predtym to bolo ppci kamo a teraz uplny strop", msg3:"braaaaaaaacho extremne to je diki moooc", msgNavy:"Hele kamo pokracuj dal, delas neco co tady chybi."
-  },
-  en:{
-    workTitle:"My Work", nav1:"Music Videos", nav2:"Reels & TikTok", nav3:"YouTube Content", nav4:"Photography",
-    reviewsTitle:"Feedback", sendBtn:"Send Request",
-    orderClip:"Request Music Video", orderReels:"Request Reels", orderYT:"Request YouTube Edit", orderPhoto:"Book Photoshoot",
-    fMsg:"Project Vision", msg1:"Really great work mate", msg2:"it was awesome before but now it's next level", msg3:"brooooooo this is extreme, thanks a lot", msgNavy:"Hey mate, keep going, you're doing something that's missing here."
-  }
+  cs:{ workTitle:"Moje Tvorba", nav1:"Hudební Klipy", nav2:"Reels & TikTok", nav3:"YouTube Tvorba", nav4:"Fotografie", reviewsTitle:"Feedback", sendBtn:"Odeslat poptávku", orderClip:"Poptat hudební klip", orderReels:"Poptat Reels", orderYT:"Poptat střih YouTube", orderPhoto:"Domluvit focení", fMsg:"Představa projektu", msg1:"Fakt super práce kamo", msg2:"predtym to bolo ppci kamo a teraz uplny strop", msg3:"braaaaaaaacho extremne to je diki moooc", msgNavy:"Hele kamo pokracuj dal, delas neco co tady chybi." },
+  en:{ workTitle:"My Work", nav1:"Music Videos", nav2:"Reels & TikTok", nav3:"YouTube Content", nav4:"Photography", reviewsTitle:"Feedback", sendBtn:"Send Request", orderClip:"Request Music Video", orderReels:"Request Reels", orderYT:"Request YouTube Edit", orderPhoto:"Book Photoshoot", fMsg:"Project Vision", msg1:"Really great work mate", msg2:"it was awesome before but now it's next level", msg3:"brooooooo this is extreme, thanks a lot", msgNavy:"Hey mate, keep going, you're doing something that's missing here." }
 };
 
 let autoScrollActive = true;
 let isMuted = true;
 
-// Funkce pro skrytí/zobrazení lokality
 function toggleLocation(select, targetId) {
     const target = document.getElementById(targetId);
-    if (select.value === 'shoot_edit') {
-        target.classList.remove('hidden');
-    } else {
-        target.classList.add('hidden');
-    }
+    target.classList.toggle('hidden', select.value !== 'shoot_edit');
 }
 
 function setLang(l){
-  document.querySelectorAll("[data-i18n]").forEach(e=>{
-    const item=t[l][e.dataset.i18n];
-    if(item) e.innerHTML=item;
-  });
+  document.querySelectorAll("[data-i18n]").forEach(e=>{ const item=t[l][e.dataset.i18n]; if(item) e.innerHTML=item; });
   document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
   document.getElementById('btn-' + l).classList.add('active');
 }
@@ -290,9 +291,9 @@ function setLang(l){
 function openSection(id) {
     document.getElementById('home-view').style.display = 'none';
     document.querySelectorAll('.portfolio-page').forEach(p => p.classList.remove('active'));
-    const section = document.getElementById(id);
-    section.classList.add('active');
+    document.getElementById(id).classList.add('active');
     window.scrollTo({top: 0, behavior: 'smooth'});
+    updateActiveStates();
 }
 
 function goHome() {
@@ -317,28 +318,67 @@ function toggleAutoScroll() {
     });
 }
 
+function manualScroll(id, dir) {
+    const slider = document.getElementById(id);
+    const step = slider.clientWidth * 0.8;
+    slider.scrollBy({ left: step * dir, behavior: 'smooth' });
+}
+
+// Detekce prvku uprostřed a ovládání videí
+function updateActiveStates() {
+    const activePage = document.querySelector('.portfolio-page.active');
+    if(!activePage) return;
+    const slider = activePage.querySelector('.video-slider, .gallery-wrapper');
+    if(!slider) return;
+
+    const items = slider.querySelectorAll('video, iframe, img');
+    const centerX = slider.scrollLeft + (slider.clientWidth / 2);
+
+    items.forEach(item => {
+        const itemCenter = item.offsetLeft + (item.clientWidth / 2);
+        const distance = Math.abs(centerX - itemCenter);
+
+        if (distance < item.clientWidth / 2) {
+            if (!item.classList.contains('is-active')) {
+                item.classList.add('is-active');
+                if (item.tagName === 'VIDEO') {
+                    item.muted = isMuted;
+                    item.play().catch(() => {});
+                }
+                if (item.tagName === 'IFRAME') {
+                   // YouTube API control would go here, but requires complex setup. 
+                   // Basic auto-play is handled by URL params on load.
+                }
+            }
+        } else {
+            item.classList.remove('is-active');
+            if (item.tagName === 'VIDEO') {
+                item.pause();
+            }
+        }
+    });
+}
+
 function runAutoScroll() {
     if(!autoScrollActive) return;
     const activePage = document.querySelector('.portfolio-page.active');
     if(!activePage) return;
     const slider = activePage.querySelector('.video-slider, .gallery-wrapper');
     if(slider) {
-        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 50) {
             slider.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-            slider.scrollBy({ left: slider.clientWidth * 0.7, behavior: 'smooth' });
+            slider.scrollBy({ left: slider.clientWidth * 0.8, behavior: 'smooth' });
         }
     }
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
   setLang('cs');
-  setInterval(runAutoScroll, 12000);
+  setInterval(runAutoScroll, 8000);
   
-  document.querySelectorAll('video').forEach(video => {
-    video.addEventListener('click', function() {
-        if (this.paused) this.play(); else this.pause();
-    });
+  document.querySelectorAll('.video-slider, .gallery-wrapper').forEach(slider => {
+      slider.addEventListener('scroll', updateActiveStates);
   });
 
   const track = document.getElementById('chatTrack');
