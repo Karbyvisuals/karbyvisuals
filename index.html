@@ -45,7 +45,7 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
 .nav-card h3 { opacity: 1; margin-bottom: 5px; font-size: 18px; }
 .nav-card p { font-size: 11px; color: var(--primary); font-weight: 700; letter-spacing: 2px; }
 
-/* SLIDER UPDATES */
+/* SLIDER DESIGN */
 .slider-container { position: relative; width: 100vw; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .video-slider, .gallery-wrapper { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; padding: 40px 15vw; scrollbar-width:none; scroll-behavior: smooth; align-items: center; width: 100%; }
 .video-slider::-webkit-scrollbar { display:none; }
@@ -56,25 +56,21 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
     filter: grayscale(100%);
     transform: scale(0.9);
     flex-shrink: 0;
-    width: 70vw; /* Dominantní prvek uprostřed */
+    width: 70vw; 
     max-width: 400px;
-    aspect-ratio: 9 / 16; /* Všechny prvky 9:16 */
-    object-fit: contain; /* Fotky na šířku se zmenší místo ořezu */
+    aspect-ratio: 9 / 16; 
+    object-fit: contain; 
     background: #000;
     border-radius: 18px;
     scroll-snap-align: center;
 }
 
-/* Zvýrazněný prvek uprostřed */
 .video-slider .is-active, .gallery-wrapper .is-active { 
     opacity: 1; 
     filter: grayscale(0%);
     transform: scale(1.05);
     z-index: 10;
 }
-
-.video-slider.horizontal iframe { border: none; }
-.video-slider.vertical video { cursor: pointer; }
 
 /* Manuální šipky */
 .nav-arrow { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 20; position: absolute; top: 50%; transform: translateY(-50%); }
@@ -199,16 +195,28 @@ select { appearance: none; cursor: pointer; }
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="manualScroll('slider-reels', -1)">←</button>
                 <div class="video-slider" id="slider-reels">
-                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" type="video/mp4"></video>
-                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" type="video/mp4"></video>
-                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" type="video/mp4"></video>
-                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.mp4" type="video/mp4"></video>
+                    <video loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.mp4" type="video/mp4"></video>
                 </div>
                 <button class="nav-arrow arrow-right" onclick="manualScroll('slider-reels', 1)">→</button>
             </div>
             <div class="section-controls">
                 <button id="btn-mute" class="btn-control" onclick="toggleMute()">ZVUK: OFF</button>
                 <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
+            </div>
+            <div class="order-box">
+                <h4 data-i18n="orderReels">Poptat Reels</h4>
+                <form action="https://formspree.io/f/xeekojbo" method="POST">
+                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
+                    <div class="form-group"><label>Počet videí</label><input type="number" name="video_count" placeholder="např. 5" required></div>
+                    <div class="form-group"><label>Typ videí</label><input type="text" name="video_type" placeholder="např. promo, reklama, běžný střih" required></div>
+                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
+                </form>
             </div>
         </section>
     </div>
@@ -222,6 +230,15 @@ select { appearance: none; cursor: pointer; }
                     <iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?enablejsapi=1&mute=1" loading="lazy"></iframe>
                 </div>
             </div>
+            <div class="order-box">
+                <h4 data-i18n="orderYT">Poptat střih YouTube</h4>
+                <form action="https://formspree.io/f/xeekojbo" method="POST">
+                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
+                    <div class="form-group"><label>Typ videa</label><input type="text" name="yt_type" placeholder="vlog, gameplay, reakce..." required></div>
+                    <div class="form-group"><label>Délka videa</label><input type="text" name="yt_length" placeholder="např. 10-15 minut" required></div>
+                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
+                </form>
+            </div>
         </section>
     </div>
 
@@ -232,17 +249,22 @@ select { appearance: none; cursor: pointer; }
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="manualScroll('slider-photos', -1)">←</button>
                 <div class="gallery-wrapper" id="slider-photos">
-                    <img src="foto11.jpeg" loading="lazy">
-                    <img src="foto2.jpeg" loading="lazy">
-                    <img src="foto3.jpeg" loading="lazy">
-                    <img src="foto4.jpeg" loading="lazy">
-                    <img src="foto5.jpeg" loading="lazy">
-                    <img src="foto6.jpeg" loading="lazy">
+                    <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy"><img src="foto9.jpeg" loading="lazy"><img src="foto10.jpeg" loading="lazy"><img src="foto1.jpeg" loading="lazy"><img src="foto12.jpeg" loading="lazy"><img src="foto13.jpeg" loading="lazy"><img src="foto14.jpeg" loading="lazy">
                 </div>
                 <button class="nav-arrow arrow-right" onclick="manualScroll('slider-photos', 1)">→</button>
             </div>
             <div class="section-controls">
                 <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
+            </div>
+            <div class="order-box">
+                <h4 data-i18n="orderPhoto">Domluvit focení</h4>
+                <form action="https://formspree.io/f/xeekojbo" method="POST">
+                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
+                    <div class="form-group"><label>Termín</label><input type="date" name="date" required></div>
+                    <div class="form-group"><label>Lokalita</label><input type="text" name="location" placeholder="Kde se bude fotit?" required></div>
+                    <div class="form-group"><label>Podrobnosti</label><textarea name="details" rows="3" placeholder="Co konkrétně potřebuješ nafotit?"></textarea></div>
+                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
+                </form>
             </div>
         </section>
     </div>
