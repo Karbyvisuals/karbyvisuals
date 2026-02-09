@@ -26,7 +26,12 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .top-bar{position:fixed;top:0;width:100%;height:80px;background:rgba(10,10,10,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05)}
 .logo-text { font-weight: 900; font-size: 22px; color: var(--primary); text-transform: uppercase; letter-spacing: 3px; text-decoration: none; }
 
-.lang-switch{position:absolute;right:15px}.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:5px 12px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.3s;font-weight:600}
+.controls-wrapper { position: absolute; right: 15px; display: flex; gap: 8px; align-items: center; }
+.btn-control { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: 11px; transition: 0.3s; font-weight: 600; text-transform: uppercase; }
+.btn-control.active { background: var(--primary); color: #000; border-color: var(--primary); }
+
+.lang-switch{margin-right: 10px;}
+.lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:5px 12px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.3s;font-weight:600}
 .lang-switch button.active{background:var(--primary);color:#000;border-color:var(--primary)}
 
 /* Hero Section */
@@ -47,15 +52,21 @@ h3{opacity:.7;margin-bottom:10px;font-weight:500}
 .nav-card p { font-size: 11px; color: var(--primary); font-weight: 700; letter-spacing: 2px; }
 
 /* Content Sections */
-.portfolio-section { display: none; padding-top: 60px; animation: fadeIn 0.5s ease; }
+.portfolio-section { display: none; padding-top: 60px; animation: fadeIn 0.5s ease; position: relative; }
 .portfolio-section.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-.video-slider, .gallery-wrapper { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:20px; scrollbar-width:none; }
+.slider-container { position: relative; width: 100%; }
+.video-slider, .gallery-wrapper { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:20px; scrollbar-width:none; scroll-behavior: smooth; }
 .video-slider::-webkit-scrollbar, .gallery-wrapper::-webkit-scrollbar { display:none; }
-.video-slider.horizontal iframe { min-width:85vw; max-width:480px; height:270px; border-radius:15px; border:none; background:#000; }
-.video-slider.vertical video { min-width:260px; height:460px; border-radius:18px; object-fit:cover; }
-.gallery-wrapper img { height:400px; width:auto; border-radius:15px; }
+
+.video-slider.horizontal iframe { min-width:85vw; max-width:480px; height:270px; border-radius:15px; border:none; background:#000; scroll-snap-align: center; }
+.video-slider.vertical video { min-width:280px; height:500px; border-radius:18px; object-fit:cover; scroll-snap-align: center; cursor: pointer; }
+.gallery-wrapper img { height:400px; width:auto; border-radius:15px; scroll-snap-align: start; }
+
+.nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: var(--primary); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; font-weight: bold; opacity: 0.7; transition: 0.3s; }
+.nav-arrow:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+.nav-arrow.next { right: -10px; }
 
 /* Order Form Box */
 .order-box { max-width: 600px; margin: 50px auto; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); }
@@ -84,6 +95,7 @@ footer{text-align:center; padding:60px 6% 40px; border-top:1px solid rgba(255,25
 @media(max-width:600px){
     .nav-grid { grid-template-columns: 1fr 1fr; }
     .hero{padding-top:100px}
+    .controls-wrapper { position: fixed; bottom: 20px; right: 20px; top: auto; flex-direction: column; z-index: 2000; }
 }
 </style>
 </head>
@@ -91,9 +103,13 @@ footer{text-align:center; padding:60px 6% 40px; border-top:1px solid rgba(255,25
 
 <div class="top-bar">
   <a href="#" class="logo-text">karbyvisuals</a>
-  <div class="lang-switch">
-    <button id="btn-cs" class="active" onclick="setLang('cs')">CZ</button>
-    <button id="btn-en" onclick="setLang('en')">EN</button>
+  <div class="controls-wrapper">
+    <div class="lang-switch">
+        <button id="btn-cs" class="active" onclick="setLang('cs')">CZ</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button id="btn-mute" class="btn-control" onclick="toggleMute()">MUTE: ON</button>
+    <button id="btn-autoscroll" class="btn-control active" onclick="toggleAutoScroll()">AUTO: ON</button>
   </div>
 </div>
 
@@ -121,10 +137,14 @@ footer{text-align:center; padding:60px 6% 40px; border-top:1px solid rgba(255,25
 
   <div id="sec-clips" class="portfolio-section">
     <h3 data-i18n="nav1">Hudební Klipy</h3>
-    <div class="video-slider">
-        <iframe src="https://www.youtube.com/embed/u3uAbnbAokE"></iframe>
-        <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM"></iframe>
-        <iframe src="https://www.youtube.com/embed/ihaDYNouXis"></iframe>
+    <div class="slider-container">
+        <div class="video-slider horizontal" id="clips-slider">
+            <iframe src="https://www.youtube.com/embed/u3uAbnbAokE" loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM" loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/ihaDYNouXis" loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/J13Ju447MCs" loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU" loading="lazy"></iframe>
+        </div>
     </div>
     <div class="order-box">
         <h4 data-i18n="orderClip">Poptat hudební klip</h4>
@@ -138,10 +158,17 @@ footer{text-align:center; padding:60px 6% 40px; border-top:1px solid rgba(255,25
 
   <div id="sec-reels" class="portfolio-section">
     <h3 data-i18n="nav2">Reels & TikTok</h3>
-    <div class="video-slider vertical">
-        <video controls muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4#t=0.1" type="video/mp4"></video>
-        <video controls muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4#t=0.1" type="video/mp4"></video>
-        <video controls muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4#t=0.1" type="video/mp4"></video>
+    <div class="slider-container">
+        <div class="video-slider vertical" id="reels-slider">
+            <video controls preload="metadata" muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4#t=0.1" type="video/mp4"></video>
+            <video controls preload="metadata" muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4#t=0.1" type="video/mp4"></video>
+            <video controls preload="metadata" muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4#t=0.1" type="video/mp4"></video>
+            <video controls preload="metadata" muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4#t=0.1" type="video/mp4"></video>
+            <video controls preload="metadata" muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.mp4#t=0.1" type="video/mp4"></video>
+            <video controls preload="metadata" muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.mp4#t=0.1" type="video/mp4"></video>
+            <video controls preload="metadata" muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.mp4#t=0.1" type="video/mp4"></video>
+        </div>
+        <button class="nav-arrow next" onclick="scrollSlider('reels-slider', 300)">&#10095;</button>
     </div>
     <div class="order-box">
         <h4 data-i18n="orderReels">Poptat Reels balíček</h4>
@@ -155,7 +182,7 @@ footer{text-align:center; padding:60px 6% 40px; border-top:1px solid rgba(255,25
 
   <div id="sec-yt" class="portfolio-section">
     <h3 data-i18n="nav3">YouTube Tvorba</h3>
-    <div class="video-slider">
+    <div class="video-slider horizontal">
         <iframe src="https://www.youtube.com/embed/R_vEUMhXYWA"></iframe>
     </div>
     <div class="order-box">
@@ -170,11 +197,10 @@ footer{text-align:center; padding:60px 6% 40px; border-top:1px solid rgba(255,25
 
   <div id="sec-photos" class="portfolio-section">
     <h3 data-i18n="nav4">Fotogalerie</h3>
-    <div class="gallery-wrapper">
-        <img src="foto1.jpeg"><img src="foto2.jpeg"><img src="foto3.jpeg">
-        <img src="foto4.jpeg"><img src="foto5.jpeg"><img src="foto6.jpeg">
-        <img src="foto7.jpeg"><img src="foto8.jpeg"><img src="foto9.jpeg">
-        <img src="foto10.jpeg"><img src="foto11.jpeg">
+    <div class="slider-container">
+        <div class="gallery-wrapper" id="photo-slider">
+            <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy"><img src="foto9.jpeg" loading="lazy"><img src="foto10.jpeg" loading="lazy"><img src="foto1.jpeg" loading="lazy"><img src="foto12.jpeg" loading="lazy"><img src="foto13.jpeg" loading="lazy"><img src="foto14.jpeg" loading="lazy">
+        </div>
     </div>
     <div class="order-box">
         <h4 data-i18n="orderPhoto">Domluvit focení</h4>
@@ -223,6 +249,9 @@ const t={
   }
 };
 
+let autoScrollActive = true;
+let scrollInterval;
+
 function setLang(l){
   document.querySelectorAll("[data-i18n]").forEach(e=>{
     const item=t[l][e.dataset.i18n];
@@ -239,10 +268,60 @@ function openSection(id) {
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// Funkce pro ruční a automatický posun
+function scrollSlider(id, distance) {
+    const slider = document.getElementById(id);
+    if (!slider) return;
+    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+        slider.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+        slider.scrollBy({ left: distance || 300, behavior: 'smooth' });
+    }
+}
+
+// Automatický posun každých 12 sekund
+function startAutoScroll() {
+    scrollInterval = setInterval(() => {
+        if (!autoScrollActive) return;
+        const activeSlider = document.querySelector('.portfolio-section.active .video-slider, .portfolio-section.active .gallery-wrapper');
+        if (activeSlider) {
+            scrollSlider(activeSlider.id, activeSlider.clientWidth * 0.8);
+        }
+    }, 12000);
+}
+
+function toggleAutoScroll() {
+    autoScrollActive = !autoScrollActive;
+    const btn = document.getElementById('btn-autoscroll');
+    btn.innerText = autoScrollActive ? 'AUTO: ON' : 'AUTO: OFF';
+    btn.classList.toggle('active');
+}
+
+function toggleMute() {
+    const videos = document.querySelectorAll('video');
+    const btn = document.getElementById('btn-mute');
+    const isMuted = videos[0] ? videos[0].muted : true;
+    
+    videos.forEach(v => v.muted = !isMuted);
+    btn.innerText = !isMuted ? 'MUTE: ON' : 'MUTE: OFF';
+    btn.classList.toggle('active', !isMuted);
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   setLang('cs');
+  startAutoScroll();
+  
+  // Chat scroll nekonečný
   const track=document.getElementById('chatTrack');
   if(track) track.innerHTML+=track.innerHTML;
+
+  // Kliknutí na video pro Play/Pause
+  document.querySelectorAll('video').forEach(video => {
+    video.addEventListener('click', function() {
+        if (this.paused) this.play();
+        else this.pause();
+    });
+  });
 });
 </script>
 </body>
