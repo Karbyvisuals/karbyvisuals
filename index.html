@@ -46,8 +46,8 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
 .nav-card p { font-size: 11px; color: var(--primary); font-weight: 700; letter-spacing: 2px; }
 
 /* SLIDER UPDATES */
-.slider-container { position: relative; width: 100%; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
-.video-slider, .gallery-wrapper { display:flex; gap:30px; overflow-x:auto; scroll-snap-type:x mandatory; padding: 40px 0; scrollbar-width:none; scroll-behavior: smooth; align-items: center; }
+.slider-container { position: relative; width: 100vw; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.video-slider, .gallery-wrapper { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; padding: 40px 15vw; scrollbar-width:none; scroll-behavior: smooth; align-items: center; width: 100%; }
 .video-slider::-webkit-scrollbar { display:none; }
 
 .video-slider iframe, .video-slider video, .gallery-wrapper img { 
@@ -55,25 +55,32 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
     opacity: 0.4;
     filter: grayscale(100%);
     transform: scale(0.9);
+    flex-shrink: 0;
+    width: 70vw; /* Dominantní prvek uprostřed */
+    max-width: 400px;
+    aspect-ratio: 9 / 16; /* Všechny prvky 9:16 */
+    object-fit: contain; /* Fotky na šířku se zmenší místo ořezu */
+    background: #000;
+    border-radius: 18px;
+    scroll-snap-align: center;
 }
 
 /* Zvýrazněný prvek uprostřed */
 .video-slider .is-active, .gallery-wrapper .is-active { 
     opacity: 1; 
     filter: grayscale(0%);
-    transform: scale(1.05); /* Lehké zvětšení */
+    transform: scale(1.05);
     z-index: 10;
 }
 
-.video-slider.horizontal iframe { min-width: 80vw; max-width: 700px; aspect-ratio: 16 / 9; border-radius: 15px; border: none; background: #000; scroll-snap-align: center; }
-.video-slider.vertical video { min-width:280px; height:500px; border-radius:18px; object-fit:cover; scroll-snap-align: center; cursor: pointer; }
-.gallery-wrapper img { height:450px; border-radius:15px; scroll-snap-align: center; }
+.video-slider.horizontal iframe { border: none; }
+.video-slider.vertical video { cursor: pointer; }
 
 /* Manuální šipky */
 .nav-arrow { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 20; position: absolute; top: 50%; transform: translateY(-50%); }
 .nav-arrow:hover { background: var(--primary); color: black; border-color: var(--primary); }
-.arrow-left { left: -10px; }
-.arrow-right { right: -10px; }
+.arrow-left { left: 20px; }
+.arrow-right { right: 20px; }
 
 .section-controls { display: flex; justify-content: center; gap: 10px; margin: 10px 0 40px; }
 .btn-control { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 18px; border-radius: 999px; cursor: pointer; font-size: 11px; font-weight: 800; text-transform: uppercase; }
@@ -96,8 +103,9 @@ select { appearance: none; cursor: pointer; }
 
 @media(max-width:600px){
     .nav-grid { grid-template-columns: 1fr; }
-    .video-slider.vertical video { min-width: 260px; height: 460px; }
-    .nav-arrow { display: none; } /* Na mobilu stačí swipe */
+    .video-slider, .gallery-wrapper { padding: 40px 10vw; }
+    .video-slider iframe, .video-slider video, .gallery-wrapper img { width: 80vw; }
+    .nav-arrow { display: none; }
 }
 </style>
 </head>
@@ -153,7 +161,7 @@ select { appearance: none; cursor: pointer; }
             <h2 data-i18n="nav1">Hudební Klipy</h2>
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="manualScroll('slider-clips', -1)">←</button>
-                <div class="video-slider horizontal" id="slider-clips">
+                <div class="video-slider" id="slider-clips">
                     <iframe src="https://www.youtube.com/embed/u3uAbnbAokE?enablejsapi=1&mute=1" loading="lazy"></iframe>
                     <iframe src="https://www.youtube.com/embed/_VWkv_ONEiM?enablejsapi=1&mute=1" loading="lazy"></iframe>
                     <iframe src="https://www.youtube.com/embed/ihaDYNouXis?enablejsapi=1&mute=1" loading="lazy"></iframe>
@@ -190,27 +198,17 @@ select { appearance: none; cursor: pointer; }
             <h2 data-i18n="nav2">Reels & TikTok</h2>
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="manualScroll('slider-reels', -1)">←</button>
-                <div class="video-slider vertical" id="slider-reels">
-                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" type="video/mp4"></video>
-                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" type="video/mp4"></video>
-                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" type="video/mp4"></video>
-                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4" type="video/mp4"></video>
-                    <video loop playsinline poster="..."><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.mp4" type="video/mp4"></video>
+                <div class="video-slider" id="slider-reels">
+                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" type="video/mp4"></video>
+                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" type="video/mp4"></video>
+                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" type="video/mp4"></video>
+                    <video loop playsinline><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4" type="video/mp4"></video>
                 </div>
                 <button class="nav-arrow arrow-right" onclick="manualScroll('slider-reels', 1)">→</button>
             </div>
             <div class="section-controls">
                 <button id="btn-mute" class="btn-control" onclick="toggleMute()">ZVUK: OFF</button>
                 <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
-            </div>
-            <div class="order-box">
-                <h4 data-i18n="orderReels">Poptat Reels</h4>
-                <form action="https://formspree.io/f/xeekojbo" method="POST">
-                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                    <div class="form-group"><label>Počet videí</label><input type="number" name="video_count" placeholder="např. 5" required></div>
-                    <div class="form-group"><label>Typ videí</label><input type="text" name="video_type" placeholder="např. promo, reklama, běžný střih" required></div>
-                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
-                </form>
             </div>
         </section>
     </div>
@@ -220,18 +218,9 @@ select { appearance: none; cursor: pointer; }
             <button class="btn-back" onclick="goHome()">← Zpět</button>
             <h2 data-i18n="nav3">YouTube Tvorba</h2>
             <div class="slider-container">
-                <div class="video-slider horizontal" id="slider-yt">
+                <div class="video-slider" id="slider-yt">
                     <iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?enablejsapi=1&mute=1" loading="lazy"></iframe>
                 </div>
-            </div>
-            <div class="order-box">
-                <h4 data-i18n="orderYT">Poptat střih YouTube</h4>
-                <form action="https://formspree.io/f/xeekojbo" method="POST">
-                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                    <div class="form-group"><label>Typ videa</label><input type="text" name="yt_type" placeholder="vlog, gameplay, reakce..." required></div>
-                    <div class="form-group"><label>Délka videa</label><input type="text" name="yt_length" placeholder="např. 10-15 minut" required></div>
-                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
-                </form>
             </div>
         </section>
     </div>
@@ -243,22 +232,17 @@ select { appearance: none; cursor: pointer; }
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="manualScroll('slider-photos', -1)">←</button>
                 <div class="gallery-wrapper" id="slider-photos">
-                    <img src="foto11.jpeg" loading="lazy"><img src="foto2.jpeg" loading="lazy"><img src="foto3.jpeg" loading="lazy"><img src="foto4.jpeg" loading="lazy"><img src="foto5.jpeg" loading="lazy"><img src="foto6.jpeg" loading="lazy"><img src="foto7.jpeg" loading="lazy"><img src="foto8.jpeg" loading="lazy">
+                    <img src="foto11.jpeg" loading="lazy">
+                    <img src="foto2.jpeg" loading="lazy">
+                    <img src="foto3.jpeg" loading="lazy">
+                    <img src="foto4.jpeg" loading="lazy">
+                    <img src="foto5.jpeg" loading="lazy">
+                    <img src="foto6.jpeg" loading="lazy">
                 </div>
                 <button class="nav-arrow arrow-right" onclick="manualScroll('slider-photos', 1)">→</button>
             </div>
             <div class="section-controls">
                 <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
-            </div>
-            <div class="order-box">
-                <h4 data-i18n="orderPhoto">Domluvit focení</h4>
-                <form action="https://formspree.io/f/xeekojbo" method="POST">
-                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                    <div class="form-group"><label>Termín</label><input type="date" name="date" required></div>
-                    <div class="form-group"><label>Lokalita</label><input type="text" name="location" placeholder="Kde se bude fotit?" required></div>
-                    <div class="form-group"><label>Podrobnosti</label><textarea name="details" rows="3" placeholder="Co konkrétně potřebuješ nafotit?"></textarea></div>
-                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
-                </form>
             </div>
         </section>
     </div>
@@ -293,7 +277,7 @@ function openSection(id) {
     document.querySelectorAll('.portfolio-page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo({top: 0, behavior: 'smooth'});
-    updateActiveStates();
+    setTimeout(updateActiveStates, 100);
 }
 
 function goHome() {
@@ -320,42 +304,37 @@ function toggleAutoScroll() {
 
 function manualScroll(id, dir) {
     const slider = document.getElementById(id);
-    const step = slider.clientWidth * 0.8;
+    const step = slider.querySelector('.is-active')?.clientWidth || slider.clientWidth * 0.7;
     slider.scrollBy({ left: step * dir, behavior: 'smooth' });
 }
 
-// Detekce prvku uprostřed a ovládání videí
 function updateActiveStates() {
     const activePage = document.querySelector('.portfolio-page.active');
     if(!activePage) return;
-    const slider = activePage.querySelector('.video-slider, .gallery-wrapper');
-    if(!slider) return;
+    const sliders = activePage.querySelectorAll('.video-slider, .gallery-wrapper');
+    
+    sliders.forEach(slider => {
+        const items = slider.querySelectorAll('video, iframe, img');
+        const sliderCenter = slider.getBoundingClientRect().left + (slider.clientWidth / 2);
 
-    const items = slider.querySelectorAll('video, iframe, img');
-    const centerX = slider.scrollLeft + (slider.clientWidth / 2);
+        items.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenter = itemRect.left + (itemRect.width / 2);
+            const distance = Math.abs(sliderCenter - itemCenter);
 
-    items.forEach(item => {
-        const itemCenter = item.offsetLeft + (item.clientWidth / 2);
-        const distance = Math.abs(centerX - itemCenter);
-
-        if (distance < item.clientWidth / 2) {
-            if (!item.classList.contains('is-active')) {
-                item.classList.add('is-active');
-                if (item.tagName === 'VIDEO') {
-                    item.muted = isMuted;
-                    item.play().catch(() => {});
+            if (distance < itemRect.width / 2) {
+                if (!item.classList.contains('is-active')) {
+                    item.classList.add('is-active');
+                    if (item.tagName === 'VIDEO') {
+                        item.muted = isMuted;
+                        item.play().catch(() => {});
+                    }
                 }
-                if (item.tagName === 'IFRAME') {
-                   // YouTube API control would go here, but requires complex setup. 
-                   // Basic auto-play is handled by URL params on load.
-                }
+            } else {
+                item.classList.remove('is-active');
+                if (item.tagName === 'VIDEO') item.pause();
             }
-        } else {
-            item.classList.remove('is-active');
-            if (item.tagName === 'VIDEO') {
-                item.pause();
-            }
-        }
+        });
     });
 }
 
@@ -365,22 +344,21 @@ function runAutoScroll() {
     if(!activePage) return;
     const slider = activePage.querySelector('.video-slider, .gallery-wrapper');
     if(slider) {
-        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 50) {
+        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 100) {
             slider.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-            slider.scrollBy({ left: slider.clientWidth * 0.8, behavior: 'smooth' });
+            const step = slider.querySelector('.is-active')?.clientWidth || 300;
+            slider.scrollBy({ left: step + 15, behavior: 'smooth' });
         }
     }
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
   setLang('cs');
-  setInterval(runAutoScroll, 8000);
-  
+  setInterval(runAutoScroll, 6000);
   document.querySelectorAll('.video-slider, .gallery-wrapper').forEach(slider => {
       slider.addEventListener('scroll', updateActiveStates);
   });
-
   const track = document.getElementById('chatTrack');
   track.innerHTML += track.innerHTML;
 });
