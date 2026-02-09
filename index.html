@@ -8,80 +8,114 @@
 <style>
 :root { --primary: #ff7a18; --bg: #0a0a0a; --card: rgba(255,255,255,0.03); }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Inter', Arial, sans-serif;background:var(--bg);color:#f2f2f2;overflow-x:hidden}
+body{font-family:'Inter', Arial, sans-serif;background:var(--bg);color:#f2f2f2;overflow-x:hidden;line-height:1.5}
 
-/* Logo & Nav */
-.top-bar{position:fixed;top:0;width:100%;height:70px;background:rgba(10,10,10,0.8);backdrop-filter:blur(15px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05)}
-.logo-text { font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); text-transform: lowercase; cursor: pointer; }
-
-.lang-switch{position:absolute; right: 20px; display: flex; gap: 10px;}
-.lang-btn { font-size: 20px; cursor: pointer; filter: grayscale(1); transition: 0.3s; background: none; border: none; }
-.lang-btn.active { filter: grayscale(0); transform: scale(1.2); }
-
-/* Pages */
-.portfolio-page { display: none; padding-top: 90px; min-height: 100vh; text-align: center; }
-.portfolio-page.active { display: block; animation: fadeIn 0.4s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-section{padding:30px 5%; max-width: 1200px; margin: 0 auto;}
-h2{margin-bottom:25px; letter-spacing: 2px;}
-
-/* Slider Engine */
-.slider-container { position: relative; width: 100%; display: flex; align-items: center; justify-content: center; }
-.video-slider, .gallery-wrapper { 
-    display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; 
-    padding: 10px 0 30px; scrollbar-width: none; width: 100%;
-}
-.video-slider::-webkit-scrollbar { display: none; }
-
-/* Video Items */
-.video-item { 
-    position: relative; scroll-snap-align: center; background: #000; 
-    border-radius: 12px; overflow: hidden; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
+body::before{
+  content:""; position:fixed; inset:0;
+  background: 
+    radial-gradient(circle at 50% 0%, rgba(255,122,24,0.1) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(10,10,10,.85), rgba(10,10,10,.95)),
+    repeating-linear-gradient(to right, rgba(255,255,255,.01) 0, rgba(255,255,255,.01) 1px, transparent 1px, transparent 140px);
+  z-index:-1; pointer-events: none;
 }
 
-/* Fix: Klipy & YT (16:9) */
-.horizontal .video-item { width: 85vw; max-width: 800px; aspect-ratio: 16/9; }
-.horizontal iframe { width: 100%; height: 100%; border: none; }
+/* Header */
+.top-bar{position:fixed;top:0;width:100%;height:80px;background:rgba(10,10,10,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05)}
+.logo-text { font-family: 'Cinzel', serif; font-size: 26px; color: var(--primary); text-transform: lowercase; text-decoration: none; cursor: pointer; }
 
-/* Fix: Reels (9:16) */
-.vertical .video-item { width: 280px; aspect-ratio: 9/16; max-height: 80vh; }
-.vertical video { width: 100%; height: 100%; object-fit: contain; }
+/* Portfolio Pages */
+#home-view, .portfolio-page { transition: opacity 0.4s ease; }
+.portfolio-page { display: none; padding-top: 100px; min-height: 100vh; }
+.portfolio-page.active { display: block; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Minimalist Pause Icon */
-.play-overlay {
-    position: absolute; inset: 0; background: rgba(0,0,0,0.2);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: 0.2s; pointer-events: none;
-}
-.video-item:active .play-overlay { opacity: 1; }
-.paused .play-overlay { opacity: 1; background: rgba(0,0,0,0.4); }
-.play-icon-svg { width: 50px; height: 50px; fill: white; opacity: 0.8; }
+section{padding:40px 6%; position: relative;}
+h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;text-transform: uppercase;}
 
-/* Nav Arrows */
+/* Hero */
+.hero{min-height:60vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;padding-top:120px}
+.hero-text{flex:1;min-width:300px;text-align:center}
+.hero img{width:100%;max-width:300px;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+
+/* Nav Grid */
+.nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
+.nav-card { background: var(--card); border: 1px solid rgba(255,255,255,0.05); padding: 50px 20px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
+.nav-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+.nav-card h3 { font-size: 18px; margin-bottom: 5px; }
+.nav-card p { font-size: 11px; color: var(--primary); font-weight: 700; letter-spacing: 2px; }
+
+/* Slider Container & Arrows */
+.slider-container { position: relative; width: 100%; group; }
+.video-slider, .gallery-wrapper { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:20px; scrollbar-width:none; scroll-behavior: smooth; }
+.video-slider::-webkit-scrollbar { display:none; }
+
 .nav-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(255,255,255,0.1); color: white; border: none;
-    width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10;
-    backdrop-filter: blur(5px); opacity: 0; transition: 0.3s;
+    background: rgba(0,0,0,0.6); color: var(--primary); border: 1px solid var(--primary);
+    width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 100;
+    font-size: 20px; display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: 0.3s;
 }
 .slider-container:hover .nav-arrow { opacity: 1; }
-.arrow-left { left: 5px; } .arrow-right { right: 5px; }
+.arrow-left { left: -10px; }
+.arrow-right { right: -10px; }
 
-/* Photos */
-.gallery-wrapper img { height: 70vh; border-radius: 8px; scroll-snap-align: center; object-fit: contain; background: #000; }
+/* Videa a Fotky - OPRAVA ROZMĚRŮ */
+.video-item { position: relative; scroll-snap-align: center; background: #000; border-radius: 18px; overflow: hidden; }
 
-/* Back Button */
-.btn-back { background: rgba(255,122,24,0.1); border: 1px solid var(--primary); color: var(--primary); padding: 8px 20px; border-radius: 20px; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
+/* Horizontální (YouTube) */
+.video-slider.horizontal iframe { 
+    min-width: 85vw; max-width: 750px; aspect-ratio: 16/9; 
+    border: none; display: block;
+}
 
-/* Form Style */
-.order-box { max-width: 500px; margin: 40px auto; background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
-input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #111; border: 1px solid #222; color: #fff; font-family: inherit; }
-.btn-send { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 8px; font-weight: 800; cursor: pointer; color: #000; }
+/* Vertikální (Reels) */
+.video-slider.vertical .video-item { min-width: 280px; height: 500px; }
+.video-slider.vertical video { 
+    width: 100%; height: 100%; 
+    object-fit: contain; /* Zobrazí celý obraz bez ořezu */
+}
 
-@media(max-width: 600px) {
-    .vertical .video-item { width: 75vw; }
+/* Play/Pause Overlay */
+.play-overlay {
+    position: absolute; inset: 0; 
+    background: rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: 0.3s; pointer-events: none;
+}
+.video-item:hover .play-overlay, .video-item:active .play-overlay { opacity: 1; }
+.play-icon {
+    width: 60px; height: 60px; background: var(--primary); 
+    clip-path: polygon(20% 10%, 90% 50%, 20% 90%); /* Play shape */
+}
+.video-item.paused .play-icon {
+    clip-path: none; border-left: 15px solid var(--primary); border-right: 15px solid var(--primary); width: 45px;
+}
+
+/* Fotky */
+.gallery-wrapper img { 
+    height: 450px; border-radius: 15px; scroll-snap-align: start;
+    object-fit: contain; background: #000;
+}
+
+/* Controls & Forms */
+.section-controls { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+.btn-control { background: rgba(255,255,255,0.1); border: 1px solid var(--primary); color: #fff; padding: 10px 20px; border-radius: 999px; cursor: pointer; font-size: 11px; font-weight: 800; }
+.btn-control.active { background: var(--primary); color: #000; }
+.btn-back { background: none; border: 1px solid var(--primary); color: var(--primary); padding: 8px 20px; border-radius: 999px; cursor: pointer; margin-bottom: 20px; }
+
+.order-box { max-width: 600px; margin: 40px auto; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); }
+.order-box h4 { margin-bottom: 25px; text-align: center; color: var(--primary); text-transform: uppercase; font-size: 18px; }
+input, textarea { width: 100%; padding: 14px; border-radius: 12px; background: #000; border: 1px solid #222; color: #fff; margin-bottom: 15px; }
+.btn-send { width: 100%; padding: 16px; background: var(--primary); border: none; border-radius: 12px; font-weight: 900; cursor: pointer; color: #000; }
+
+/* Feedback */
+.chat-container{height:300px; overflow:hidden; position:relative; background:var(--card); border-radius:25px; mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
+.chat-track{display:flex; flex-direction:column; gap:15px; padding:20px; animation:scrollUp 20s linear infinite;}
+@keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+
+@media(max-width:600px){
+    .video-slider.vertical .video-item { min-width: 260px; height: 460px; }
     .nav-arrow { opacity: 1; width: 35px; height: 35px; }
 }
 </style>
@@ -90,34 +124,36 @@ input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius
 
 <div class="top-bar">
   <div class="logo-text" onclick="goHome()">karbyvisuals</div>
-  <div class="lang-switch">
-    <button class="lang-btn active" onclick="setLang('cs')">🇨🇿</button>
-    <button class="lang-btn" onclick="setLang('en')">🇬🇧</button>
-  </div>
 </div>
 
 <div id="home-view">
-    <section style="padding-top: 100px; text-align: center;">
-        <h1 style="font-size: clamp(40px, 10vw, 80px); font-weight: 900; line-height: 1;">KARBYVISUALS</h1>
-        <p style="color: var(--primary); letter-spacing: 4px; font-size: 12px; margin-top: 10px;">VIDEO • PHOTO • EDIT</p>
-        <div style="margin-top: 30px;"><img src="profile.JPG" style="width: 180px; border-radius: 50%; border: 2px solid var(--primary);"></div>
+    <section class="hero">
+      <div class="hero-text">
+        <h1 style="font-weight:900; font-size: clamp(35px, 8vw, 65px); line-height:1; text-transform: uppercase;">karbyvisuals</h1>
+        <p style="color:var(--primary); font-weight:600; letter-spacing:3px; margin-top:10px; font-size: 14px;">VIDEO • PHOTO • EDIT</p>
+      </div>
+      <div class="hero-right"><img src="profile.JPG" alt="Samuel Karbán"></div>
     </section>
 
     <section>
-        <h2 data-i18n="workTitle">Moje Tvorba</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-            <div style="background: var(--card); padding: 40px 20px; border-radius: 15px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);" onclick="openSection('sec-clips')">
-                <h3 data-i18n="nav1">Hudební Klipy</h3>
-            </div>
-            <div style="background: var(--card); padding: 40px 20px; border-radius: 15px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);" onclick="openSection('sec-reels')">
-                <h3 data-i18n="nav2">Reels & TikTok</h3>
-            </div>
-            <div style="background: var(--card); padding: 40px 20px; border-radius: 15px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);" onclick="openSection('sec-yt')">
-                <h3 data-i18n="nav3">YouTube Tvorba</h3>
-            </div>
-            <div style="background: var(--card); padding: 40px 20px; border-radius: 15px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);" onclick="openSection('sec-photos')">
-                <h3 data-i18n="nav4">Fotografie</h3>
-            </div>
+      <h2 data-i18n="workTitle">Moje Tvorba</h2>
+      <div class="nav-grid">
+        <div class="nav-card" onclick="openSection('sec-clips')"><h3 data-i18n="nav1">Hudební Klipy</h3><p>SHOWCASE</p></div>
+        <div class="nav-card" onclick="openSection('sec-reels')"><h3 data-i18n="nav2">Reels & TikTok</h3><p>SOCIAL MEDIA</p></div>
+        <div class="nav-card" onclick="openSection('sec-yt')"><h3 data-i18n="nav3">YouTube Tvorba</h3><p>EDITS</p></div>
+        <div class="nav-card" onclick="openSection('sec-photos')"><h3 data-i18n="nav4">Fotografie</h3><p>GALLERY</p></div>
+      </div>
+    </section>
+
+    <section>
+        <h2 data-i18n="reviewsTitle">Feedback</h2>
+        <div class="chat-container">
+          <div class="chat-track" id="chatTrack">
+            <div class="chat-bubble left"><div class="message-content"><span class="sender-name">NAYSSONE</span><span data-i18n="msg1">Fakt super práce kamo</span></div></div>
+            <div class="chat-bubble right"><div class="message-content"><span class="sender-name">NIKOFADESS</span><span data-i18n="msg2">predtym to bolo ppci kamo a teraz uplny strop</span></div></div>
+            <div class="chat-bubble left"><div class="message-content"><span class="sender-name">NAVY</span><span data-i18n="msgNavy">hele kamo pokracuj dal delas neco co tady chybi</span></div></div>
+            <div class="chat-bubble right"><div class="message-content"><span class="sender-name">NIKOFADESS</span><span data-i18n="msg3">braaaaaaaacho extremne to je diki moooc</span></div></div>
+          </div>
         </div>
     </section>
 </div>
@@ -130,18 +166,21 @@ input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="slide('slider-clips', -1)">❮</button>
                 <div class="video-slider horizontal" id="slider-clips">
-                    <div class="video-item"><iframe src="https://www.youtube.com/embed/u3uAbnbAokE"></iframe></div>
-                    <div class="video-item"><iframe src="https://www.youtube.com/embed/_VWkv_ONEiM"></iframe></div>
-                    <div class="video-item"><iframe src="https://www.youtube.com/embed/ihaDYNouXis"></iframe></div>
+                    <div class="video-item"><iframe src="https://www.youtube.com/embed/u3uAbnbAokE?autoplay=1&mute=1&loop=1&playlist=u3uAbnbAokE"></iframe></div>
+                    <div class="video-item"><iframe src="https://www.youtube.com/embed/_VWkv_ONEiM?autoplay=1&mute=1&loop=1&playlist=_VWkv_ONEiM"></iframe></div>
+                    <div class="video-item"><iframe src="https://www.youtube.com/embed/ihaDYNouXis?autoplay=1&mute=1&loop=1&playlist=ihaDYNouXis"></iframe></div>
+                    <div class="video-item"><iframe src="https://www.youtube.com/embed/J13Ju447MCs?autoplay=1&mute=1&loop=1&playlist=J13Ju447MCs"></iframe></div>
+                    <div class="video-item"><iframe src="https://www.youtube.com/embed/PsFQpfMa7ZU?autoplay=1&mute=1&loop=1&playlist=PsFQpfMa7ZU"></iframe></div>
                 </div>
                 <button class="nav-arrow arrow-right" onclick="slide('slider-clips', 1)">❯</button>
             </div>
+            <div class="section-controls"><button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button></div>
             <div class="order-box">
                 <h4 data-i18n="orderClip">Poptat hudební klip</h4>
                 <form action="https://formspree.io/f/xeekojbo" method="POST">
                     <input type="text" name="contact" placeholder="IG / E-mail" required>
-                    <textarea name="message" rows="3" placeholder="Představa..."></textarea>
-                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat</button>
+                    <textarea name="message" rows="3" placeholder="Tvoje představa..."></textarea>
+                    <button type="submit" class="btn-send">Odeslat</button>
                 </form>
             </div>
         </section>
@@ -155,51 +194,105 @@ input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius
                 <button class="nav-arrow arrow-left" onclick="slide('slider-reels', -1)">❮</button>
                 <div class="video-slider vertical" id="slider-reels">
                     <div class="video-item">
-                        <video loop playsinline muted autoplay poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg">
-                            <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4">
-                        </video>
-                        <div class="play-overlay">
-                            <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
+                        <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4#t=0.1"></video>
+                        <div class="play-overlay"><div class="play-icon"></div></div>
                     </div>
                     <div class="video-item">
-                        <video loop playsinline muted poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg">
-                            <source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4">
-                        </video>
-                        <div class="play-overlay"><svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                        <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4#t=0.1"></video>
+                        <div class="play-overlay"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4#t=0.1"></video>
+                        <div class="play-overlay"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4#t=0.1"></video>
+                        <div class="play-overlay"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.mp4#t=0.1"></video>
+                        <div class="play-overlay"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.mp4#t=0.1"></video>
+                        <div class="play-overlay"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-item">
+                        <video autoplay muted loop playsinline poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.mp4#t=0.1"></video>
+                        <div class="play-overlay"><div class="play-icon"></div></div>
                     </div>
                 </div>
                 <button class="nav-arrow arrow-right" onclick="slide('slider-reels', 1)">❯</button>
+            </div>
+            <div class="section-controls">
+                <button id="btn-mute" class="btn-control" onclick="toggleMute()">ZVUK: OFF</button>
+                <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
             </div>
             <div class="order-box">
                 <h4 data-i18n="orderReels">Poptat Reels balíček</h4>
                 <form action="https://formspree.io/f/xeekojbo" method="POST">
                     <input type="text" name="contact" placeholder="IG / E-mail" required>
-                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat</button>
+                    <input type="text" name="details" placeholder="Počet videí...">
+                    <button type="submit" class="btn-send">Odeslat</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <div id="sec-yt" class="portfolio-page">
+        <section>
+            <button class="btn-back" onclick="goHome()">← Zpět</button>
+            <h2 data-i18n="nav3">YouTube Tvorba</h2>
+            <div class="slider-container">
+                <div class="video-slider horizontal" id="slider-yt">
+                    <div class="video-item"><iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?autoplay=1&mute=1&loop=1&playlist=R_vEUMhXYWA"></iframe></div>
+                </div>
+            </div>
+            <div class="order-box">
+                <h4 data-i18n="orderYT">Poptat střih YouTube</h4>
+                <form action="https://formspree.io/f/xeekojbo" method="POST">
+                    <input type="text" name="contact" placeholder="IG / E-mail" required>
+                    <textarea name="message" rows="2" placeholder="Styl videa..."></textarea>
+                    <button type="submit" class="btn-send">Odeslat</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <div id="sec-photos" class="portfolio-page">
+        <section>
+            <button class="btn-back" onclick="goHome()">← Zpět</button>
+            <h2 data-i18n="nav4">Fotografie</h2>
+            <div class="slider-container">
+                <button class="nav-arrow arrow-left" onclick="slide('slider-photos', -1)">❮</button>
+                <div class="gallery-wrapper" id="slider-photos">
+                    <img src="foto11.jpeg"><img src="foto2.jpeg"><img src="foto3.jpeg"><img src="foto4.jpeg"><img src="foto5.jpeg"><img src="foto6.jpeg"><img src="foto7.jpeg"><img src="foto8.jpeg"><img src="foto9.jpeg"><img src="foto10.jpeg"><img src="foto1.jpeg"><img src="foto12.jpeg"><img src="foto13.jpeg"><img src="foto14.jpeg">
+                </div>
+                <button class="nav-arrow arrow-right" onclick="slide('slider-photos', 1)">❯</button>
+            </div>
+            <div class="order-box">
+                <h4 data-i18n="orderPhoto">Domluvit focení</h4>
+                <form action="https://formspree.io/f/xeekojbo" method="POST">
+                    <input type="text" name="contact" placeholder="IG / E-mail" required>
+                    <input type="text" name="details" placeholder="Lokalita a termín...">
+                    <button type="submit" class="btn-send">Odeslat</button>
                 </form>
             </div>
         </section>
     </div>
 </div>
 
-<script>
-const langData = {
-    cs: { workTitle: "Moje Tvorba", nav1: "Hudební Klipy", nav2: "Reels & TikTok", nav3: "YouTube Tvorba", nav4: "Fotografie", orderClip: "Poptat hudební klip", orderReels: "Poptat Reels balíček", sendBtn: "Odeslat" },
-    en: { workTitle: "My Work", nav1: "Music Videos", nav2: "Reels & TikTok", nav3: "YouTube Content", nav4: "Photography", orderClip: "Order Music Video", orderReels: "Order Reels Package", sendBtn: "Send" }
-};
+<footer><p>© 2026 karbyvisuals • Samuel Karbán</p></footer>
 
-function setLang(lang) {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        el.innerText = langData[lang][el.dataset.i18n];
-    });
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-}
+<script>
+let autoScrollActive = true;
+let isMuted = true;
 
 function openSection(id) {
     document.getElementById('home-view').style.display = 'none';
     document.querySelectorAll('.portfolio-page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    window.scrollTo({top: 0});
 }
 
 function goHome() {
@@ -210,14 +303,30 @@ function goHome() {
 
 function slide(id, dir) {
     const s = document.getElementById(id);
-    s.scrollBy({ left: (s.clientWidth * 0.8) * dir, behavior: 'smooth' });
+    const amount = s.clientWidth * 0.8;
+    s.scrollBy({ left: amount * dir, behavior: 'smooth' });
 }
 
-// Obsluha videa (Play/Pause + Auto-pause při scrollu)
+function toggleMute() {
+    isMuted = !isMuted;
+    document.querySelectorAll('video').forEach(v => v.muted = isMuted);
+    const btn = document.getElementById('btn-mute');
+    btn.innerText = isMuted ? 'ZVUK: OFF' : 'ZVUK: ON';
+    btn.classList.toggle('active', !isMuted);
+}
+
+function toggleAutoScroll() {
+    autoScrollActive = !autoScrollActive;
+    document.querySelectorAll('.btn-auto').forEach(btn => {
+        btn.innerText = autoScrollActive ? 'AUTO-SCROLL: ON' : 'AUTO-SCROLL: OFF';
+        btn.classList.toggle('active', autoScrollActive);
+    });
+}
+
+// Auto-play / Pause logic for reels
 document.querySelectorAll('.video-item').forEach(item => {
     const v = item.querySelector('video');
     if(!v) return;
-
     item.addEventListener('click', () => {
         if (v.paused) {
             v.play();
@@ -227,17 +336,22 @@ document.querySelectorAll('.video-item').forEach(item => {
             item.classList.add('paused');
         }
     });
+});
 
-    // Intersection Observer pro automatické zastavení při odchodu z obrazovky
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                v.pause();
-                item.classList.add('paused');
-            }
-        });
-    }, { threshold: 0.5 });
-    observer.observe(item);
+setInterval(() => {
+    if(!autoScrollActive) return;
+    const active = document.querySelector('.portfolio-page.active');
+    if(!active) return;
+    const s = active.querySelector('.video-slider, .gallery-wrapper');
+    if(s) {
+        if (s.scrollLeft + s.clientWidth >= s.scrollWidth - 10) s.scrollTo({left:0, behavior:'smooth'});
+        else s.scrollBy({left: s.clientWidth * 0.7, behavior:'smooth'});
+    }
+}, 12000);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('chatTrack');
+    track.innerHTML += track.innerHTML;
 });
 </script>
 </body>
