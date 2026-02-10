@@ -4,13 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>karbyvisuals – Creative Studio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;500;600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;900&display=swap" rel="stylesheet">
 <style>
-/* NAČTENÍ FONTU SINORETA - soubor musí být u HTML kódu */
 @font-face {
     font-family: 'Sinoreta';
-    src: url('sinoreta.ttf') format('truetype'),
-         url('sinoreta.otf') format('opentype');
+    src: url('sinoreta.ttf.otf') format('opentype');
     font-display: swap;
 }
 
@@ -28,7 +26,7 @@ body::before{
 }
 
 .top-bar{position:fixed;top:0;width:100%;height:80px;background:rgba(10,10,10,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.05);padding: 0 20px;}
-.logo-text { font-family: 'Cinzel', serif; font-weight: 400; font-size: 26px; color: var(--primary); text-transform: lowercase; letter-spacing: 1px; text-decoration: none; cursor: pointer; flex-shrink: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.logo-text { font-family: 'Sinoreta', cursive; font-weight: 400; font-size: 32px; color: var(--primary); text-decoration: none; cursor: pointer; }
 
 .lang-switch{position:absolute; right: 20px; display: flex; flex-shrink: 0;}
 .lang-switch button{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:5px 10px;margin-left:4px;border-radius:999px;cursor:pointer;font-size:12px;transition:.3s;font-weight:600}
@@ -42,10 +40,14 @@ body::before{
 section{padding:40px 6%; position: relative;}
 h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-spacing:1px; text-transform: uppercase;}
 
-.hero{min-height:60vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;padding-top:120px}
-.hero-text{flex:1;min-width:300px;text-align:center}
-.hero-right{flex:1;min-width:300px;display:flex;flex-direction:column;align-items:center}
-.hero img{width:100%;max-width:300px;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.5); background: #111;}
+.hero{min-height:60vh;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;padding-top:120px;max-width:1200px;margin:0 auto}
+.hero-text{flex:1.2;min-width:300px;text-align:left}
+.hero-right{flex:0.8;min-width:300px;display:flex;flex-direction:column;align-items:center}
+.hero img{width:100%;max-width:320px;border-radius:24px;box-shadow:0 20px 50px rgba(0,0,0,.5); background: #111; margin-bottom:20px}
+
+.bio-text { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.8); margin-top: 20px; text-align: left; max-width: 500px; }
+.gear-list { list-style: none; margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 500px; }
+.gear-list li { font-size: 12px; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 8px; border-left: 2px solid var(--primary); color: #fff; }
 
 .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
 .nav-card { background: var(--card); border: 1px solid rgba(255,255,255,0.05); padding: 40px 20px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
@@ -53,7 +55,6 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
 .nav-card h3 { opacity: 1; margin-bottom: 5px; font-size: 18px; }
 .nav-card p { font-size: 11px; color: var(--primary); font-weight: 700; letter-spacing: 2px; }
 
-/* FEEDBACK / CHAT DESIGN */
 .drag-hint { font-size: 11px; opacity: 0.5; margin-bottom: 10px; text-align: center; }
 .chat-container{height:400px; overflow:hidden; position:relative; background:var(--card); border-radius:25px; mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent)}
 .chat-track{display:flex; flex-direction:column; gap:15px; padding:20px; animation:scrollUp 35s linear infinite;}
@@ -64,11 +65,8 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
 .chat-bubble.right { align-self: flex-end; flex-direction: row-reverse; }
 .chat-bubble img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; background: #111;}
 .message-content { background: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 18px; font-size: 13px; }
-.chat-bubble.left .message-content { border-bottom-left-radius: 4px; }
-.chat-bubble.right .message-content { border-bottom-right-radius: 4px; background: rgba(255,122,24,0.1); }
 .sender-name { display: block; font-weight: 900; font-size: 10px; color: var(--primary); margin-bottom: 4px; letter-spacing: 1px; }
 
-/* SLIDER DESIGN */
 .slider-container { position: relative; width: 100vw; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .video-slider, .gallery-wrapper { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; padding: 40px 15vw; scrollbar-width:none; scroll-behavior: smooth; align-items: center; width: 100%; }
 .video-slider::-webkit-scrollbar { display:none; }
@@ -82,18 +80,13 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
     width: 70vw; 
     max-width: 400px;
     aspect-ratio: 9 / 16; 
-    object-fit: contain; 
+    object-fit: cover; 
     background: #000;
     border-radius: 18px;
     scroll-snap-align: center;
 }
 
-.video-slider .is-active, .gallery-wrapper .is-active { 
-    opacity: 1; 
-    filter: grayscale(0%);
-    transform: scale(1.05);
-    z-index: 10;
-}
+.video-slider .is-active, .gallery-wrapper .is-active { opacity: 1; filter: grayscale(0%); transform: scale(1.05); z-index: 10; }
 
 .nav-arrow { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 20; position: absolute; top: 50%; transform: translateY(-50%); }
 .nav-arrow:hover { background: var(--primary); color: black; border-color: var(--primary); }
@@ -110,23 +103,19 @@ h2{font-size:clamp(24px, 5vw, 32px);font-weight:600;margin-bottom:20px;letter-sp
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; opacity: 0.7; }
 input, textarea, select { width: 100%; padding: 14px; border-radius: 12px; background: #000; border: 1px solid #222; color: #fff; font-family: inherit; font-size: 14px; }
-input[type="date"] { height: 49px; line-height: 1.2; } 
-select { appearance: none; cursor: pointer; }
 .btn-send { width: 100%; padding: 16px; background: var(--primary); border: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; cursor: pointer; color: #000; transition: 0.3s; }
 
 .hidden { display: none; }
 
-footer { padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; }
-footer p { font-size: 12px; opacity: 0.6; margin-bottom: 8px; }
+footer { padding: 60px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; }
+footer p { font-size: 13px; opacity: 0.8; margin-bottom: 12px; }
 footer .disclaimer { font-size: 10px; opacity: 0.3; max-width: 600px; margin: 0 auto; line-height: 1.4; }
 
-@media(max-width:600px){
-    .logo-text { font-size: 20px; padding-right: 80px; }
-    .nav-grid { grid-template-columns: 1fr; }
-    .video-slider, .gallery-wrapper { padding: 40px 10vw; }
-    .video-slider iframe, .video-slider video, .gallery-wrapper img { width: 80vw; }
-    .nav-arrow { display: none; }
-    .chat-bubble { max-width: 95%; }
+@media(max-width:800px){
+    .hero { text-align: center; padding-top: 100px; }
+    .hero-text, .bio-text { text-align: center; margin: 0 auto; }
+    .gear-list { margin: 20px auto; }
+    .logo-text { font-size: 24px; }
 }
 </style>
 </head>
@@ -143,15 +132,27 @@ footer .disclaimer { font-size: 10px; opacity: 0.3; max-width: 600px; margin: 0 
 <div id="home-view">
     <section class="hero">
       <div class="hero-text">
-        <h1 style="font-family:'Sinoreta', cursive; font-weight:400; font-size: clamp(60px, 15vw, 110px); line-height:0.8; color:#fff; text-transform: none;">karbyvisuals</h1>
+        <h1 style="font-family:'Sinoreta', cursive; font-weight:400; font-size: clamp(60px, 15vw, 110px); line-height:0.8; color:#fff;">karbyvisuals</h1>
         <p style="color:var(--primary); font-weight:600; letter-spacing:3px; margin-top:20px; font-size: 14px;">VIDEO • PHOTO • EDIT</p>
+        <div class="bio-text" data-i18n="bio">
+          Jmenuju se Samuel Karbán, je mi 18 let a video tvorbě se naplno věnuju od března 2025. Stříhám v DaVinci Resolve a zaměřuju se hlavně na Reels, TikTok a YouTube obsah.
+          K tvorbě mě to táhlo už od dětství – baví mě vizuál, tempo a emoce, které jde videem předat.
+        </div>
       </div>
       <div class="hero-right">
         <img src="profile.JPG" alt="Samuel Karbán" loading="lazy">
+        <ul class="gear-list">
+          <li>Sony ZV-E10</li>
+          <li>Sigma 16mm f/1.4</li>
+          <li>Sony 16–50 mm</li>
+          <li>Stativ Rollei</li>
+          <li>Světlo Rollei</li>
+          <li>Green screen</li>
+        </ul>
       </div>
     </section>
 
-    <section style="padding-top:0">
+    <section style="padding-top:40px">
       <h2 data-i18n="workTitle">Moje Tvorba</h2>
       <div class="nav-grid">
         <div class="nav-card" onclick="openSection('sec-clips')"><h3 data-i18n="nav1">Hudební Klipy</h3><p>SHOWCASE</p></div>
@@ -177,10 +178,9 @@ footer .disclaimer { font-size: 10px; opacity: 0.3; max-width: 600px; margin: 0 
 </div>
 
 <div id="portfolio-views">
-    
     <div id="sec-clips" class="portfolio-page">
         <section>
-            <button class="btn-back" onclick="goHome()">← Zpět</button>
+            <button class="btn-back" onclick="goHome()" data-i18n="backBtn">← Zpět</button>
             <h2 data-i18n="nav1">Hudební Klipy</h2>
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="manualScroll('slider-clips', -1)">←</button>
@@ -193,21 +193,18 @@ footer .disclaimer { font-size: 10px; opacity: 0.3; max-width: 600px; margin: 0 
                 </div>
                 <button class="nav-arrow arrow-right" onclick="manualScroll('slider-clips', 1)">→</button>
             </div>
-            <div class="section-controls">
-                <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
-            </div>
             <div class="order-box">
                 <h4 data-i18n="orderClip">Poptat hudební klip</h4>
                 <form action="https://formspree.io/f/xeekojbo" method="POST">
-                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
+                    <div class="form-group"><label data-i18n="labelContact">Instagram / E-mail</label><input type="text" name="contact" data-i18n-ph="phContact" required></div>
                     <div class="form-group">
-                        <label>Typ služby</label>
+                        <label data-i18n="labelService">Typ služby</label>
                         <select name="service_type" onchange="toggleLocation(this, 'clip-location')" required>
-                            <option value="edit">Pouze střih</option>
-                            <option value="shoot_edit">Natáčení i střih</option>
+                            <option value="edit" data-i18n="optEdit">Pouze střih</option>
+                            <option value="shoot_edit" data-i18n="optShoot">Natáčení i střih</option>
                         </select>
                     </div>
-                    <div id="clip-location" class="form-group hidden"><label>Lokalita natáčení</label><input type="text" name="location" placeholder="Město / Místo"></div>
+                    <div id="clip-location" class="form-group hidden"><label data-i18n="labelLoc">Lokalita natáčení</label><input type="text" name="location" data-i18n-ph="phLoc"></div>
                     <div class="form-group"><label data-i18n="fMsg">Představa projektu</label><textarea name="message" rows="3"></textarea></div>
                     <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
                 </form>
@@ -217,31 +214,20 @@ footer .disclaimer { font-size: 10px; opacity: 0.3; max-width: 600px; margin: 0 
 
     <div id="sec-reels" class="portfolio-page">
         <section>
-            <button class="btn-back" onclick="goHome()">← Zpět</button>
+            <button class="btn-back" onclick="goHome()" data-i18n="backBtn">← Zpět</button>
             <h2 data-i18n="nav2">Reels & TikTok</h2>
             <div class="slider-container">
                 <button class="nav-arrow arrow-left" onclick="manualScroll('slider-reels', -1)">←</button>
                 <div class="video-slider" id="slider-reels">
                     <video loop playsinline preload="none" poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/finale_202_oqmn0s.mp4" type="video/mp4"></video>
                     <video loop playsinline preload="none" poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/ed38eb3c1c02454287444edc078ede49_pyrkc1.mp4" type="video/mp4"></video>
-                    <video loop playsinline preload="none" poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/d980b3ae76af4219b8b4d388ffb15dd1_i5ivd4.mp4" type="video/mp4"></video>
-                    <video loop playsinline preload="none" poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/done_20version_s5ip3x.mp4" type="video/mp4"></video>
-                    <video loop playsinline preload="none" poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/sdasdc_20XD_oglvcf.mp4" type="video/mp4"></video>
-                    <video loop playsinline preload="none" poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/1_20CAST_kmsniw.mp4" type="video/mp4"></video>
-                    <video loop playsinline preload="none" poster="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.jpg"><source src="https://res.cloudinary.com/dlrgsdnry/video/upload/f_auto,q_auto/Timeline_4_gshe8d.mp4" type="video/mp4"></video>
                 </div>
                 <button class="nav-arrow arrow-right" onclick="manualScroll('slider-reels', 1)">→</button>
-            </div>
-            <div class="section-controls">
-                <button id="btn-mute" class="btn-control" onclick="toggleMute()">ZVUK: OFF</button>
-                <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
             </div>
             <div class="order-box">
                 <h4 data-i18n="orderReels">Poptat Reels</h4>
                 <form action="https://formspree.io/f/xeekojbo" method="POST">
-                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                    <div class="form-group"><label>Počet videí</label><input type="number" name="video_count" placeholder="např. 5" required></div>
-                    <div class="form-group"><label>Typ videí</label><input type="text" name="video_type" placeholder="např. promo, reklama, běžný střih" required></div>
+                    <div class="form-group"><label data-i18n="labelContact">Instagram / E-mail</label><input type="text" name="contact" data-i18n-ph="phContact" required></div>
                     <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
                 </form>
             </div>
@@ -250,63 +236,25 @@ footer .disclaimer { font-size: 10px; opacity: 0.3; max-width: 600px; margin: 0 
 
     <div id="sec-yt" class="portfolio-page">
         <section>
-            <button class="btn-back" onclick="goHome()">← Zpět</button>
+            <button class="btn-back" onclick="goHome()" data-i18n="backBtn">← Zpět</button>
             <h2 data-i18n="nav3">YouTube Tvorba</h2>
-            <div class="slider-container">
-                <div class="video-slider" id="slider-yt">
-                    <iframe src="https://www.youtube.com/embed/R_vEUMhXYWA?enablejsapi=1&mute=1" loading="lazy"></iframe>
-                </div>
-            </div>
-            <div class="order-box">
-                <h4 data-i18n="orderYT">Poptat střih YouTube</h4>
-                <form action="https://formspree.io/f/xeekojbo" method="POST">
-                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                    <div class="form-group"><label>Typ videa</label><input type="text" name="yt_type" placeholder="vlog, gameplay, reakce..." required></div>
-                    <div class="form-group"><label>Délka videa</label><input type="text" name="yt_length" placeholder="např. 10-15 minut" required></div>
-                    <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
-                </form>
-            </div>
-        </section>
+            </section>
     </div>
 
     <div id="sec-photos" class="portfolio-page">
         <section>
-            <button class="btn-back" onclick="goHome()">← Zpět</button>
+            <button class="btn-back" onclick="goHome()" data-i18n="backBtn">← Zpět</button>
             <h2 data-i18n="nav4">Fotografie</h2>
             <div class="slider-container">
-                <button class="nav-arrow arrow-left" onclick="manualScroll('slider-photos', -1)">←</button>
                 <div class="gallery-wrapper" id="slider-photos">
                     <img src="leo.JPG" loading="lazy">
-                    <img src="foto11.jpeg" loading="lazy">
-                    <img src="foto2.jpeg" loading="lazy">
-                    <img src="leo2.JPG" loading="lazy">
-                    <img src="foto3.jpeg" loading="lazy">
-                    <img src="foto4.jpeg" loading="lazy">
-                    <img src="foto5.jpeg" loading="lazy">
-                    <img src="leo3.JPG" loading="lazy">
-                    <img src="foto6.jpeg" loading="lazy">
-                    <img src="foto7.jpeg" loading="lazy">
-                    <img src="foto8.jpeg" loading="lazy">
-                    <img src="leo4.JPG" loading="lazy">
-                    <img src="foto9.jpeg" loading="lazy">
-                    <img src="foto10.jpeg" loading="lazy">
                     <img src="foto1.jpeg" loading="lazy">
-                    <img src="foto12.jpeg" loading="lazy">
-                    <img src="foto13.jpeg" loading="lazy">
-                    <img src="foto14.jpeg" loading="lazy">
                 </div>
-                <button class="nav-arrow arrow-right" onclick="manualScroll('slider-photos', 1)">→</button>
-            </div>
-            <div class="section-controls">
-                <button class="btn-control active btn-auto" onclick="toggleAutoScroll()">AUTO-SCROLL: ON</button>
             </div>
             <div class="order-box">
                 <h4 data-i18n="orderPhoto">Domluvit focení</h4>
                 <form action="https://formspree.io/f/xeekojbo" method="POST">
-                    <div class="form-group"><label>Instagram / E-mail</label><input type="text" name="contact" placeholder="@tvojejmeno nebo email" required></div>
-                    <div class="form-group"><label>Termín</label><input type="date" name="date" required></div>
-                    <div class="form-group"><label>Lokalita</label><input type="text" name="location" placeholder="Kde se bude fotit?" required></div>
-                    <div class="form-group"><label>Podrobnosti</label><textarea name="details" rows="3" placeholder="Co konkrétně potřebuješ nafotit?"></textarea></div>
+                    <div class="form-group"><label data-i18n="labelContact">Instagram / E-mail</label><input type="text" name="contact" data-i18n-ph="phContact" required></div>
                     <button type="submit" class="btn-send" data-i18n="sendBtn">Odeslat poptávku</button>
                 </form>
             </div>
@@ -315,38 +263,55 @@ footer .disclaimer { font-size: 10px; opacity: 0.3; max-width: 600px; margin: 0 
 </div>
 
 <footer>
-  <p>© 2026 karbyvisuals • Samuel Karbán</p>
-  <div class="disclaimer">
+  <p data-i18n="footerText">© 2026 karbyvisuals • Samuel Karbán</p>
+  <div class="disclaimer" data-i18n="disclaimer">
     Obsah na tomto webu slouží výhradně jako portfolio tvůrce a podléhá autorským právům. Neoprávněné kopírování nebo šíření materiálu je zakázáno.
   </div>
 </footer>
 
 <script>
 const t={
-  cs:{ workTitle:"Moje Tvorba", nav1:"Hudební Klipy", nav2:"Reels & TikTok", nav3:"YouTube Tvorba", nav4:"Fotografie", reviewsTitle:"Feedback", feedbackNote:"Feedback je brán ze zpráv", sendBtn:"Odeslat poptávku", orderClip:"Poptat hudební klip", orderReels:"Poptat Reels", orderYT:"Poptat střih YouTube", orderPhoto:"Domluvit focení", fMsg:"Představa projektu", msg1:"Fakt super práce kamo", msg2:"predtym to bolo ppci kamo a teraz uplny strop", msgNavy:"hele kamo pokracuj dal delas neco co tady v cesku chybi beres to vazne a jde to videt z prace co delas big up fotky a stříh popici", msg3:"braaaaaaaacho extremne to je diki moooc", msg4:"Diky za dnešek, bomba uplne, az budeš mít hned posílej" },
-  en:{ workTitle:"My Work", nav1:"Music Videos", nav2:"Reels & TikTok", nav3:"YouTube Content", nav4:"Photography", reviewsTitle:"Feedback", feedbackNote:"Feedback taken from messages", sendBtn:"Send Request", orderClip:"Request Music Video", orderReels:"Request Reels", orderYT:"Request YouTube Edit", orderPhoto:"Book Photoshoot", fMsg:"Project Vision", msg1:"Really great work mate", msg2:"it was awesome before but now it's next level", msgNavy:"Hey mate, keep going, you're doing something missing in CZ, big up for the photos and edits", msg3:"brooooooo this is extreme, thanks a lot", msg4:"Thanks for today, absolute bomb, send it as soon as it's ready" }
+  cs:{ 
+    bio: "Jmenuju se Samuel Karbán, je mi 18 let a video tvorbě se naplno věnuju od března 2025. Stříhám v DaVinci Resolve a zaměřuju se hlavně na Reels, TikTok a YouTube obsah. K tvorbě mě to táhlo už od dětství – baví mě vizuál, tempo a emoce, které jde videem předat. Inspirací mi byl hlavně Petr Zoubek a moderní online content obecně.",
+    workTitle:"Moje Tvorba", nav1:"Hudební Klipy", nav2:"Reels & TikTok", nav3:"YouTube Tvorba", nav4:"Fotografie", 
+    reviewsTitle:"Feedback", feedbackNote:"Feedback je brán ze zpráv", 
+    backBtn:"← Zpět", sendBtn:"Odeslat poptávku",
+    orderClip:"Poptat hudební klip", orderReels:"Poptat Reels", orderPhoto:"Domluvit focení",
+    labelContact:"Instagram / E-mail", phContact:"@tvojejmeno nebo email",
+    labelService:"Typ služby", optEdit:"Pouze střih", optShoot:"Natáčení i střih",
+    labelLoc:"Lokalita natáčení", phLoc:"Město / Místo", fMsg:"Představa projektu",
+    footerText:"© 2026 karbyvisuals • Samuel Karbán",
+    disclaimer:"Obsah na tomto webu slouží výhradně jako portfolio tvůrce a podléhá autorským právům. Neoprávněné kopírování nebo šíření materiálu je zakázáno.",
+    msg1:"Fakt super práce kamo", msg2:"predtym to bolo ppci kamo a teraz uplny strop", msgNavy:"hele kamo pokracuj dal delas neco co tady v cesku chybi beres to vazne a jde to videt z prace co delas big up fotky a stříh popici", msg3:"braaaaaaaacho extremne to je diki moooc", msg4:"Diky za dnešek, bomba uplne, az budeš mít hned posílej"
+  },
+  en:{ 
+    bio: "My name is Samuel Karbán, I am 18 years old and I have been fully dedicated to video production since March 2025. I edit in DaVinci Resolve and focus mainly on Reels, TikTok and YouTube content. I've been drawn to creation since childhood - I enjoy the visuals, tempo and emotions that can be conveyed through video. My main inspiration was Petr Zoubek and modern online content in general.",
+    workTitle:"My Work", nav1:"Music Videos", nav2:"Reels & TikTok", nav3:"YouTube Content", nav4:"Photography", 
+    reviewsTitle:"Feedback", feedbackNote:"Feedback taken from messages", 
+    backBtn:"← Back", sendBtn:"Send Request",
+    orderClip:"Request Music Video", orderReels:"Request Reels", orderPhoto:"Book Photoshoot",
+    labelContact:"Instagram / Email", phContact:"@yourname or email",
+    labelService:"Service Type", optEdit:"Edit only", optShoot:"Shoot & Edit",
+    labelLoc:"Shooting Location", phLoc:"City / Place", fMsg:"Project Vision",
+    footerText:"© 2026 karbyvisuals • Samuel Karbán",
+    disclaimer:"Content on this website serves exclusively as the creator's portfolio and is subject to copyright. Unauthorized copying or distribution of material is prohibited.",
+    msg1:"Really great work mate", msg2:"it was awesome before but now it's next level", msgNavy:"Hey mate, keep going, you're doing something missing in CZ, big up for the photos and edits", msg3:"brooooooo this is extreme, thanks a lot", msg4:"Thanks for today, absolute bomb, send it as soon as it's ready"
+  }
 };
 
-let autoScrollActive = true;
-let isMuted = true;
-
-function toggleLocation(select, targetId) {
-    const target = document.getElementById(targetId);
-    target.classList.toggle('hidden', select.value !== 'shoot_edit');
-}
-
 function setLang(l){
-  document.querySelectorAll("[data-i18n]").forEach(e=>{ const item=t[l][e.dataset.i18n]; if(item) e.innerHTML=item; });
+  // Překlad textů
+  document.querySelectorAll("[data-i18n]").forEach(e=>{ 
+    const item=t[l][e.dataset.i18n]; 
+    if(item) e.innerHTML=item; 
+  });
+  // Překlad placeholderů
+  document.querySelectorAll("[data-i18n-ph]").forEach(e=>{ 
+    const item=t[l][e.dataset.i18n_ph]; 
+    if(item) e.placeholder=item; 
+  });
   document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
   document.getElementById('btn-' + l).classList.add('active');
-}
-
-function openSection(id) {
-    document.getElementById('home-view').style.display = 'none';
-    document.querySelectorAll('.portfolio-page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo({top: 0, behavior: 'smooth'});
-    setTimeout(updateActiveStates, 100);
 }
 
 function goHome() {
@@ -355,81 +320,22 @@ function goHome() {
     document.querySelectorAll('video').forEach(v => v.pause());
 }
 
-function toggleMute() {
-    isMuted = !isMuted;
-    document.querySelectorAll('video').forEach(v => v.muted = isMuted);
-    const btn = document.getElementById('btn-mute');
-    btn.innerText = isMuted ? 'ZVUK: OFF' : 'ZVUK: ON';
-    btn.classList.toggle('active', !isMuted);
+function openSection(id) {
+    document.getElementById('home-view').style.display = 'none';
+    document.querySelectorAll('.portfolio-page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-function toggleAutoScroll() {
-    autoScrollActive = !autoScrollActive;
-    document.querySelectorAll('.btn-auto').forEach(btn => {
-        btn.innerText = autoScrollActive ? 'AUTO-SCROLL: ON' : 'AUTO-SCROLL: OFF';
-        btn.classList.toggle('active', autoScrollActive);
-    });
-}
-
-function manualScroll(id, dir) {
-    const slider = document.getElementById(id);
-    const step = slider.querySelector('.is-active')?.clientWidth || slider.clientWidth * 0.7;
-    slider.scrollBy({ left: step * dir, behavior: 'smooth' });
-}
-
-function updateActiveStates() {
-    const activePage = document.querySelector('.portfolio-page.active');
-    if(!activePage) return;
-    const sliders = activePage.querySelectorAll('.video-slider, .gallery-wrapper');
-    
-    sliders.forEach(slider => {
-        const items = slider.querySelectorAll('video, iframe, img');
-        const sliderCenter = slider.getBoundingClientRect().left + (slider.clientWidth / 2);
-
-        items.forEach(item => {
-            const itemRect = item.getBoundingClientRect();
-            const itemCenter = itemRect.left + (itemRect.width / 2);
-            const distance = Math.abs(sliderCenter - itemCenter);
-
-            if (distance < itemRect.width / 2) {
-                if (!item.classList.contains('is-active')) {
-                    item.classList.add('is-active');
-                    if (item.tagName === 'VIDEO') {
-                        item.muted = isMuted;
-                        item.play().catch(() => {});
-                    }
-                }
-            } else {
-                item.classList.remove('is-active');
-                if (item.tagName === 'VIDEO') item.pause();
-            }
-        });
-    });
-}
-
-function runAutoScroll() {
-    if(!autoScrollActive) return;
-    const activePage = document.querySelector('.portfolio-page.active');
-    if(!activePage) return;
-    const slider = activePage.querySelector('.video-slider, .gallery-wrapper');
-    if(slider) {
-        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 100) {
-            slider.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            const step = slider.querySelector('.is-active')?.clientWidth || 300;
-            slider.scrollBy({ left: step + 15, behavior: 'smooth' });
-        }
-    }
+function toggleLocation(select, targetId) {
+    const target = document.getElementById(targetId);
+    target.classList.toggle('hidden', select.value !== 'shoot_edit');
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
   setLang('cs');
-  setInterval(runAutoScroll, 6000);
-  document.querySelectorAll('.video-slider, .gallery-wrapper').forEach(slider => {
-      slider.addEventListener('scroll', updateActiveStates);
-  });
   const track = document.getElementById('chatTrack');
-  track.innerHTML += track.innerHTML;
+  track.innerHTML += track.innerHTML; // Loop feedbacku
 });
 </script>
 </body>
